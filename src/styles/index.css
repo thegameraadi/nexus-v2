@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: 'DM Mono', monospace;
+  --font-meta: 'DM Mono', monospace;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --color-nexus-bg: #08080a;
+}
+
+:root {
+  color-scheme: dark;
+  background-color: #08080a;
+  color: #f4f4f5;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #08080a;
+  color: #f4f4f5;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 2. Design System Components & Utilities */
+
+/* Card fill: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.07); radius: 16px; backdrop-filter: blur(12px) saturate(0%) */
+.nexus-card {
+  background-color: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  backdrop-filter: blur(12px) saturate(0%);
+  -webkit-backdrop-filter: blur(12px) saturate(0%);
+}
+
+.nexus-card-hover {
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.nexus-card-hover:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Wordmark: DM Mono, weight 100, 0.4em letter-spacing, uppercase */
+.nexus-wordmark {
+  font-family: 'DM Mono', monospace;
+  font-weight: 100;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+}
+
+/* Meta type: DM Mono, 12px minimum, 0.2em letter-spacing, zinc-400 / zinc-500 */
+.nexus-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  line-height: 1.25rem;
+  letter-spacing: 0.2em;
+}
+
+/* Content type: Inter -- 15px medium zinc-100 headlines, 13px zinc-400 body */
+.nexus-headline {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: #f4f4f5; /* zinc-100 */
+}
+
+.nexus-body {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #a1a1aa; /* zinc-400 */
+}
+
+/* Imagery: grayscale(100%), reduced brightness, always */
+.nexus-img {
+  filter: grayscale(100%) brightness(75%);
+  transition: filter 0.2s ease;
+}
+
+.nexus-img:hover {
+  filter: grayscale(100%) brightness(85%);
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #08080a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}

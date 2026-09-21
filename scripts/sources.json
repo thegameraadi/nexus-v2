@@ -1,0 +1,86 @@
+{
+  "beats": {
+    "ai-venture": {
+      "columns": ["venture", "research", "titans"],
+      "rss": [
+        { "name": "TechCrunch AI", "url": "https://techcrunch.com/category/artificial-intelligence/feed/", "defaultColumn": "venture", "authority": 8.8 },
+        { "name": "VentureBeat AI", "url": "https://venturebeat.com/category/ai/feed/", "defaultColumn": "venture", "authority": 8.5 },
+        { "name": "The Verge AI", "url": "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml", "defaultColumn": "titans", "authority": 8.7 },
+        { "name": "MIT Tech Review AI", "url": "https://www.technologyreview.com/topic/artificial-intelligence/feed", "defaultColumn": "research", "authority": 9.2 }
+      ],
+      "arxiv": {
+        "categories": ["cs.AI", "cs.LG", "cs.CL"],
+        "maxResults": 10,
+        "defaultColumn": "research",
+        "authority": 9.5
+      },
+      "secEdgar": {
+        "forms": ["D"],
+        "keywords": ["Artificial Intelligence", "Autonomous", "Machine Learning"],
+        "defaultColumn": "venture",
+        "authority": 9.4
+      },
+      "hackerNews": {
+        "keywords": ["AI", "LLM", "Agent", "Nvidia", "Compute", "OpenAI", "Anthropic", "Weights"],
+        "limit": 15,
+        "defaultColumn": "titans",
+        "authority": 8.2
+      },
+      "reddit": {
+        "subreddits": ["MachineLearning", "artificial"],
+        "defaultColumn": "research",
+        "authority": 7.8
+      }
+    },
+    "politics": {
+      "columns": ["regulatory", "global", "voices"],
+      "rss": [
+        { "name": "Reuters World", "url": "https://www.reutersagency.com/feed/?taxonomy=markets&post_type=reuters_media", "defaultColumn": "global", "authority": 9.4 },
+        { "name": "FTC Press", "url": "https://www.ftc.gov/feeds/press-release.xml", "defaultColumn": "regulatory", "authority": 9.7 },
+        { "name": "Politico Tech", "url": "https://rss.politico.com/tech-policy.xml", "defaultColumn": "regulatory", "authority": 8.9 },
+        { "name": "Foreign Policy", "url": "https://foreignpolicy.com/feed/", "defaultColumn": "voices", "authority": 8.8 }
+      ],
+      "reddit": {
+        "subreddits": ["technology"],
+        "defaultColumn": "regulatory",
+        "authority": 7.5
+      }
+    },
+    "markets": {
+      "columns": ["macro", "company-moves", "analysts"],
+      "rss": [
+        { "name": "Reuters Business", "url": "https://feeds.reuters.com/reuters/businessNews", "defaultColumn": "macro", "authority": 9.3 },
+        { "name": "MarketWatch Top", "url": "https://feeds.content.dowjones.io/public/rss/mw_topstories", "defaultColumn": "macro", "authority": 8.8 },
+        { "name": "CNBC Tech", "url": "https://search.cnbc.com/rs/search/view.html?partnerId=2000&keywords=tech&sort=date", "defaultColumn": "company-moves", "authority": 8.6 }
+      ],
+      "secEdgar": {
+        "forms": ["8-K", "10-Q"],
+        "keywords": ["Capital Expenditure", "Semiconductor", "Cloud Infrastructure"],
+        "defaultColumn": "company-moves",
+        "authority": 9.6
+      }
+    },
+    "science": {
+      "columns": ["frontier"],
+      "rss": [
+        { "name": "Nature News", "url": "https://www.nature.com/nature.rss", "defaultColumn": "frontier", "authority": 9.8 },
+        { "name": "Phys.org", "url": "https://phys.org/rss-feed/", "defaultColumn": "frontier", "authority": 8.7 },
+        { "name": "ScienceDaily", "url": "https://www.sciencedaily.com/rss/all.xml", "defaultColumn": "frontier", "authority": 8.6 }
+      ],
+      "arxiv": {
+        "categories": ["quant-ph", "physics.ins-det", "q-bio.BM"],
+        "maxResults": 10,
+        "defaultColumn": "frontier",
+        "authority": 9.6
+      }
+    },
+    "culture": {
+      "columns": ["industry", "voices"],
+      "rss": [
+        { "name": "Wired Culture", "url": "https://www.wired.com/feed/category/culture/latest/rss", "defaultColumn": "industry", "authority": 8.9 },
+        { "name": "Ars Technica", "url": "https://feeds.arstechnica.com/arstechnica/index", "defaultColumn": "industry", "authority": 8.8 },
+        { "name": "The Atlantic Ideas", "url": "https://www.theatlantic.com/feed/channel/ideas/", "defaultColumn": "voices", "authority": 9.0 }
+      ]
+    }
+  }
+}
