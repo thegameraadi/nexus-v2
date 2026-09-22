@@ -15,6 +15,7 @@ import {
 import {
   createEmptyDigest,
   getTodayISODate,
+  getReaderLocalEditionLabel,
 } from './lib/nexus/placeholder';
 
 import { GrainOverlay } from './components/nexus/GrainOverlay';
@@ -102,19 +103,19 @@ export const App: React.FC = () => {
         if (Array.isArray(data) && data.length > 0) {
           setIndexEntries(data);
           setActiveDate(data[0].date);
-          setActiveLabel(data[0].label || 'Today');
+          setActiveLabel(getReaderLocalEditionLabel(data[0].date));
         } else {
           // Empty index on clean install / zero editions
           setIndexEntries([]);
           setActiveDate(initialDate);
-          setActiveLabel('Today');
+          setActiveLabel(getReaderLocalEditionLabel(initialDate));
         }
       })
       .catch((err) => {
         console.info('No external /data/index.json found, running with clean default edition:', err.message);
         setIndexEntries([]);
         setActiveDate(initialDate);
-        setActiveLabel('Today');
+        setActiveLabel(getReaderLocalEditionLabel(initialDate));
       });
   }, [initialDate]);
 
@@ -130,28 +131,21 @@ export const App: React.FC = () => {
       .then((data: DayDigest) => {
         if (data && data.beats) {
           setDigest(data);
-          if (data.label) {
-            setActiveLabel(data.label);
-          }
+          setActiveLabel(getReaderLocalEditionLabel(activeDate));
         } else {
-          setDigest(createEmptyDigest(activeDate, activeLabel));
+          setDigest(createEmptyDigest(activeDate, getReaderLocalEditionLabel(activeDate)));
         }
       })
       .catch(() => {
         // If file does not exist on disk, render clean unpopulated edition for that date
-        setDigest(createEmptyDigest(activeDate, activeLabel));
+        setDigest(createEmptyDigest(activeDate, getReaderLocalEditionLabel(activeDate)));
       });
-  }, [activeDate, activeLabel]);
+  }, [activeDate]);
 
   const handleSelectDate = (date: string) => {
     setIsSavedViewActive(false);
     setActiveDate(date);
-    const matched = indexEntries.find((e) => e.date === date);
-    if (matched && matched.label) {
-      setActiveLabel(matched.label);
-    } else {
-      setActiveLabel(date === getTodayISODate() ? 'Today' : date);
-    }
+    setActiveLabel(getReaderLocalEditionLabel(date));
   };
 
   const handleToggleSaved = () => {
@@ -169,6 +163,7 @@ export const App: React.FC = () => {
         activeEditionLabel={isSavedViewActive ? 'SAVED DISPATCHES' : activeLabel}
         onOpenBeatPicker={() => setIsBeatPickerOpen(true)}
         selectedBeatsCount={selectedBeats.length}
+        lastUpdated={digest.lastUpdated}
       />
 
       {/* Full-viewport-width ~130px monochrome HeroBand */}

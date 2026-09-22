@@ -33,6 +33,7 @@ export interface AgentLogEntry {
 export interface DayDigest {
   date: string;
   label: string;           // 'Today' | 'Yesterday' | 'May 15'
+  lastUpdated?: string;    // ISO 8601 timestamp of last synthesis run
   agentLog: AgentLogEntry[];
   beats: Record<string, { columns: Record<string, DigestItem[]> }>;
 }

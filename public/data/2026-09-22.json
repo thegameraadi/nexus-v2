@@ -1,53 +1,186 @@
 {
   "date": "2026-09-22",
   "label": "Today",
+  "lastUpdated": "2026-09-22T23:53:14.939Z",
   "agentLog": [
     {
-      "timestamp": "23:02:52",
-      "module": "SCOUT",
-      "message": "Initializing ingestion pipeline across 5 beats.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "23:02:57",
-      "module": "SCOUT",
-      "message": "Scouted 124 candidate signals across 5 beats.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "23:02:57",
+      "timestamp": "23:51:46",
       "module": "RANK",
-      "message": "Initiating deduplication & deterministic 4-factor scoring heuristics.",
+      "message": "Initiating deduplication & 4-factor scoring heuristics (discriminating deals vs administrative noise).",
       "status": "ok"
     },
     {
-      "timestamp": "23:02:57",
+      "timestamp": "23:51:47",
       "module": "RANK",
-      "message": "Deduplication dropped 2 redundant wires. 122 candidates evaluated.",
+      "message": "Deduplication dropped 0 redundant wires. 119 candidates evaluated.",
       "status": "ok"
     },
     {
-      "timestamp": "23:02:57",
+      "timestamp": "23:51:47",
       "module": "SYNTH",
       "message": "Selecting candidates clearing quality floor for synthesis.",
       "status": "ok"
     },
     {
-      "timestamp": "23:03:01",
+      "timestamp": "23:51:47",
       "module": "SYNTH",
-      "message": "LLM synthesis complete for 43 items (4 dropped for thin context). Est cost: $0.00000.",
+      "message": "Deterministic synthesis produced 45 items (4 dropped for lack of substantive source text, LLM key not configured). Est cost: free tier.",
       "status": "ok"
     },
     {
-      "timestamp": "23:03:01",
+      "timestamp": "23:51:47",
       "module": "EDITOR",
-      "message": "Computing composite 5-factor scores and assembling DayDigest tree.",
+      "message": "Computing composite 5-factor scores and executing non-destructive edition merge.",
       "status": "ok"
     },
     {
-      "timestamp": "23:03:01",
+      "timestamp": "23:51:47",
       "module": "EDITOR",
-      "message": "Enforced column quotas and finalized DayDigest edition tree.",
+      "message": "3x daily merge: retained 39 existing dispatches, integrated 14 new dispatches.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "23:52:06",
+      "module": "SCOUT",
+      "message": "Initializing ingestion pipeline across 5 beats (strict 7-day recency filter).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "23:52:11",
+      "module": "SCOUT",
+      "message": "Scouted 119 candidate signals across 5 beats (all within 7-day window).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "23:52:11",
+      "module": "RANK",
+      "message": "Initiating deduplication & 4-factor scoring heuristics (discriminating deals vs administrative noise).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "23:52:12",
+      "module": "RANK",
+      "message": "Deduplication dropped 0 redundant wires. 119 candidates evaluated.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "23:52:12",
+      "module": "SYNTH",
+      "message": "Selecting candidates clearing quality floor for synthesis.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "23:52:12",
+      "module": "SYNTH",
+      "message": "Deterministic synthesis produced 45 items (4 dropped for lack of substantive source text, LLM key not configured). Est cost: free tier.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "23:52:12",
+      "module": "EDITOR",
+      "message": "Computing composite 5-factor scores and executing non-destructive edition merge.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "23:52:12",
+      "module": "EDITOR",
+      "message": "3x daily merge: retained 53 existing dispatches, integrated 0 new dispatches.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "23:52:51",
+      "module": "SCOUT",
+      "message": "Initializing ingestion pipeline across 5 beats (strict 7-day recency filter).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "23:52:58",
+      "module": "SCOUT",
+      "message": "Scouted 119 candidate signals across 5 beats (all within 7-day window).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "23:52:58",
+      "module": "RANK",
+      "message": "Initiating deduplication & 4-factor scoring heuristics (discriminating deals vs administrative noise).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "23:52:58",
+      "module": "RANK",
+      "message": "Deduplication dropped 0 redundant wires. 119 candidates evaluated.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "23:52:58",
+      "module": "SYNTH",
+      "message": "Selecting candidates clearing quality floor for synthesis.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "23:52:58",
+      "module": "SYNTH",
+      "message": "Deterministic synthesis produced 45 items (4 dropped for lack of substantive source text, LLM key not configured). Est cost: free tier.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "23:52:58",
+      "module": "EDITOR",
+      "message": "Computing composite 5-factor scores and executing non-destructive edition merge.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "23:52:58",
+      "module": "EDITOR",
+      "message": "3x daily merge: retained 53 existing dispatches, integrated 0 new dispatches.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "23:53:08",
+      "module": "SCOUT",
+      "message": "Initializing ingestion pipeline across 5 beats (strict 7-day recency filter).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "23:53:14",
+      "module": "SCOUT",
+      "message": "Scouted 119 candidate signals across 5 beats (all within 7-day window).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "23:53:14",
+      "module": "RANK",
+      "message": "Initiating deduplication & 4-factor scoring heuristics (discriminating deals vs administrative noise).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "23:53:14",
+      "module": "RANK",
+      "message": "Deduplication dropped 0 redundant wires. 119 candidates evaluated.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "23:53:14",
+      "module": "SYNTH",
+      "message": "Selecting candidates clearing quality floor for synthesis.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "23:53:14",
+      "module": "SYNTH",
+      "message": "Deterministic synthesis produced 45 items (4 dropped for lack of substantive source text, LLM key not configured). Est cost: free tier.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "23:53:14",
+      "module": "EDITOR",
+      "message": "Computing composite 5-factor scores and executing non-destructive edition merge.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "23:53:14",
+      "module": "EDITOR",
+      "message": "3x daily merge: retained 53 existing dispatches, integrated 0 new dispatches.",
       "status": "ok"
     }
   ],
@@ -55,46 +188,6 @@
     "ai-venture": {
       "columns": {
         "venture": [
-          {
-            "id": "ai-venture-venture-20260922-3",
-            "source": "SEC EDGAR / D/A",
-            "date": "2026-08-12",
-            "headline": "AIHF I, a series of Artificial Intelligence in Health Fund, LP  (CIK 0002082471) Discloses Material Operations in Form D/A",
-            "summary": "SEC regulatory submission filed by AIHF I, a series of Artificial Intelligence in Health Fund, LP (CIK 0002082471). Form D/A detailing material operations and capital restructuring.",
-            "tag": "VENTURE",
-            "url": "https://www.sec.gov/edgar/browse/?CIK=0002082471",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "ai-venture",
-            "column": "venture",
-            "scores": {
-              "authority": 9.4,
-              "corroboration": 9.4,
-              "novelty": 8.2,
-              "magnitude": 8.5,
-              "relevance": 9.6,
-              "total": 9
-            }
-          },
-          {
-            "id": "ai-venture-venture-20260922-4",
-            "source": "SEC EDGAR / D",
-            "date": "2026-08-27",
-            "headline": "360 ONE Multi Stage Artificial Intelligence Fund Series 1  (CIK 0002151907) Discloses Material Operations in Form D",
-            "summary": "SEC regulatory submission filed by 360 ONE Multi Stage Artificial Intelligence Fund Series 1 (CIK 0002151907). Form D detailing material operations and capital restructuring.",
-            "tag": "VENTURE",
-            "url": "https://www.sec.gov/edgar/browse/?CIK=0002151907",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "ai-venture",
-            "column": "venture",
-            "scores": {
-              "authority": 9.4,
-              "corroboration": 8.6,
-              "novelty": 8.2,
-              "magnitude": 8.5,
-              "relevance": 9.4,
-              "total": 8.8
-            }
-          },
           {
             "id": "ai-venture-venture-20260922-5",
             "source": "TechCrunch AI",
@@ -154,6 +247,66 @@
               "relevance": 8.5,
               "total": 7.9
             }
+          },
+          {
+            "id": "ai-venture-venture-20260922-48",
+            "source": "TechCrunch AI",
+            "date": "2026-09-22",
+            "headline": "OpenAI launches GPT-6 Sol and Luna, boasting lower cost and fewer mistakes",
+            "summary": "OpenAI is launching two new models, which it says are cut from the same cloth as Astra.",
+            "tag": "VENTURE",
+            "url": "https://techcrunch.com/2026/09/22/openai-launches-gpt-6-sol-and-luna/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "venture",
+            "scores": {
+              "authority": 8.8,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 5.2,
+              "relevance": 7.9,
+              "total": 6.3
+            }
+          },
+          {
+            "id": "ai-venture-venture-20260922-49",
+            "source": "TechCrunch AI",
+            "date": "2026-09-22",
+            "headline": "TechCrunch Founder Summit’s agenda revealed: Unlock fundraising, hiring, and AI insights in Boston on November 4",
+            "summary": "Founders shouldn't have to learn the hardest lessons the hardest way. TechCrunch Founder Summit is designed to make the challenges of starting a company easier and the highs that much greater.",
+            "tag": "VENTURE",
+            "url": "https://techcrunch.com/2026/09/22/techcrunch-founder-summits-agenda-revealed-unlock-fundraising-hiring-and-ai-insights-in-boston-on-november-4/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "venture",
+            "scores": {
+              "authority": 8.8,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 9.2,
+              "total": 6.4
+            }
+          },
+          {
+            "id": "ai-venture-venture-20260922-50",
+            "source": "TechCrunch AI",
+            "date": "2026-09-22",
+            "headline": "Meta admits Muse's likeness to OpenClaw isn't a coincidence",
+            "summary": "Meta says Muse was built from scratch, but acknowledges the AI assistant was \"heavily inspired\" by OpenClaw — down to some of its workspace filenames and content.",
+            "tag": "VENTURE",
+            "url": "https://techcrunch.com/2026/09/22/meta-admits-muses-likeness-to-openclaw-isnt-a-coincidence/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "venture",
+            "scores": {
+              "authority": 8.8,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 9.2,
+              "total": 6.4
+            }
           }
         ],
         "research": [
@@ -163,7 +316,7 @@
             "date": "2026-09-21",
             "headline": "GameHorizon Suite: Multi-Horizon Data and Evaluation in Gameplay",
             "summary": "Modern video games provide a measurable testbed for AI models, combining abilities of visual understanding, instruction decomposition, goal planning, and precise action control over multiple temporal horizons. Existing datasets and benchmarks, however, either cover a narrow range of games, lack language instructions, or rely on high-variance online rollouts. To address these challenges, we introduce GameHorizon, a unified data and evaluation suite that measures gameplay capabilities at different horizons for diverse model families.",
-            "tag": "VENTURE",
+            "tag": "BENCHMARK",
             "url": "http://arxiv.org/abs/2609.25001v1",
             "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
             "beat": "ai-venture",
@@ -255,6 +408,46 @@
               "magnitude": 7.5,
               "relevance": 8.9,
               "total": 8.3
+            }
+          },
+          {
+            "id": "ai-venture-research-20260922-44",
+            "source": "arXiv Preprint",
+            "date": "2026-09-21",
+            "headline": "Rare Event Estimation via Iterative Unalignment",
+            "summary": "As agents are deployed with increased autonomy, even extremely rare events along their stochastic output trajectories can occur and prove catastrophic. Safe deployment therefore does not depend on whether these events can occur, but on how often they might. We study the problem of estimating the probability of rare events that arise from stochastic variation in the agent's own actions.",
+            "tag": "BENCHMARK",
+            "url": "http://arxiv.org/abs/2609.24969v1",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "research",
+            "scores": {
+              "authority": 9.5,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 9.5,
+              "relevance": 8.9,
+              "total": 7.5
+            }
+          },
+          {
+            "id": "ai-venture-research-20260922-45",
+            "source": "arXiv Preprint",
+            "date": "2026-09-21",
+            "headline": "Harness-Zero: Harness Distillation via Agent-as-Harness",
+            "summary": "Agent harnesses, the external systems that mediate model-environment interaction, can substantially improve agent performance, but their gains remain tied to the harness at deployment. Because the best harness varies across domains, instances, and models, a general-purpose agent must either settle for a suboptimal shared harness or route among an ever-growing set of specialized ones. We therefore study agent harness distillation: using a domain- or instance-optimized harness as training-time guidance and transferring the behaviors it induces into model weights, so that its gains survive under a single fixed target harness.",
+            "tag": "REASONING",
+            "url": "http://arxiv.org/abs/2609.24974v1",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "research",
+            "scores": {
+              "authority": 9.5,
+              "corroboration": 4.5,
+              "novelty": 6.2,
+              "magnitude": 4.5,
+              "relevance": 8.2,
+              "total": 6.6
             }
           }
         ],
@@ -357,6 +550,26 @@
               "magnitude": 7.5,
               "relevance": 8.5,
               "total": 7.9
+            }
+          },
+          {
+            "id": "ai-venture-titans-20260922-51",
+            "source": "The Verge AI",
+            "date": "2026-09-22",
+            "headline": "Trump says the US is officially renaming AI to ‘super intelligence’",
+            "summary": "In a speech Tuesday morning at the UN General Assembly, Donald Trump railed against Iran, \"globalists,\" climate change, and transgender people while also claiming that the US is now \"officially\" renaming artificial intelligence to \"super intelligence.\" Oddly, this wasn't one of the entries in the poll Trump posted a few days ago when he started.",
+            "tag": "TITANS",
+            "url": "https://www.theverge.com/ai-artificial-intelligence/998816/donald-trump-ai-super-intelligence",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "titans",
+            "scores": {
+              "authority": 8.7,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 9.2,
+              "total": 6.4
             }
           }
         ]
@@ -677,43 +890,83 @@
         ],
         "company-moves": [
           {
-            "id": "markets-company-moves-20260922-1",
+            "id": "markets-company-moves-20260922-40",
             "source": "SEC EDGAR / 8-K",
-            "date": "2026-07-28",
-            "headline": "T1 Energy Inc.  (TE)  (CIK 0001992243) Discloses Material Operations in Form 8-K",
-            "summary": "SEC regulatory submission filed by T1 Energy Inc. Form 8-K detailing material operations and capital restructuring.",
-            "tag": "REPORT",
-            "url": "https://www.sec.gov/edgar/browse/?CIK=0001992243",
+            "date": "2026-09-18",
+            "headline": "Permianville Royalty Trust  (PVL)  (CIK 0001520048) Discloses Material Operations in Form 8-K",
+            "summary": "SEC regulatory submission filed by Permianville Royalty Trust (PVL) (CIK 0001520048). Form 8-K detailing material operations and capital restructuring.",
+            "tag": "MARKETS",
+            "url": "https://www.sec.gov/edgar/browse/?CIK=0001520048",
             "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
             "beat": "markets",
             "column": "company-moves",
             "scores": {
               "authority": 9.6,
-              "corroboration": 9.4,
-              "novelty": 8.2,
-              "magnitude": 8.5,
-              "relevance": 9.7,
-              "total": 9.1
+              "corroboration": 9,
+              "novelty": 5,
+              "magnitude": 8.2,
+              "relevance": 8.3,
+              "total": 8.1
             }
           },
           {
-            "id": "markets-company-moves-20260922-2",
+            "id": "markets-company-moves-20260922-41",
             "source": "SEC EDGAR / 8-K",
-            "date": "2026-08-11",
-            "headline": "Coronado Global Resources Inc.  (CODQL)  (CIK 0001770561) Discloses Material Operations in Form 8-K",
-            "summary": "SEC regulatory submission filed by Coronado Global Resources Inc. Form 8-K detailing material operations and capital restructuring.",
-            "tag": "REPORT",
-            "url": "https://www.sec.gov/edgar/browse/?CIK=0001770561",
+            "date": "2026-09-18",
+            "headline": "Omega Flex, Inc.  (OFLX)  (CIK 0001317945) Discloses Material Operations in Form 8-K",
+            "summary": "SEC regulatory submission filed by Omega Flex, Inc. Form 8-K detailing material operations and capital restructuring.",
+            "tag": "MARKETS",
+            "url": "https://www.sec.gov/edgar/browse/?CIK=0001317945",
             "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
             "beat": "markets",
             "column": "company-moves",
             "scores": {
               "authority": 9.6,
-              "corroboration": 8.6,
-              "novelty": 8.2,
-              "magnitude": 8.5,
-              "relevance": 9.5,
-              "total": 8.9
+              "corroboration": 9,
+              "novelty": 5,
+              "magnitude": 8.2,
+              "relevance": 8.3,
+              "total": 8.1
+            }
+          },
+          {
+            "id": "markets-company-moves-20260922-42",
+            "source": "SEC EDGAR / 8-K",
+            "date": "2026-09-21",
+            "headline": "Algorhythm Holdings, Inc.  (RIME)  (CIK 0000923601) Discloses Material Operations in Form 8-K",
+            "summary": "SEC regulatory submission filed by Algorhythm Holdings, Inc. Form 8-K detailing material operations and capital restructuring.",
+            "tag": "MARKETS",
+            "url": "https://www.sec.gov/edgar/browse/?CIK=0000923601",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "markets",
+            "column": "company-moves",
+            "scores": {
+              "authority": 9.6,
+              "corroboration": 9,
+              "novelty": 5,
+              "magnitude": 8.2,
+              "relevance": 8.3,
+              "total": 8.1
+            }
+          },
+          {
+            "id": "markets-company-moves-20260922-43",
+            "source": "SEC EDGAR / 10-Q",
+            "date": "2026-09-22",
+            "headline": "AIRWA INC.  (YYAI)  (CIK 0001674440) Discloses Material Operations in Form 10-Q",
+            "summary": "SEC regulatory submission filed by AIRWA INC. Form 10-Q detailing material operations and capital restructuring.",
+            "tag": "MARKETS",
+            "url": "https://www.sec.gov/edgar/browse/?CIK=0001674440",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "markets",
+            "column": "company-moves",
+            "scores": {
+              "authority": 9.6,
+              "corroboration": 9,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 9.1,
+              "total": 7.5
             }
           }
         ],
@@ -741,6 +994,26 @@
               "magnitude": 7.5,
               "relevance": 8.9,
               "total": 8.3
+            }
+          },
+          {
+            "id": "science-frontier-20260922-46",
+            "source": "arXiv Preprint",
+            "date": "2026-09-21",
+            "headline": "Nucleosome simulations suggest mechanisms of electrostatically-driven mesoscale chromatin evolution",
+            "summary": "Nucleosomes are structures made up of proteins called histones that bind and compact DNA, driving the mesoscale organization of the chromatin polymer. Although histone proteins have diversified over evolutionary time, their contributions to the corresponding diversification of chromatin structure are poorly understood. Here, we mine protein databases for histones and create \\emph{in silico} nucleosomes for 3241 organisms spanning $>$1.5B years of evolution.",
+            "tag": "SCIENCE",
+            "url": "http://arxiv.org/abs/2609.24907v1",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "science",
+            "column": "frontier",
+            "scores": {
+              "authority": 9.6,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 9.1,
+              "relevance": 8.9,
+              "total": 7.5
             }
           }
         ]
@@ -848,6 +1121,46 @@
               "relevance": 8.6,
               "total": 8
             }
+          },
+          {
+            "id": "culture-industry-20260922-52",
+            "source": "Wired Culture",
+            "date": "2026-09-18",
+            "headline": "Submit Your Questions: Why Is Silicon Valley Still a Boys’ Club?",
+            "summary": "How are women really faring in Silicon Valley? Submit your questions to our panel and we'll give you the scoop on September 24.",
+            "tag": "REPORT",
+            "url": "https://www.wired.com/story/livestream-women-in-tech/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "culture",
+            "column": "industry",
+            "scores": {
+              "authority": 8.9,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 9.2,
+              "total": 6.4
+            }
+          },
+          {
+            "id": "culture-industry-20260922-53",
+            "source": "Wired Culture",
+            "date": "2026-09-17",
+            "headline": "‘Fast & Furious’ Takes a Victory Lap With a Ferociously Fun Roller Coaster",
+            "summary": "Vin Diesel, the star of the series, didn’t make a planned appearance at the grand opening of its dynamite new theme park ride. But it didn’t stop his fans from having a good time.",
+            "tag": "REPORT",
+            "url": "https://www.wired.com/story/fast-and-furious-roller-coaster/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "culture",
+            "column": "industry",
+            "scores": {
+              "authority": 8.9,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 9.2,
+              "total": 6.4
+            }
           }
         ],
         "voices": [
@@ -949,6 +1262,26 @@
               "magnitude": 8.5,
               "relevance": 8.9,
               "total": 8.3
+            }
+          },
+          {
+            "id": "culture-voices-20260922-47",
+            "source": "The Atlantic Ideas",
+            "date": "2026-09-21",
+            "headline": "The Curious Left-Wing Argument Against New AI Regulations",
+            "summary": "ET on September 21, 2026 D onald Trump has reacted to terrifying calls for regulation from inside the AI industry with predictable skepticism— insisting , questionably, that the solution requires nothing more than having a “High IQ” president, and further asserting, even more questionably, that he qualifies as one. A more surprising flank of opposition has arisen from a different source: the populist left, which has suggested that existing regulations would be perfectly adequate to rein in a rogue superintelligence bent on eliminating the human race. An article in The American Prospect by Whitney Curry Wimbish and David Dayen, headlined “Congressional Democrats in Hysterics About Saving the World From AI,” argues that the danger from runaway AI is overblown and that no new laws are needed to contain it.",
+            "tag": "REPORT",
+            "url": "https://www.theatlantic.com/ideas/2026/09/ai-regulation-anti-monopoly-challenge/688707/?utm_source=feed",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "culture",
+            "column": "voices",
+            "scores": {
+              "authority": 9,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 8.2,
+              "relevance": 8.5,
+              "total": 7.1
             }
           }
         ]

@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { IndexEntry } from '../../lib/nexus/types';
+import { getReaderLocalEditionLabel } from '../../lib/nexus/placeholder';
 import { SavedPill } from './SavedPill';
 
 interface DateArchivePillsProps {
@@ -19,24 +20,34 @@ export const DateArchivePills: React.FC<DateArchivePillsProps> = ({
   savedCount,
   onToggleSaved,
 }) => {
-  // Deduplicate by label, keeping newest first
-  const deduplicated = useMemo(() => {
+  // Compute labels dynamically in the reader's local browser timezone and deduplicate
+  const computedEntries = useMemo(() => {
     if (!entries || entries.length === 0) {
       // Zero editions in index.json: provide a clean current edition pill
-      return [{ date: selectedDate, label: 'Today' }];
+      const localLabel = getReaderLocalEditionLabel(selectedDate);
+      return [{ date: selectedDate, label: localLabel }];
     }
+
     const seen = new Set<string>();
     const result: IndexEntry[] = [];
+
     for (const item of entries) {
       if (!item || !item.date) continue;
-      const normalizedLabel = (item.label || item.date).trim().toLowerCase();
+      // Evaluate label strictly in reader's local timezone
+      const localLabel = getReaderLocalEditionLabel(item.date);
+      const normalizedLabel = localLabel.trim().toLowerCase();
+
       if (!seen.has(normalizedLabel)) {
         seen.add(normalizedLabel);
-        result.push(item);
+        result.push({
+          date: item.date,
+          label: localLabel,
+        });
       }
     }
-    // If deduplication resulted in empty array, fallback to selectedDate
-    return result.length > 0 ? result : [{ date: selectedDate, label: 'Today' }];
+
+    const fallbackLabel = getReaderLocalEditionLabel(selectedDate);
+    return result.length > 0 ? result : [{ date: selectedDate, label: fallbackLabel }];
   }, [entries, selectedDate]);
 
   return (
@@ -45,7 +56,7 @@ export const DateArchivePills: React.FC<DateArchivePillsProps> = ({
         ARCHIVE:
       </span>
 
-      {deduplicated.map((entry) => {
+      {computedEntries.map((entry) => {
         const isCurrent = !isSavedActive && entry.date === selectedDate;
         return (
           <button

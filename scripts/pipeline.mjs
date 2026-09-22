@@ -3,10 +3,10 @@
  * NEXUS v2 — Agentic Daily News Briefing Content Pipeline
  *
  * 5 Modular Pipeline Stages:
- * 1. scout(sourcesConfig)   -> Ingests RSS, arXiv, SEC EDGAR, Hacker News, Reddit OAuth
- * 2. rank(candidates)       -> Deduplicates, computes authority, corroboration, novelty, magnitude
- * 3. synth(topCandidates)   -> Synthesizes 2-3 sentence brief, tag & relevance via LLM or deterministic engine (zero invented facts)
- * 4. editor(items)          -> Assigns final columns, computes weighted total score, builds agentLog
+ * 1. scout(sourcesConfig)   -> Ingests RSS, arXiv, SEC EDGAR, Hacker News, Reddit OAuth (strict 7-day recency window)
+ * 2. rank(candidates)       -> Deduplicates, computes authority, corroboration, novelty, magnitude (discriminating deals vs administrative noise)
+ * 3. synth(topCandidates)   -> Synthesizes brief, column-aware tags, honest LLM/deterministic reporting
+ * 4. editor(items)          -> Multi-factor scoring with ceiling rules, 3x daily non-destructive merging
  * 5. publish(dayDigest)     -> Writes YYYY-MM-DD.json, updates index.json (last 7), commits to git
  */
 
@@ -33,6 +33,11 @@ if (!fs.existsSync(PUBLIC_DATA_DIR)) {
 function getTodayISODate() {
   const now = new Date();
   return now.toISOString().split('T')[0];
+}
+
+function getSevenDaysAgoISODate() {
+  const d = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+  return d.toISOString().split('T')[0];
 }
 
 function getFormattedTime() {
@@ -89,7 +94,18 @@ function sanitizeBoilerplate(raw) {
     text = text.replace(p, ' ');
   }
 
-  return text.replace(/\s+/g, ' ').trim();
+  return cleanSummaryText(text.replace(/\s+/g, ' ').trim());
+}
+
+function cleanSummaryText(text) {
+  if (!text) return '';
+  let s = text.trim();
+  s = s.replace(/\[\.\.\.\]/g, '').replace(/\.\.\.+/g, '.');
+  s = s.replace(/[-—–,;:\s]+$/, '');
+  if (s.length > 0 && !/[.!?]$/.test(s)) {
+    s += '.';
+  }
+  return s;
 }
 
 function tokenize(text) {
@@ -134,6 +150,216 @@ function getEditionLabel(editionDateStr, referenceDateStr) {
   }
 }
 
+/**
+ * Computes granular Magnitude based on deal size and institutional materiality.
+ * Disclosed scale:
+ *   $1B+ -> 9.0 - 9.8
+ *   $100M+ -> 8.0 - 8.9
+ *   $10M+ -> 6.5 - 7.4
+ *   $1M+ -> 5.5 - 6.4
+ * Form 8-K / major regulatory / treaty / antitrust -> 7.5 - 8.5
+ * Routine administrative filings (Form D, Form D/A, Form 4 without figures) -> 2.5 - 4.5
+ */
+function computeMagnitude(item) {
+  const combined = `${item.headline} ${item.rawText || ''}`.toLowerCase();
+
+  const billionMatch = combined.match(/\$([0-9]+(?:\.[0-9]+)?)\s*(?:billion|b\b)/i);
+  const millionMatch = combined.match(/\$([0-9]+(?:\.[0-9]+)?)\s*(?:million|m\b)/i);
+
+  if (billionMatch) {
+    const amt = parseFloat(billionMatch[1]);
+    if (amt >= 10) return 9.8;
+    if (amt >= 2) return 9.5;
+    return 9.1;
+  }
+
+  if (millionMatch) {
+    const amt = parseFloat(millionMatch[1]);
+    if (amt >= 500) return 8.8;
+    if (amt >= 100) return 8.2;
+    if (amt >= 50) return 7.4;
+    if (amt >= 10) return 6.5;
+    return 5.5;
+  }
+
+  // Material corporate and regulatory milestones
+  if (/\b(?:form 8-k|quarterly earnings|earnings release|monopoly ruling|antitrust suit|doj lawsuit|supreme court|merger agreement|acquisition agreement)\b/i.test(combined)) {
+    return 8.2;
+  }
+
+  // Major institutional actions
+  if (/\b(?:executive order|ftc enforcement|sec lawsuit|phase 3 trial|clinical endpoint|gigawatt|grid interconnection)\b/i.test(combined)) {
+    return 7.5;
+  }
+
+  // Routine administrative filings without disclosed amounts (Form D, Form D/A, Form 4)
+  if (
+    /\b(?:form d(?:\/a)?|form 4|form 3|schedule 13[gd]|notice of exempt offering|amendment)\b/i.test(combined) ||
+    item.source.includes('/ D') ||
+    item.source.includes('/ 4')
+  ) {
+    return 3.2; // Routine filing noise: 2.5 - 4.5
+  }
+
+  // General corporate activity
+  if (/\b(?:partnership|launches|unveils|hires|expansion|patent)\b/i.test(combined)) {
+    return 5.2;
+  }
+
+  return 4.5;
+}
+
+/**
+ * Assigns column-aware tags to prevent inappropriate tag leakage.
+ * e.g., arXiv benchmark papers in research get #BENCHMARK or #RESEARCH, never #VENTURE.
+ * Routine Form D/A gets #FILING, not #VENTURE.
+ */
+function assignTag(item, columnHint) {
+  const combined = `${item.headline} ${item.rawText || ''}`.toLowerCase();
+
+  if (columnHint === 'research') {
+    if (/benchmark|eval|leaderboard|score|mmlu|gsm8k|humaneval|swe-bench/i.test(combined)) return 'BENCHMARK';
+    if (/reasoning|chain-of-thought|rl|reinforcement|distillation|search/i.test(combined)) return 'REASONING';
+    if (/architecture|transformer|attention|mamba|diffusion|state space/i.test(combined)) return 'ARCHITECTURE';
+    if (/dataset|corpus|pretraining|synthetic data/i.test(combined)) return 'DATASET';
+    if (/quantum|superconductor|fusion|crispr|biology|protein/i.test(combined)) return 'FRONTIER';
+    return 'RESEARCH';
+  }
+
+  if (columnHint === 'venture') {
+    if (item.source.includes('SEC EDGAR') || /\b(?:form d(?:\/a)?|form 4|regulatory)\b/i.test(combined)) {
+      if (/amendment|d\/a/i.test(combined) || item.source.includes('D/A')) return 'FILING';
+      return 'DISCLOSURE';
+    }
+    if (/\b(?:series\s+[a-g]|seed\s+round|growth\s+round|\$[0-9]+[mb]\s+round)\b/i.test(combined)) return 'VENTURE';
+    if (/\b(?:acquisition|merger|buys|acquires)\b/i.test(combined)) return 'M&A';
+    if (/\b(?:ipo|public\s+listing|direct\s+listing)\b/i.test(combined)) return 'IPO';
+    return 'VENTURE';
+  }
+
+  if (columnHint === 'titans') {
+    if (/datacenter|megawatt|gigawatt|gpu|cluster|cluster\s+compute|nuclear|smr/i.test(combined)) return 'INFRASTRUCTURE';
+    if (/antitrust|ftc|doj|monopoly|court|ruling|investigation/i.test(combined)) return 'REGULATORY';
+    if (/earnings|revenue|operating\s+income|guidance/i.test(combined)) return 'EARNINGS';
+    if (/partnership|agreement|deal|contract/i.test(combined)) return 'PARTNERSHIP';
+    return 'TITANS';
+  }
+
+  if (item.beat === 'science') {
+    if (/crispr|gene|clinical|phase\s+[123]|vaccine|oncology/i.test(combined)) return 'BIOTECH';
+    if (/quantum|superconductor|fusion|materials|physics/i.test(combined)) return 'PHYSICS';
+    if (/space|orbit|telescope|nasa|esa/i.test(combined)) return 'AEROSPACE';
+    return 'SCIENCE';
+  }
+
+  if (item.beat === 'markets') {
+    if (/treasury|yield|rate\s+cut|fed|inflation|cpi|central\s+bank/i.test(combined)) return 'MACRO';
+    if (/nasdaq|s&p|equities|stocks|rally|selloff/i.test(combined)) return 'EQUITIES';
+    if (/commodities|crude|oil|gold/i.test(combined)) return 'COMMODITIES';
+    return 'MARKETS';
+  }
+
+  if (item.beat === 'politics') {
+    if (/treaty|sanctions|tariffs|geopolitics|export\s+control/i.test(combined)) return 'GEOPOLITICS';
+    if (/bill|legislation|congress|senate|executive\s+order/i.test(combined)) return 'POLICY';
+    return 'POLICY';
+  }
+
+  return 'REPORT';
+}
+
+/**
+ * Invokes Gemini API across prioritized model endpoints with robust error logging.
+ */
+async function callGemini(item, apiKey) {
+  const models = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash'];
+  const sanitizedText = sanitizeBoilerplate(item.rawText);
+
+  const prompt = `You are NEXUS, an autonomous news intelligence briefing engine.
+CRITICAL CONSTRAINT: Synthesize strictly from the provided source text. Do NOT invent, assume, or fabricate any facts, figures, implications, or analysis not explicitly stated.
+Output JSON conforming exactly to this schema:
+{
+  "headline": "Active voice headline under 14 words",
+  "summary": "Factual 2-3 sentence analytical summary derived strictly from the text. Zero hype, zero invented analysis.",
+  "tag": "UPPERCASE_TAG_UNDER_15_CHARS",
+  "relevanceScore": 8.5
+}
+
+Dispatch Details:
+Beat: ${item.beat}
+Column Hint: ${item.columnHint}
+Title: ${item.headline}
+Source: ${item.source}
+Context: ${sanitizedText || item.headline}`;
+
+  let lastStatus = 0;
+  let lastErr = '';
+
+  for (const model of models) {
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 10000);
+
+      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-goog-api-key': apiKey,
+        },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: {
+            responseMimeType: 'application/json',
+            temperature: 0.2,
+          },
+        }),
+        signal: controller.signal,
+      });
+      clearTimeout(timeout);
+
+      lastStatus = res.status;
+      if (res.ok) {
+        const result = await res.json();
+        const jsonText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (!jsonText) throw new Error('Empty candidate response');
+        let parsed;
+        try {
+          parsed = JSON.parse(jsonText);
+        } catch {
+          const cleaned = jsonText.replace(/^```(?:json)?\s*/, '').replace(/\s*```$/, '').trim();
+          parsed = JSON.parse(cleaned);
+        }
+        const pTokens = result.usageMetadata?.promptTokenCount || 250;
+        const cTokens = result.usageMetadata?.candidatesTokenCount || 80;
+        return {
+          success: true,
+          model,
+          parsed,
+          promptTokens: pTokens,
+          candidatesTokens: cTokens,
+        };
+      } else {
+        const errBody = await res.text().catch(() => '');
+        lastErr = errBody;
+        console.error(`[SYNTH LLM ERROR] Model ${model} HTTP ${res.status}: ${errBody.slice(0, 180)}`);
+        // If 404, try next model; otherwise break
+        if (res.status !== 404) {
+          break;
+        }
+      }
+    } catch (err) {
+      console.error(`[SYNTH LLM EXCEPTION] Model ${model}:`, err.message);
+      lastErr = err.message;
+    }
+  }
+
+  return {
+    success: false,
+    status: lastStatus,
+    error: lastErr,
+  };
+}
+
 // ----------------------------------------------------------------------------
 // STAGE 1: SCOUT
 // ----------------------------------------------------------------------------
@@ -141,12 +367,13 @@ async function scout(sourcesConfig, agentLog) {
   agentLog.push({
     timestamp: getFormattedTime(),
     module: 'SCOUT',
-    message: 'Initializing ingestion pipeline across 5 beats.',
+    message: 'Initializing ingestion pipeline across 5 beats (strict 7-day recency filter).',
     status: 'ok',
   });
 
   const candidates = [];
   const today = getTodayISODate();
+  const sevenDaysAgo = getSevenDaysAgoISODate();
 
   for (const [beatId, beatConfig] of Object.entries(sourcesConfig.beats)) {
     // 1. RSS Feeds
@@ -191,6 +418,9 @@ async function scout(sourcesConfig, agentLog) {
                 }
               } catch {}
             }
+
+            // Strict recency check: discard any wire older than 7 days
+            if (itemDate < sevenDaysAgo) continue;
 
             if (rawTitle && rawTitle.length > 10) {
               candidates.push({
@@ -246,6 +476,9 @@ async function scout(sourcesConfig, agentLog) {
               } catch {}
             }
 
+            // Strict recency check: discard any paper older than 7 days
+            if (arxivDate < sevenDaysAgo) continue;
+
             if (title) {
               candidates.push({
                 source: 'arXiv Preprint',
@@ -265,12 +498,11 @@ async function scout(sourcesConfig, agentLog) {
       }
     }
 
-    // 3. SEC EDGAR full-text search API
+    // 3. SEC EDGAR full-text search API (tightened from 60 days to 7 days)
     if (beatConfig.secEdgar && Array.isArray(beatConfig.secEdgar.keywords)) {
       try {
-        const sixtyDaysAgo = new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
         const q = encodeURIComponent(beatConfig.secEdgar.keywords[0]);
-        const secUrl = `https://efts.sec.gov/LATEST/search-index?q=${q}&forms=${beatConfig.secEdgar.forms.join(',')}&startdt=${sixtyDaysAgo}&enddt=${today}`;
+        const secUrl = `https://efts.sec.gov/LATEST/search-index?q=${q}&forms=${beatConfig.secEdgar.forms.join(',')}&startdt=${sevenDaysAgo}&enddt=${today}`;
 
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 6000);
@@ -290,14 +522,16 @@ async function scout(sourcesConfig, agentLog) {
             const entityName = hit._source?.entity_name || hit._source?.display_names?.[0] || 'Public Issuer';
             const formType = hit._source?.form || 'SEC';
             const rawFileDate = hit._source?.file_date;
-            if (rawFileDate && rawFileDate < sixtyDaysAgo) continue;
+            if (rawFileDate && rawFileDate < sevenDaysAgo) continue;
             const fileDate = rawFileDate && rawFileDate <= today ? rawFileDate : today;
+
+            const desc = hit._source?.description || '';
 
             candidates.push({
               source: `SEC EDGAR / ${formType}`,
               date: fileDate,
               headline: `${entityName} Discloses Material Operations in Form ${formType}`,
-              rawText: `SEC regulatory submission filed by ${entityName}. Form ${formType} detailing material operations and capital restructuring.`,
+              rawText: `SEC regulatory submission filed by ${entityName}. Form ${formType}${desc ? ': ' + desc : ' detailing material operations and capital restructuring.'}`,
               url: `https://www.sec.gov/edgar/browse/?CIK=${hit._source?.ciks?.[0] || ''}`,
               beat: beatId,
               columnHint: beatConfig.secEdgar.defaultColumn || 'venture',
@@ -339,6 +573,8 @@ async function scout(sourcesConfig, agentLog) {
                       const d = new Date(itemData.time * 1000).toISOString().split('T')[0];
                       if (d <= today) hnDate = d;
                     }
+                    if (hnDate < sevenDaysAgo) continue;
+
                     candidates.push({
                       source: 'Hacker News Dispatch',
                       date: hnDate,
@@ -404,6 +640,8 @@ async function scout(sourcesConfig, agentLog) {
                     const d = new Date(p.created_utc * 1000).toISOString().split('T')[0];
                     if (d <= today) redditDate = d;
                   }
+                  if (redditDate < sevenDaysAgo) continue;
+
                   candidates.push({
                     source: `Reddit r/${sub}`,
                     date: redditDate,
@@ -425,13 +663,16 @@ async function scout(sourcesConfig, agentLog) {
     }
   }
 
-  // NOTE: Zero fabricated stories fallback!
-  // If candidates are empty, log warning and let empty columns show the authentic "SYNTHESIZING" state.
-  if (candidates.length === 0) {
+  // Global recency filter: strictly reject any candidate older than 7 days
+  const recentCandidates = candidates.filter((c) => {
+    return c.date && c.date >= sevenDaysAgo && c.date <= today;
+  });
+
+  if (recentCandidates.length === 0) {
     agentLog.push({
       timestamp: getFormattedTime(),
       module: 'SCOUT',
-      message: 'Zero candidates ingested from external feeds. Columns will remain in synthesizing standby.',
+      message: 'Zero candidates ingested within 7-day window. Columns will remain in synthesizing standby.',
       status: 'warn',
     });
     return [];
@@ -440,11 +681,11 @@ async function scout(sourcesConfig, agentLog) {
   agentLog.push({
     timestamp: getFormattedTime(),
     module: 'SCOUT',
-    message: `Scouted ${candidates.length} candidate signals across 5 beats.`,
+    message: `Scouted ${recentCandidates.length} candidate signals across 5 beats (all within 7-day window).`,
     status: 'ok',
   });
 
-  return candidates;
+  return recentCandidates;
 }
 
 // ----------------------------------------------------------------------------
@@ -456,7 +697,7 @@ function rank(candidates, agentLog) {
   agentLog.push({
     timestamp: getFormattedTime(),
     module: 'RANK',
-    message: 'Initiating deduplication & deterministic 4-factor scoring heuristics.',
+    message: 'Initiating deduplication & 4-factor scoring heuristics (discriminating deals vs administrative noise).',
     status: 'ok',
   });
 
@@ -491,31 +732,43 @@ function rank(candidates, agentLog) {
   const scored = survivors.map((item, idx) => {
     const authority = Math.min(10, Math.max(1, Number(item.baseAuthority.toFixed(1))));
 
-    // Corroboration: check how many other items share key terms (0 - 10)
+    // Corroboration: real overlap across survivor corpus (baseline ~4.5, increasing with corroboration)
     let overlapCount = 0;
     for (let i = 0; i < survivors.length; i++) {
       if (i !== idx && computeOverlapSimilarity(item.headline, survivors[i].headline) > 0.25) {
         overlapCount++;
       }
     }
-    const corroboration = Number(Math.min(9.8, 7.0 + overlapCount * 0.8).toFixed(1));
+    const corroboration = Number(Math.min(9.8, Math.max(3.5, 4.5 + overlapCount * 1.5)).toFixed(1));
 
-    // Novelty: presence of breakthrough indicators (0 - 10)
-    const noveltyKeywords = ['breakthrough', 'first', 'closes', 'announces', 'unveils', 'surpasses', 'proves', 'record', 'superconducting', '3nm', 'discovery'];
-    let noveltyBoost = 0;
+    // Novelty: presence of breakthrough indicators vs routine filings
+    const noveltyKeywords = [
+      'breakthrough',
+      'first ever',
+      'unveils',
+      'discovers',
+      'record',
+      'superconducting',
+      'quantum supremacy',
+      'state-of-the-art',
+      'outperforms',
+      'milestone',
+      'new architecture',
+    ];
+    let noveltyScore = 5.0;
     for (const kw of noveltyKeywords) {
-      if ((item.headline + ' ' + (item.rawText || '')).toLowerCase().includes(kw)) {
-        noveltyBoost += 0.4;
+      if (`${item.headline} ${item.rawText || ''}`.toLowerCase().includes(kw)) {
+        noveltyScore += 1.2;
       }
     }
-    const novelty = Number(Math.min(9.8, 7.8 + noveltyBoost).toFixed(1));
-
-    // Magnitude: capital amounts ($M, $B), regulators, sovereign actions
-    let magnitudeBoost = 0;
-    if (/(\$[0-9]+(?:\.[0-9]+)?\s*[mb]illion|\b[0-9]+\s*gw\b|ftc|sec|doj|treaty|sovereign)/i.test(item.headline + ' ' + (item.rawText || ''))) {
-      magnitudeBoost = 1.0;
+    // Penalize routine administrative filings and amendments for novelty
+    if (/\b(?:form d|form 4|routine|amendment|notice)\b/i.test(`${item.headline} ${item.rawText || ''}`)) {
+      noveltyScore -= 1.5;
     }
-    const magnitude = Number(Math.min(9.8, 7.5 + magnitudeBoost).toFixed(1));
+    const novelty = Number(Math.min(9.8, Math.max(3.0, noveltyScore)).toFixed(1));
+
+    // Magnitude: granular deal size & materiality scoring
+    const magnitude = computeMagnitude(item);
 
     const floorRank = authority * 0.3 + corroboration * 0.25 + novelty * 0.25 + magnitude * 0.2;
 
@@ -568,62 +821,45 @@ async function synth(rankedCandidates, agentLog) {
 
   const selectedForSynthesis = Object.values(groups).flat();
   const synthesized = [];
-  let totalTokens = 0;
+  let llmSuccessCount = 0;
+  let totalPromptTokens = 0;
+  let totalCandidateTokens = 0;
   let estimatedCostUSD = 0;
   let droppedForLackOfSubstance = 0;
+  let lastLlmErrorStatus = null;
 
   const apiKey = process.env.GEMINI_API_KEY || process.env.LLM_API_KEY;
 
   for (const item of selectedForSynthesis) {
     const sanitizedText = sanitizeBoilerplate(item.rawText);
 
+    // Attempt LLM synthesis if API key is provided
     if (apiKey) {
-      try {
-        const prompt = `You are NEXUS, an autonomous news intelligence briefing engine.
-CRITICAL CONSTRAINT: Synthesize strictly from the provided source text. Do NOT invent, assume, or fabricate any facts, figures, implications, or analysis not explicitly stated.
-Output JSON conforming exactly to this schema:
-{
-  "headline": "Active voice headline under 14 words",
-  "summary": "Factual 2-3 sentence analytical summary derived strictly from the text. Zero hype, zero invented analysis.",
-  "tag": "UPPERCASE_TAG_UNDER_15_CHARS",
-  "relevanceScore": 8.5
-}
+      const geminiRes = await callGemini(item, apiKey);
+      if (geminiRes.success && geminiRes.parsed) {
+        llmSuccessCount++;
+        totalPromptTokens += geminiRes.promptTokens;
+        totalCandidateTokens += geminiRes.candidatesTokens;
+        estimatedCostUSD += geminiRes.promptTokens * 0.00000015 + geminiRes.candidatesTokens * 0.0000006;
 
-Dispatch Details:
-Title: ${item.headline}
-Source: ${item.source}
-Context: ${sanitizedText || item.headline}`;
-
-        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [{ parts: [{ text: prompt }] }],
-            generationConfig: { responseMimeType: 'application/json' },
-          }),
-        });
-
-        if (res.ok) {
-          const result = await res.json();
-          const jsonText = result.candidates?.[0]?.content?.parts?.[0]?.text;
-          const parsed = JSON.parse(jsonText);
-
-          const pTokens = result.usageMetadata?.promptTokenCount || 250;
-          const cTokens = result.usageMetadata?.candidatesTokenCount || 80;
-          totalTokens += pTokens + cTokens;
-          estimatedCostUSD += (pTokens * 0.00000015) + (cTokens * 0.0000006);
-
-          synthesized.push({
-            ...item,
-            headline: parsed.headline || item.headline,
-            summary: parsed.summary || sanitizedText || item.headline,
-            tag: parsed.tag || 'BRIEF',
-            relevanceScore: Number(parsed.relevanceScore) || 8.8,
-          });
-          continue;
+        let finalTag = geminiRes.parsed.tag || assignTag(item, item.columnHint);
+        // Ensure column-aware tag correctness
+        if (item.columnHint === 'research' && finalTag === 'VENTURE') {
+          finalTag = 'RESEARCH';
         }
-      } catch {
-        // Fallback to deterministic synthesis
+
+        synthesized.push({
+          ...item,
+          headline: geminiRes.parsed.headline || item.headline,
+          summary: cleanSummaryText(geminiRes.parsed.summary || sanitizedText || item.headline),
+          tag: finalTag,
+          relevanceScore: Number(geminiRes.parsed.relevanceScore) || 8.8,
+        });
+        continue;
+      } else {
+        if (!lastLlmErrorStatus && geminiRes.status) {
+          lastLlmErrorStatus = geminiRes.status;
+        }
       }
     }
 
@@ -648,56 +884,80 @@ Context: ${sanitizedText || item.headline}`;
       finalSummary = sanitizedText;
     }
 
+    finalSummary = cleanSummaryText(finalSummary);
+
     // If source text is empty, boilerplate-only, or merely duplicates headline: DROP ITEM ENTIRELY
     if (!finalSummary || finalSummary.length < 35) {
       droppedForLackOfSubstance++;
       continue;
     }
 
-    let tag = 'REPORT';
-    if (/series|funding|capital|seed|ipo|valuation/i.test(item.headline)) tag = 'VENTURE';
-    else if (/arxiv|theorem|paper|study|algorithm|benchmark/i.test(item.headline)) tag = 'RESEARCH';
-    else if (/nuclear|smr|datacenter|megawatt|gigawatt/i.test(item.headline)) tag = 'INFRASTRUCTURE';
-    else if (/ftc|antitrust|court|treaty|doj|filing|compliance/i.test(item.headline)) tag = 'REGULATORY';
-    else if (/yield|treasury|equities|multiple|stocks/i.test(item.headline)) tag = 'MACRO';
-    else if (/superconducting|fusion|enzyme|crispr/i.test(item.headline)) tag = 'FRONTIER';
+    const tag = assignTag(item, item.columnHint);
 
     synthesized.push({
       ...item,
       headline: item.headline,
       summary: finalSummary,
       tag,
-      relevanceScore: Number((8.2 + (item.floorRank % 1.5)).toFixed(1)),
+      relevanceScore: Number((7.8 + (item.floorRank % 1.5)).toFixed(1)),
     });
   }
 
-  agentLog.push({
-    timestamp: getFormattedTime(),
-    module: 'SYNTH',
-    message: apiKey
-      ? `LLM synthesis complete for ${synthesized.length} items (${droppedForLackOfSubstance} dropped for thin context). Est cost: $${estimatedCostUSD.toFixed(5)}.`
-      : `Deterministic synthesis produced ${synthesized.length} items (${droppedForLackOfSubstance} dropped for lack of substantive source text). Est cost: $0.00000.`,
-    status: 'ok',
-  });
+  const totalTokens = totalPromptTokens + totalCandidateTokens;
+  const costStr = estimatedCostUSD > 0 ? `$${estimatedCostUSD.toFixed(5)}` : 'free tier';
+
+  // Strictly honest reporting: only claim LLM synthesis if the LLM actually ran
+  if (llmSuccessCount > 0) {
+    agentLog.push({
+      timestamp: getFormattedTime(),
+      module: 'SYNTH',
+      message: `LLM synthesis complete for ${llmSuccessCount} items (${droppedForLackOfSubstance} dropped for thin context). Tokens: ${totalTokens}. Est cost: ${costStr}.`,
+      status: 'ok',
+    });
+  } else {
+    const reason = apiKey
+      ? `LLM call failed with HTTP ${lastLlmErrorStatus || 'error'}`
+      : 'LLM key not configured';
+    agentLog.push({
+      timestamp: getFormattedTime(),
+      module: 'SYNTH',
+      message: `Deterministic synthesis produced ${synthesized.length} items (${droppedForLackOfSubstance} dropped for lack of substantive source text, ${reason}). Est cost: free tier.`,
+      status: 'ok',
+    });
+  }
 
   return synthesized;
 }
 
 // ----------------------------------------------------------------------------
-// STAGE 4: EDITOR
+// STAGE 4: EDITOR & 3X DAILY MERGE
 // ----------------------------------------------------------------------------
 function editor(synthesizedItems, sourcesConfig, agentLog) {
   agentLog.push({
     timestamp: getFormattedTime(),
     module: 'EDITOR',
-    message: 'Computing composite 5-factor scores and assembling DayDigest tree.',
+    message: 'Computing composite 5-factor scores and executing non-destructive edition merge.',
     status: 'ok',
   });
 
   const today = getTodayISODate();
+  const sevenDaysAgo = getSevenDaysAgoISODate();
+  const targetFile = path.resolve(PUBLIC_DATA_DIR, `${today}.json`);
+
+  // Check if today's edition already exists on disk
+  let existingDigest = null;
+  if (fs.existsSync(targetFile)) {
+    try {
+      existingDigest = JSON.parse(fs.readFileSync(targetFile, 'utf8'));
+    } catch {
+      existingDigest = null;
+    }
+  }
+
   const dayDigest = {
     date: today,
     label: 'Today',
+    lastUpdated: new Date().toISOString(),
     agentLog: [],
     beats: {},
   };
@@ -710,7 +970,37 @@ function editor(synthesizedItems, sourcesConfig, agentLog) {
     }
   }
 
-  let itemIdCounter = 1;
+  // Populate existing items from earlier runs of the day (preserving their IDs, scores, and summaries)
+  // Prune any legacy items that violate the strict 7-day recency window
+  let existingItemsKeptCount = 0;
+  if (existingDigest?.beats) {
+    for (const [beatId, beatObj] of Object.entries(existingDigest.beats)) {
+      if (!dayDigest.beats[beatId]) continue;
+      for (const [colKey, items] of Object.entries(beatObj.columns || {})) {
+        if (!dayDigest.beats[beatId].columns[colKey]) continue;
+        if (Array.isArray(items)) {
+          for (const item of items) {
+            // Prune stale items older than 7 days
+            if (item.date && item.date < sevenDaysAgo) {
+              continue;
+            }
+            // Enforce column-aware tags on retained existing items
+            if (colKey === 'research' && item.tag === 'VENTURE') {
+              item.tag = assignTag(item, 'research');
+            }
+            if (colKey === 'venture' && item.tag === 'VENTURE' && (item.source.includes('SEC') || item.headline.includes('Form D'))) {
+              item.tag = assignTag(item, 'venture');
+            }
+            dayDigest.beats[beatId].columns[colKey].push(item);
+            existingItemsKeptCount++;
+          }
+        }
+      }
+    }
+  }
+
+  let newItemsAddedCount = 0;
+  let itemIdCounter = existingItemsKeptCount + 1;
 
   for (const item of synthesizedItems) {
     const beatId = item.beat;
@@ -720,15 +1010,40 @@ function editor(synthesizedItems, sourcesConfig, agentLog) {
       continue;
     }
 
+    const targetColumn = dayDigest.beats[beatId].columns[colKey];
+
+    // Check for duplicate in targetColumn by URL or high headline similarity (> 0.85)
+    const isDuplicate = targetColumn.some((existing) => {
+      if (item.url && existing.url && item.url === existing.url) return true;
+      const sim = computeOverlapSimilarity(item.headline, existing.headline);
+      return sim > 0.85;
+    });
+
+    if (isDuplicate) {
+      // Keep existing item with its original scores, summary, and publish time
+      continue;
+    }
+
     const auth = item.scores.authority;
     const corr = item.scores.corroboration;
     const nov = item.scores.novelty;
     const mag = item.scores.magnitude;
     const rel = item.relevanceScore;
 
-    const total = Number(
+    let total = Number(
       (0.25 * auth + 0.2 * corr + 0.2 * nov + 0.2 * mag + 0.15 * rel).toFixed(1)
     );
+
+    // Authority alone cannot push total score to 9.0+.
+    // Only stories with high marks across at least three dimensions (>= 7.8) should crack 9.0.
+    const highDimensions = [auth, corr, nov, mag, rel].filter((s) => s >= 7.8).length;
+    if (highDimensions < 3 && total >= 8.5) {
+      total = 8.4;
+    }
+    // An SEC filing or routine wire with low magnitude or novelty caps around 8.0-8.2
+    if ((mag < 5.5 || nov < 5.0) && total > 8.2) {
+      total = 8.2;
+    }
 
     // Item date must match item's verified publication date (capped to <= edition date)
     const validItemDate = item.date && item.date <= today ? item.date : today;
@@ -739,7 +1054,7 @@ function editor(synthesizedItems, sourcesConfig, agentLog) {
       date: validItemDate,
       headline: item.headline,
       summary: item.summary,
-      tag: item.tag,
+      tag: item.tag || assignTag(item, colKey),
       url: item.url,
       thumbnail: `https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80`,
       beat: beatId,
@@ -754,17 +1069,23 @@ function editor(synthesizedItems, sourcesConfig, agentLog) {
       },
     };
 
-    dayDigest.beats[beatId].columns[colKey].push(digestItem);
+    targetColumn.push(digestItem);
+    newItemsAddedCount++;
   }
+
+  // Preserve previous agent logs from earlier runs if merging
+  const previousLogs = Array.isArray(existingDigest?.agentLog) ? existingDigest.agentLog : [];
 
   agentLog.push({
     timestamp: getFormattedTime(),
     module: 'EDITOR',
-    message: 'Enforced column quotas and finalized DayDigest edition tree.',
+    message: existingItemsKeptCount > 0
+      ? `3x daily merge: retained ${existingItemsKeptCount} existing dispatches, integrated ${newItemsAddedCount} new dispatches.`
+      : `Enforced column quotas and finalized DayDigest edition tree (${newItemsAddedCount} dispatches).`,
     status: 'ok',
   });
 
-  dayDigest.agentLog = agentLog;
+  dayDigest.agentLog = [...previousLogs, ...agentLog].slice(-30);
   return dayDigest;
 }
 
@@ -784,39 +1105,13 @@ function publish(dayDigest, agentLog) {
     }
   }
 
-  // Safety rule: Never overwrite an existing date's file with fewer items than it already has
-  if (fs.existsSync(targetFile)) {
-    try {
-      const existing = JSON.parse(fs.readFileSync(targetFile, 'utf8'));
-      let existingTotalItems = 0;
-      if (existing?.beats) {
-        for (const b of Object.values(existing.beats)) {
-          for (const c of Object.values(b.columns)) {
-            existingTotalItems += c.length;
-          }
-        }
-      }
-      if (newTotalItems < existingTotalItems && newTotalItems > 0) {
-        agentLog.push({
-          timestamp: getFormattedTime(),
-          module: 'PUBLISH',
-          message: `Safety check triggered: new items (${newTotalItems}) < existing items (${existingTotalItems}). Aborting overwrite.`,
-          status: 'warn',
-        });
-        console.warn(`Safety check triggered: new items (${newTotalItems}) < existing items (${existingTotalItems}). Aborting overwrite.`);
-        return;
-      }
-    } catch {
-      // Proceed if read fails
-    }
-  }
-
-  // Only write edition if there is substantive content or file does not exist
+  // Write edition file
   fs.writeFileSync(targetFile, JSON.stringify(dayDigest, null, 2), 'utf8');
-  console.log(`[PUBLISH] Written daily digest to: ${targetFile}`);
+  console.log(`[PUBLISH] Written daily digest to: ${targetFile} (${newTotalItems} items)`);
 
   // Rebuild index.json strictly from actual existing files on disk
-  const existingFiles = fs.readdirSync(PUBLIC_DATA_DIR)
+  const existingFiles = fs
+    .readdirSync(PUBLIC_DATA_DIR)
     .filter((f) => /^\d{4}-\d{2}-\d{2}\.json$/.test(f))
     .map((f) => f.replace('.json', ''))
     .sort()
