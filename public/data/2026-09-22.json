@@ -3,49 +3,49 @@
   "label": "Today",
   "agentLog": [
     {
-      "timestamp": "22:51:37",
+      "timestamp": "23:02:52",
       "module": "SCOUT",
       "message": "Initializing ingestion pipeline across 5 beats.",
       "status": "ok"
     },
     {
-      "timestamp": "22:51:43",
+      "timestamp": "23:02:57",
       "module": "SCOUT",
       "message": "Scouted 124 candidate signals across 5 beats.",
       "status": "ok"
     },
     {
-      "timestamp": "22:51:43",
+      "timestamp": "23:02:57",
       "module": "RANK",
       "message": "Initiating deduplication & deterministic 4-factor scoring heuristics.",
       "status": "ok"
     },
     {
-      "timestamp": "22:51:43",
+      "timestamp": "23:02:57",
       "module": "RANK",
       "message": "Deduplication dropped 2 redundant wires. 122 candidates evaluated.",
       "status": "ok"
     },
     {
-      "timestamp": "22:51:43",
+      "timestamp": "23:02:57",
       "module": "SYNTH",
       "message": "Selecting candidates clearing quality floor for synthesis.",
       "status": "ok"
     },
     {
-      "timestamp": "22:51:43",
+      "timestamp": "23:03:01",
       "module": "SYNTH",
-      "message": "Deterministic synthesis produced 43 items (4 dropped for lack of substantive source text). Est cost: $0.00000.",
+      "message": "LLM synthesis complete for 43 items (4 dropped for thin context). Est cost: $0.00000.",
       "status": "ok"
     },
     {
-      "timestamp": "22:51:43",
+      "timestamp": "23:03:01",
       "module": "EDITOR",
       "message": "Computing composite 5-factor scores and assembling DayDigest tree.",
       "status": "ok"
     },
     {
-      "timestamp": "22:51:43",
+      "timestamp": "23:03:01",
       "module": "EDITOR",
       "message": "Enforced column quotas and finalized DayDigest edition tree.",
       "status": "ok"
