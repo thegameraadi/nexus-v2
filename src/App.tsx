@@ -13,8 +13,8 @@ import {
   BEATS_CHANGE_EVENT,
 } from './lib/nexus/storage';
 import {
-  PLACEHOLDER_DIGEST,
-  PLACEHOLDER_INDEX,
+  createEmptyDigest,
+  getTodayISODate,
 } from './lib/nexus/placeholder';
 
 import { GrainOverlay } from './components/nexus/GrainOverlay';
@@ -27,13 +27,15 @@ import { AgentLogPipeline } from './components/nexus/AgentLogPipeline';
 import { Footer } from './components/nexus/Footer';
 
 export const App: React.FC = () => {
-  // Index of available dates
-  const [indexEntries, setIndexEntries] = useState<IndexEntry[]>(PLACEHOLDER_INDEX);
-  const [activeDate, setActiveDate] = useState<string>(PLACEHOLDER_INDEX[0].date);
-  const [activeLabel, setActiveLabel] = useState<string>(PLACEHOLDER_INDEX[0].label);
+  const initialDate = getTodayISODate();
 
-  // Active day's digest
-  const [digest, setDigest] = useState<DayDigest>(PLACEHOLDER_DIGEST);
+  // Index of available dates
+  const [indexEntries, setIndexEntries] = useState<IndexEntry[]>([]);
+  const [activeDate, setActiveDate] = useState<string>(initialDate);
+  const [activeLabel, setActiveLabel] = useState<string>('Today');
+
+  // Active day's digest (defaults to clean unpopulated empty digest)
+  const [digest, setDigest] = useState<DayDigest>(() => createEmptyDigest(initialDate, 'Today'));
 
   // Selected beats & first-visit onboarding check
   const [selectedBeats, setSelectedBeats] = useState<BeatId[]>(() => {
@@ -41,7 +43,7 @@ export const App: React.FC = () => {
     return stored && stored.length > 0 ? stored : ['ai-venture'];
   });
   const [isBeatPickerOpen, setIsBeatPickerOpen] = useState<boolean>(() => {
-    // Open immediately if user has never visited/configured beats
+    // Open immediately on first visit if user has never set beats
     return getStoredBeats() === null;
   });
   const [isFirstVisit] = useState<boolean>(() => getStoredBeats() === null);
@@ -100,13 +102,21 @@ export const App: React.FC = () => {
         if (Array.isArray(data) && data.length > 0) {
           setIndexEntries(data);
           setActiveDate(data[0].date);
-          setActiveLabel(data[0].label);
+          setActiveLabel(data[0].label || 'Today');
+        } else {
+          // Empty index on clean install / zero editions
+          setIndexEntries([]);
+          setActiveDate(initialDate);
+          setActiveLabel('Today');
         }
       })
       .catch((err) => {
-        console.warn('Could not fetch /data/index.json, utilizing bundled placeholder index:', err);
+        console.info('No external /data/index.json found, running with clean default edition:', err.message);
+        setIndexEntries([]);
+        setActiveDate(initialDate);
+        setActiveLabel('Today');
       });
-  }, []);
+  }, [initialDate]);
 
   // Load digest whenever activeDate changes
   useEffect(() => {
@@ -123,20 +133,24 @@ export const App: React.FC = () => {
           if (data.label) {
             setActiveLabel(data.label);
           }
+        } else {
+          setDigest(createEmptyDigest(activeDate, activeLabel));
         }
       })
-      .catch((err) => {
-        console.warn(`Could not fetch /data/${activeDate}.json, utilizing bundled placeholder digest:`, err);
-        setDigest(PLACEHOLDER_DIGEST);
+      .catch(() => {
+        // If file does not exist on disk, render clean unpopulated edition for that date
+        setDigest(createEmptyDigest(activeDate, activeLabel));
       });
-  }, [activeDate]);
+  }, [activeDate, activeLabel]);
 
   const handleSelectDate = (date: string) => {
     setIsSavedViewActive(false);
     setActiveDate(date);
     const matched = indexEntries.find((e) => e.date === date);
-    if (matched) {
+    if (matched && matched.label) {
       setActiveLabel(matched.label);
+    } else {
+      setActiveLabel(date === getTodayISODate() ? 'Today' : date);
     }
   };
 
@@ -181,7 +195,7 @@ export const App: React.FC = () => {
         />
 
         {/* Collapsed-by-default Agent Log Pipeline */}
-        {!isSavedViewActive && digest.agentLog && (
+        {!isSavedViewActive && digest.agentLog && digest.agentLog.length > 0 && (
           <div className="pt-4">
             <AgentLogPipeline logs={digest.agentLog} />
           </div>

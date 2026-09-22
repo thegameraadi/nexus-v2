@@ -21,17 +21,23 @@ export const DateArchivePills: React.FC<DateArchivePillsProps> = ({
 }) => {
   // Deduplicate by label, keeping newest first
   const deduplicated = useMemo(() => {
+    if (!entries || entries.length === 0) {
+      // Zero editions in index.json: provide a clean current edition pill
+      return [{ date: selectedDate, label: 'Today' }];
+    }
     const seen = new Set<string>();
     const result: IndexEntry[] = [];
     for (const item of entries) {
-      const normalizedLabel = item.label.trim().toLowerCase();
+      if (!item || !item.date) continue;
+      const normalizedLabel = (item.label || item.date).trim().toLowerCase();
       if (!seen.has(normalizedLabel)) {
         seen.add(normalizedLabel);
         result.push(item);
       }
     }
-    return result;
-  }, [entries]);
+    // If deduplication resulted in empty array, fallback to selectedDate
+    return result.length > 0 ? result : [{ date: selectedDate, label: 'Today' }];
+  }, [entries, selectedDate]);
 
   return (
     <div className="flex items-center gap-2 overflow-x-auto py-3 no-scrollbar select-none">

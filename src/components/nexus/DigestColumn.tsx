@@ -19,18 +19,22 @@ export const DigestColumn: React.FC<DigestColumnProps> = ({
       className="nexus-card p-4 sm:p-5 flex flex-col gap-4 min-w-0"
     >
       {/* Sticky uppercase eyebrow header */}
-      <div className="sticky top-[108px] z-20 py-2 -mt-2 bg-[#08080a]/90 backdrop-blur-md border-b border-white/[0.06] flex items-center justify-between">
-        <div className="flex items-center gap-2 min-w-0">
-          <span className="nexus-meta text-zinc-200 font-medium tracking-[0.25em] uppercase">
+      <div className="sticky top-[108px] z-20 py-2.5 -mt-2 bg-[#08080a]/95 backdrop-blur-md border-b border-white/[0.06] flex items-center justify-between gap-3">
+        <div className="min-w-0 flex items-baseline gap-1.5 overflow-hidden flex-1">
+          <span className="nexus-meta text-zinc-200 font-medium tracking-[0.2em] uppercase shrink-0">
             {columnKey}
           </span>
           {beatLabel && (
-            <span className="nexus-meta text-[11px] text-zinc-500 uppercase truncate">
-              / {beatLabel}
+            <span
+              className="nexus-meta text-[11px] text-zinc-500 uppercase truncate max-w-[110px] sm:max-w-[160px]"
+              title={beatLabel}
+            >
+              · {beatLabel}
             </span>
           )}
         </div>
-        <span className="nexus-meta text-zinc-500 text-[11px] px-2 py-0.5 rounded-full bg-white/[0.04]">
+
+        <span className="nexus-meta text-zinc-400 text-[11px] px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.06] shrink-0 tabular-nums">
           {items.length} {items.length === 1 ? 'ITEM' : 'ITEMS'}
         </span>
       </div>
