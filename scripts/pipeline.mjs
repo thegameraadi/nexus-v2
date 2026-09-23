@@ -1134,22 +1134,43 @@ function publish(dayDigest, agentLog) {
     status: 'ok',
   });
 
-  // If running inside GitHub Actions, commit and push
+  // If running inside GitHub Actions, commit and push with race-handling rebase & retry
   if (process.env.GITHUB_ACTIONS === 'true') {
     try {
       execSync('git config user.name "github-actions[bot]"');
       execSync('git config user.email "github-actions[bot]@users.noreply.github.com"');
       execSync('git add public/data/');
       const status = execSync('git status --porcelain').toString();
-      if (status.trim().length > 0) {
-        execSync(`git commit -m "chore(data): auto-publish daily briefing [${today}]"`);
-        execSync('git push');
-        console.log('[PUBLISH] Successfully committed and pushed to git repository.');
-      } else {
+      if (status.trim().length === 0) {
         console.log('[PUBLISH] No data changes to commit.');
+        return;
       }
-    } catch (gitErr) {
-      console.error('[PUBLISH] Git commit/push error:', gitErr.message);
+      execSync(`git commit -m "chore(data): auto-publish daily briefing [${today}]"`);
+    } catch (commitErr) {
+      console.error('[PUBLISH CRITICAL ERROR] Git staging/commit failed:', commitErr.message);
+      throw commitErr;
+    }
+
+    try {
+      console.log('[PUBLISH] Pushing briefing data to origin main...');
+      execSync('git push origin main');
+      console.log('[PUBLISH] Successfully committed and pushed to git repository.');
+    } catch (pushErr) {
+      console.warn('[PUBLISH] Initial git push rejected. Running git pull --rebase origin main to resolve race condition...');
+      try {
+        try {
+          execSync('git pull --rebase origin main');
+        } catch {
+          console.warn('[PUBLISH] Merge conflict during rebase. Favoring newly synthesized briefing data...');
+          execSync('git checkout --theirs public/data/ && git add public/data/ && GIT_EDITOR=true git rebase --continue');
+        }
+        console.log('[PUBLISH] Rebase successful. Retrying git push...');
+        execSync('git push origin main');
+        console.log('[PUBLISH] Successfully pushed after rebase retry.');
+      } catch (retryErr) {
+        console.error('[PUBLISH CRITICAL ERROR] Git push retry failed after rebase:', retryErr.message);
+        throw new Error(`Git publish failed to push to origin/main: ${retryErr.message}`);
+      }
     }
   }
 }
@@ -1158,11 +1179,28 @@ function publish(dayDigest, agentLog) {
 // MAIN ORCHESTRATION
 // ----------------------------------------------------------------------------
 async function main() {
+  let currentCommitSha = 'unknown';
+  let commitMessage = '';
+  try {
+    currentCommitSha = execSync('git rev-parse HEAD').toString().trim();
+    commitMessage = execSync('git log -1 --pretty=%B').toString().trim().split('\n')[0];
+  } catch {}
+
   console.log('================================================================');
   console.log('NEXUS v2 — Daily Agentic Synthesis Pipeline');
+  console.log(`Commit SHA:  ${currentCommitSha}`);
+  console.log(`Commit Msg:  ${commitMessage}`);
+  console.log(`Environment: ${process.env.GITHUB_ACTIONS === 'true' ? 'GitHub Actions CI' : 'Local Development'}`);
   console.log('================================================================');
 
   const agentLog = [];
+  agentLog.push({
+    timestamp: getFormattedTime(),
+    module: 'SCOUT',
+    message: `Pipeline active on commit ${currentCommitSha.substring(0, 7)}: "${commitMessage.substring(0, 50)}"`,
+    status: 'ok',
+  });
+
   const sourcesConfig = JSON.parse(fs.readFileSync(SOURCES_FILE, 'utf8'));
 
   try {

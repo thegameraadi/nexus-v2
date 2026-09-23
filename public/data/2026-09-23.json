@@ -1,0 +1,1005 @@
+{
+  "date": "2026-09-23",
+  "label": "Today",
+  "lastUpdated": "2026-09-23T00:12:40.352Z",
+  "agentLog": [
+    {
+      "timestamp": "00:12:32",
+      "module": "SCOUT",
+      "message": "Pipeline active on commit 67a3afd: \"fix: honest synthesis reporting, 7-day recency fil\"",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:12:32",
+      "module": "SCOUT",
+      "message": "Initializing ingestion pipeline across 5 beats (strict 7-day recency filter).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:12:40",
+      "module": "SCOUT",
+      "message": "Scouted 115 candidate signals across 5 beats (all within 7-day window).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:12:40",
+      "module": "RANK",
+      "message": "Initiating deduplication & 4-factor scoring heuristics (discriminating deals vs administrative noise).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:12:40",
+      "module": "RANK",
+      "message": "Deduplication dropped 0 redundant wires. 115 candidates evaluated.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:12:40",
+      "module": "SYNTH",
+      "message": "Selecting candidates clearing quality floor for synthesis.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:12:40",
+      "module": "SYNTH",
+      "message": "Deterministic synthesis produced 45 items (4 dropped for lack of substantive source text, LLM key not configured). Est cost: free tier.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:12:40",
+      "module": "EDITOR",
+      "message": "Computing composite 5-factor scores and executing non-destructive edition merge.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:12:40",
+      "module": "EDITOR",
+      "message": "Enforced column quotas and finalized DayDigest edition tree (45 dispatches).",
+      "status": "ok"
+    }
+  ],
+  "beats": {
+    "ai-venture": {
+      "columns": {
+        "venture": [
+          {
+            "id": "ai-venture-venture-20260923-21",
+            "source": "TechCrunch AI",
+            "date": "2026-09-22",
+            "headline": "Snorkel AI triples valuation to $3.5B as demand for AI training data booms",
+            "summary": "The seven-year-old startup has raised a $350 million Series E to fuel its data-as-a-service approach.",
+            "tag": "VENTURE",
+            "url": "https://techcrunch.com/2026/09/22/snorkel-ai-triples-valuation-to-3-5b-as-demand-for-ai-training-data-booms/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "venture",
+            "scores": {
+              "authority": 8.8,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 9.5,
+              "relevance": 8.7,
+              "total": 7.3
+            }
+          },
+          {
+            "id": "ai-venture-venture-20260923-22",
+            "source": "TechCrunch AI",
+            "date": "2026-09-22",
+            "headline": "Qualcomm launches two new smartphone chips with emphasis on AI",
+            "summary": "Qualcomm said that its new top chip can run 30B mixture-of-expert model locally.",
+            "tag": "VENTURE",
+            "url": "https://techcrunch.com/2026/09/22/qualcomm-launches-two-new-smartphone-chips-with-emphasis-on-ai/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "venture",
+            "scores": {
+              "authority": 8.8,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 5.2,
+              "relevance": 7.9,
+              "total": 6.3
+            }
+          },
+          {
+            "id": "ai-venture-venture-20260923-23",
+            "source": "TechCrunch AI",
+            "date": "2026-09-22",
+            "headline": "OpenAI launches GPT-6 Sol and Luna, boasting lower cost and fewer mistakes",
+            "summary": "OpenAI is launching two new models, which it says are cut from the same cloth as Astra.",
+            "tag": "VENTURE",
+            "url": "https://techcrunch.com/2026/09/22/openai-launches-gpt-6-sol-and-luna/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "venture",
+            "scores": {
+              "authority": 8.8,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 5.2,
+              "relevance": 7.9,
+              "total": 6.3
+            }
+          },
+          {
+            "id": "ai-venture-venture-20260923-24",
+            "source": "TechCrunch AI",
+            "date": "2026-09-22",
+            "headline": "TechCrunch Founder Summit’s agenda revealed: Unlock fundraising, hiring, and AI insights in Boston on November 4",
+            "summary": "Founders shouldn't have to learn the hardest lessons the hardest way. TechCrunch Founder Summit is designed to make the challenges of starting a company easier and the highs that much greater.",
+            "tag": "VENTURE",
+            "url": "https://techcrunch.com/2026/09/22/techcrunch-founder-summits-agenda-revealed-unlock-fundraising-hiring-and-ai-insights-in-boston-on-november-4/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "venture",
+            "scores": {
+              "authority": 8.8,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 9.2,
+              "total": 6.4
+            }
+          },
+          {
+            "id": "ai-venture-venture-20260923-25",
+            "source": "TechCrunch AI",
+            "date": "2026-09-22",
+            "headline": "Meta admits Muse's likeness to OpenClaw isn't a coincidence",
+            "summary": "Meta says Muse was built from scratch, but acknowledges the AI assistant was \"heavily inspired\" by OpenClaw — down to some of its workspace filenames and content.",
+            "tag": "VENTURE",
+            "url": "https://techcrunch.com/2026/09/22/meta-admits-muses-likeness-to-openclaw-isnt-a-coincidence/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "venture",
+            "scores": {
+              "authority": 8.8,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 9.2,
+              "total": 6.4
+            }
+          }
+        ],
+        "research": [
+          {
+            "id": "ai-venture-research-20260923-5",
+            "source": "arXiv Preprint",
+            "date": "2026-09-21",
+            "headline": "Rare Event Estimation via Iterative Unalignment",
+            "summary": "As agents are deployed with increased autonomy, even extremely rare events along their stochastic output trajectories can occur and prove catastrophic. Safe deployment therefore does not depend on whether these events can occur, but on how often they might. We study the problem of estimating the probability of rare events that arise from stochastic variation in the agent's own actions.",
+            "tag": "BENCHMARK",
+            "url": "http://arxiv.org/abs/2609.24969v1",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "research",
+            "scores": {
+              "authority": 9.5,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 9.5,
+              "relevance": 8.9,
+              "total": 7.5
+            }
+          },
+          {
+            "id": "ai-venture-research-20260923-6",
+            "source": "MIT Tech Review AI",
+            "date": "2026-09-21",
+            "headline": "4 ways to address the failures we found along the US border’s “virtual wall”",
+            "summary": "MIT Technology Review today published our investigation into how many people have died near the “virtual wall” of surveillance towers that the US government has installed along the US-Mexico border. We found cases of people who walked undetected through areas surveilled by advanced, AI-enabled towers and later died nearby, where their bodies remained unnoticed for.",
+            "tag": "RESEARCH",
+            "url": "https://www.technologyreview.com/2026/09/21/1144164/border-towers-surveillance-policy-recommendations/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "research",
+            "scores": {
+              "authority": 9.2,
+              "corroboration": 7.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 8.6,
+              "total": 7
+            }
+          },
+          {
+            "id": "ai-venture-research-20260923-7",
+            "source": "arXiv Preprint",
+            "date": "2026-09-21",
+            "headline": "GameHorizon Suite: Multi-Horizon Data and Evaluation in Gameplay",
+            "summary": "Modern video games provide a measurable testbed for AI models, combining abilities of visual understanding, instruction decomposition, goal planning, and precise action control over multiple temporal horizons. Existing datasets and benchmarks, however, either cover a narrow range of games, lack language instructions, or rely on high-variance online rollouts. To address these challenges, we introduce GameHorizon, a unified data and evaluation suite that measures gameplay capabilities at different horizons for diverse model families.",
+            "tag": "BENCHMARK",
+            "url": "http://arxiv.org/abs/2609.25001v1",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "research",
+            "scores": {
+              "authority": 9.5,
+              "corroboration": 4.5,
+              "novelty": 6.2,
+              "magnitude": 4.5,
+              "relevance": 8.2,
+              "total": 6.6
+            }
+          },
+          {
+            "id": "ai-venture-research-20260923-8",
+            "source": "arXiv Preprint",
+            "date": "2026-09-21",
+            "headline": "onPanda: Efficient Annotation of On-Policy Alignment Data for LLMs and Agents via Token-Level Correction",
+            "summary": "We present onPanda, an interactive tool for efficiently annotating LLM alignment data and agent trajectories. onPanda adopts token-level correction as its core interaction: while reading a model response, the annotator locates the first inappropriate token and either picks a substitute from the model's candidate tokens or types the correct text via free-form editing. The system then truncates everything after that position and continues generation from the corrected prefix, repeating this locate-correct-continue loop until a satisfactory response is obtained.",
+            "tag": "BENCHMARK",
+            "url": "http://arxiv.org/abs/2609.24983v1",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "research",
+            "scores": {
+              "authority": 9.5,
+              "corroboration": 4.5,
+              "novelty": 6.2,
+              "magnitude": 4.5,
+              "relevance": 8.2,
+              "total": 6.6
+            }
+          },
+          {
+            "id": "ai-venture-research-20260923-9",
+            "source": "arXiv Preprint",
+            "date": "2026-09-21",
+            "headline": "Harness-Zero: Harness Distillation via Agent-as-Harness",
+            "summary": "Agent harnesses, the external systems that mediate model-environment interaction, can substantially improve agent performance, but their gains remain tied to the harness at deployment. Because the best harness varies across domains, instances, and models, a general-purpose agent must either settle for a suboptimal shared harness or route among an ever-growing set of specialized ones. We therefore study agent harness distillation: using a domain- or instance-optimized harness as training-time guidance and transferring the behaviors it induces into model weights, so that its gains survive under a single fixed target harness.",
+            "tag": "REASONING",
+            "url": "http://arxiv.org/abs/2609.24974v1",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "research",
+            "scores": {
+              "authority": 9.5,
+              "corroboration": 4.5,
+              "novelty": 6.2,
+              "magnitude": 4.5,
+              "relevance": 8.2,
+              "total": 6.6
+            }
+          }
+        ],
+        "titans": [
+          {
+            "id": "ai-venture-titans-20260923-26",
+            "source": "The Verge AI",
+            "date": "2026-09-21",
+            "headline": "iPhone owners can now submit claims in Apple’s $250 million Siri AI settlement",
+            "summary": "Apple is paying $250 million to settle claims that it failed to deliver an AI-upgraded Siri - and now, eligible iPhone owners can submit a claim for a payout. If you live in the US and purchased an iPhone 15 Pro, iPhone 15 Pro Max, or any iPhone 16 model between June 10th, 2024, and.",
+            "tag": "TITANS",
+            "url": "https://www.theverge.com/tech/998191/apple-siri-ai-iphone-16-class-action-lawsuit-settlement",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "titans",
+            "scores": {
+              "authority": 8.7,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 8.2,
+              "relevance": 8.4,
+              "total": 7
+            }
+          },
+          {
+            "id": "ai-venture-titans-20260923-27",
+            "source": "The Verge AI",
+            "date": "2026-09-22",
+            "headline": "Andreessen Horowitz is launching an ‘academy’ with no homework and partnerships with Palantir, Google, and Meta",
+            "summary": "Venture capital firm Andreessen Horowitz (a16z) is creating an \"academy\" positioned as a pipeline for young people to build or join a Silicon Valley startup. The \"Horowitz Andreessen Academy\" will launch with 10 partners, including Anduril, Anthropic, Coinbase, Google, Meta, Nvidia, OpenAI, Palantir, Replit, and Stripe, along with $42 million in funding led by a16z.",
+            "tag": "PARTNERSHIP",
+            "url": "https://www.theverge.com/ai-artificial-intelligence/998813/andreessen-horowitz-ai-academy",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "titans",
+            "scores": {
+              "authority": 8.7,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 6.5,
+              "relevance": 8.1,
+              "total": 6.6
+            }
+          },
+          {
+            "id": "ai-venture-titans-20260923-28",
+            "source": "The Verge AI",
+            "date": "2026-09-22",
+            "headline": "Anthropic launches Claude Opus 5.5 with stricter safeguards for cybersecurity",
+            "summary": "Anthropic says its new Claude Opus 5.5 model comes with stronger safeguards in the wake of recent rogue AI hacking incidents. In an announcement on Tuesday, Anthropic says Opus 5.5 comes with improvements to certain risky behaviors, including attempts to escape the company's testing sandbox. It's the first model released by Anthropic after CEO Dario.",
+            "tag": "TITANS",
+            "url": "https://www.theverge.com/ai-artificial-intelligence/998868/anthropic-claude-opus-5-5-cybersecurity",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "titans",
+            "scores": {
+              "authority": 8.7,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 5.2,
+              "relevance": 7.8,
+              "total": 6.3
+            }
+          },
+          {
+            "id": "ai-venture-titans-20260923-29",
+            "source": "The Verge AI",
+            "date": "2026-09-22",
+            "headline": "Rabbit’s new AI agent doesn’t need an R1 to run",
+            "summary": "Rabbit, the company behind the underwhelming R1 device, is rolling out a standalone AI agent that you don't need its hardware to use, as reported earlier by Wired. The startup says its new OS3 \"agentic operating system\" runs in the cloud but operates locally across Windows, Mac, and Linux devices. According to Rabbit, you can.",
+            "tag": "TITANS",
+            "url": "https://www.theverge.com/ai-artificial-intelligence/999094/rabbit-ai-agent-os3",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "titans",
+            "scores": {
+              "authority": 8.7,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 9.2,
+              "total": 6.4
+            }
+          },
+          {
+            "id": "ai-venture-titans-20260923-30",
+            "source": "The Verge AI",
+            "date": "2026-09-22",
+            "headline": "Trump says the US is officially renaming AI to ‘super intelligence’",
+            "summary": "In a speech Tuesday morning at the UN General Assembly, Donald Trump railed against Iran, \"globalists,\" climate change, and transgender people while also claiming that the US is now \"officially\" renaming artificial intelligence to \"super intelligence.\" Oddly, this wasn't one of the entries in the poll Trump posted a few days ago when he started.",
+            "tag": "TITANS",
+            "url": "https://www.theverge.com/ai-artificial-intelligence/998816/donald-trump-ai-super-intelligence",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "titans",
+            "scores": {
+              "authority": 8.7,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 9.2,
+              "total": 6.4
+            }
+          }
+        ]
+      }
+    },
+    "politics": {
+      "columns": {
+        "regulatory": [
+          {
+            "id": "politics-regulatory-20260923-16",
+            "source": "FTC Press",
+            "date": "2026-09-17",
+            "headline": "FTC Takes Historic Action Against Multilevel Marketing Operator Amway for Unfair and Deceptive Business Practices",
+            "summary": "Proposed order will require Amway and two of its affiliates to pay $225 million, the largest monetary recovery ever collected from an MLM in an FTC action Amway Corp., one of the largest multilevel marketing companies in the U.S., and two of its affiliates—World Wide Group, L.L.C. (WWG) and Leadership Team Development Inc.",
+            "tag": "POLICY",
+            "url": "https://www.ftc.gov/news-events/news/press-releases/2026/09/ftc-takes-historic-action-against-multilevel-marketing-operator-amway-unfair-deceptive-business",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "politics",
+            "column": "regulatory",
+            "scores": {
+              "authority": 9.7,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 8.2,
+              "relevance": 8.7,
+              "total": 7.3
+            }
+          },
+          {
+            "id": "politics-regulatory-20260923-17",
+            "source": "FTC Press",
+            "date": "2026-09-17",
+            "headline": "FleetCor Agrees to Pay $100 Million to Resolve Administrative Action After Federal Court Finds that It Violated the FTC Act by Charging Unauthorized Fees",
+            "summary": "FTC alleged that the company, now known as Corpay, charged customers hidden or otherwise unauthorized fees and deceived users about savings from its fuel cards FleetCor and its CEO will pay $100 million to settle a Federal Trade Commission administrative action alleging that the company charged its customers, who overwhelmingly are small businesses, undisclosed fees in connection with their use of fuel cards that FleetCor falsely promised businesses would save them money.",
+            "tag": "POLICY",
+            "url": "https://www.ftc.gov/news-events/news/press-releases/2026/09/fleetcor-agrees-pay-100-million-resolve-administrative-action-after-federal-court-finds-it-violated",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "politics",
+            "column": "regulatory",
+            "scores": {
+              "authority": 9.7,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 8.2,
+              "relevance": 8.7,
+              "total": 7.3
+            }
+          },
+          {
+            "id": "politics-regulatory-20260923-18",
+            "source": "FTC Press",
+            "date": "2026-09-22",
+            "headline": "FTC Endorses Education Department Proposal to Expand Higher Education Accreditation Options",
+            "summary": "The Federal Trade Commission strongly endorsed the Department of Education’s proposed reforms to promote competition among accreditation agencies. Increased competition among accreditors and lower administrative burdens could lower the cost and improve the quality of higher education for millions of American students.",
+            "tag": "POLICY",
+            "url": "https://www.ftc.gov/news-events/news/press-releases/2026/09/ftc-endorses-education-department-proposal-expand-higher-education-accreditation-options",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "politics",
+            "column": "regulatory",
+            "scores": {
+              "authority": 9.7,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 8,
+              "total": 6.4
+            }
+          },
+          {
+            "id": "politics-regulatory-20260923-19",
+            "source": "FTC Press",
+            "date": "2026-09-17",
+            "headline": "FTC Announces Additional Payments to Consumers Stemming from FTC’s Amazon Prime Settlement",
+            "summary": "Under a revised order, more consumers will qualify for refunds with the maximum payment increased from $51 to $200.",
+            "tag": "POLICY",
+            "url": "https://www.ftc.gov/news-events/news/press-releases/2026/09/ftc-announces-additional-payments-consumers-stemming-ftcs-amazon-prime-settlement",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "politics",
+            "column": "regulatory",
+            "scores": {
+              "authority": 9.7,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 8,
+              "total": 6.4
+            }
+          },
+          {
+            "id": "politics-regulatory-20260923-20",
+            "source": "FTC Press",
+            "date": "2026-09-16",
+            "headline": "FTC Takes Action to Prevent Anticompetitive Arrangement in Beretta, Ruger Deal",
+            "summary": "FTC continues crackdown on competitors sharing company directors in violation of Section 8 of the Clayton Act The Federal Trade Commission took action to resolve antitrust concerns arising from a stock purchase agreement between two of the largest firearm manufacturers, Beretta Holding S.A. (Beretta) and Sturm, Ruger Co. (Ruger), by accepting a proposed consent order that prevents anticompetitive entanglements between the two companies.",
+            "tag": "POLICY",
+            "url": "https://www.ftc.gov/news-events/news/press-releases/2026/09/ftc-takes-action-prevent-anticompetitive-arrangement-beretta-ruger-deal",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "politics",
+            "column": "regulatory",
+            "scores": {
+              "authority": 9.7,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 8,
+              "total": 6.4
+            }
+          }
+        ],
+        "global": [],
+        "voices": [
+          {
+            "id": "politics-voices-20260923-31",
+            "source": "Foreign Policy",
+            "date": "2026-09-22",
+            "headline": "Don’t Expect Fireworks From the Trump-Xi Summit",
+            "summary": "Trade, minerals, and AI are on the agenda, but breakthroughs are unlikely.",
+            "tag": "POLICY",
+            "url": "https://foreignpolicy.com/2026/09/22/trump-xi-summit-china-us-ai-trade-critical-minerals-iran-taiwan/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "politics",
+            "column": "voices",
+            "scores": {
+              "authority": 8.8,
+              "corroboration": 4.5,
+              "novelty": 6.2,
+              "magnitude": 4.5,
+              "relevance": 8,
+              "total": 6.4
+            }
+          },
+          {
+            "id": "politics-voices-20260923-32",
+            "source": "Foreign Policy",
+            "date": "2026-09-22",
+            "headline": "A Tale of Two UNGA Speeches",
+            "summary": "President Donald Trump made threats, while outgoing U.N. Secretary-General António Guterres called for peace and multilateralism.",
+            "tag": "POLICY",
+            "url": "https://foreignpolicy.com/2026/09/22/unga-speech-guterres-trump-united-nations-zelensky/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "politics",
+            "column": "voices",
+            "scores": {
+              "authority": 8.8,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 9.2,
+              "total": 6.4
+            }
+          },
+          {
+            "id": "politics-voices-20260923-33",
+            "source": "Foreign Policy",
+            "date": "2026-09-22",
+            "headline": "Trump Threatens to ‘Annihilate’ Iran in U.N. Speech",
+            "summary": "stage, no less—could be considered war crimes.",
+            "tag": "POLICY",
+            "url": "https://foreignpolicy.com/2026/09/22/trump-unga-speech-annihilate-iran-icc-rogue-war-crimes/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "politics",
+            "column": "voices",
+            "scores": {
+              "authority": 8.8,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 9.2,
+              "total": 6.4
+            }
+          },
+          {
+            "id": "politics-voices-20260923-34",
+            "source": "Foreign Policy",
+            "date": "2026-09-22",
+            "headline": "Xi Comes to Washington Armed With a Rare-Earth Card",
+            "summary": "Trump still doesn’t have an answer to China’s leverage.",
+            "tag": "POLICY",
+            "url": "https://foreignpolicy.com/2026/09/22/china-rare-earth-xi-trump-meeting-summit/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "politics",
+            "column": "voices",
+            "scores": {
+              "authority": 8.8,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 9.2,
+              "total": 6.4
+            }
+          },
+          {
+            "id": "politics-voices-20260923-35",
+            "source": "Foreign Policy",
+            "date": "2026-09-22",
+            "headline": "The West Is Sending Russia the Wrong Signals",
+            "summary": "Europe’s fear of escalation is encouraging Putin.",
+            "tag": "POLICY",
+            "url": "https://foreignpolicy.com/2026/09/22/ukraine-putin-russia-signaling-trump-germany/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "politics",
+            "column": "voices",
+            "scores": {
+              "authority": 8.8,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 9.2,
+              "total": 6.4
+            }
+          }
+        ]
+      }
+    },
+    "markets": {
+      "columns": {
+        "macro": [
+          {
+            "id": "markets-macro-20260923-36",
+            "source": "MarketWatch Top",
+            "date": "2026-09-22",
+            "headline": "The Nasdaq&#x2019;s rapid rise to a record is sending a message to investors: Don&#x2019;t wait for a pullback to buy",
+            "summary": "Some analysts say the upbeat data on the Nasdaq&#x2019;s outlook is backed up by improving fundamentals.",
+            "tag": "EQUITIES",
+            "url": "https://www.marketwatch.com/story/the-nasdaqs-rapid-rise-to-a-record-is-sending-a-message-to-investors-dont-wait-for-a-pullback-to-buy-5f533ed8?mod=mw_rss_topstories",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "markets",
+            "column": "macro",
+            "scores": {
+              "authority": 8.8,
+              "corroboration": 4.5,
+              "novelty": 6.2,
+              "magnitude": 4.5,
+              "relevance": 8,
+              "total": 6.4
+            }
+          },
+          {
+            "id": "markets-macro-20260923-37",
+            "source": "MarketWatch Top",
+            "date": "2026-09-22",
+            "headline": "My husband and I are in our 50s and have no kids. We have $2 million in IRAs and 401(k)s. Do we really need a will?",
+            "summary": "&#x201c;We have no debt and own our primary home, a vacation home, as well as my mother&#x2019;s home in another state.&#x201d.",
+            "tag": "MARKETS",
+            "url": "https://www.marketwatch.com/story/my-husband-and-i-are-in-our-50s-and-have-no-kids-we-have-2-million-do-we-need-a-will-62fb422f?mod=mw_rss_topstories",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "markets",
+            "column": "macro",
+            "scores": {
+              "authority": 8.8,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 5.5,
+              "relevance": 7.9,
+              "total": 6.4
+            }
+          },
+          {
+            "id": "markets-macro-20260923-38",
+            "source": "MarketWatch Top",
+            "date": "2026-09-22",
+            "headline": "Sandisk&#x2019;s stock is rising: Why one analyst says AI could help it reach new heights",
+            "summary": "Larger AI models and inference are turning NAND from a commodity into a critical component, a Rosenblatt analyst said.",
+            "tag": "MARKETS",
+            "url": "https://www.marketwatch.com/story/sandisks-stock-is-rising-why-one-analyst-says-ai-could-help-it-reach-new-heights-5541ded8?mod=mw_rss_topstories",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "markets",
+            "column": "macro",
+            "scores": {
+              "authority": 8.8,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 9.2,
+              "total": 6.4
+            }
+          },
+          {
+            "id": "markets-macro-20260923-39",
+            "source": "MarketWatch Top",
+            "date": "2026-09-22",
+            "headline": "Want to bet on risky, high-beta stocks? Why you should wait for mid-October.",
+            "summary": "Coming soon is one of the only weeks of the year in which aggressive traders should bet that the highest-beta stocks will beat the lowest ones.",
+            "tag": "EQUITIES",
+            "url": "https://www.marketwatch.com/story/want-to-bet-on-risky-high-beta-stocks-why-you-should-wait-for-this-week-in-october-d9094820?mod=mw_rss_topstories",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "markets",
+            "column": "macro",
+            "scores": {
+              "authority": 8.8,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 9.2,
+              "total": 6.4
+            }
+          },
+          {
+            "id": "markets-macro-20260923-40",
+            "source": "MarketWatch Top",
+            "date": "2026-09-22",
+            "headline": "Could Meta&#x2019;s viral Muse app be the company&#x2019;s ChatGPT moment?",
+            "summary": "Meta&#x2019;s new assistant is topping App Store charts and beating ChatGPT&#x2019;s early download pace, spurring renewed confidence in the company&#x2019;s AI strategy.",
+            "tag": "MARKETS",
+            "url": "https://www.marketwatch.com/story/could-metas-viral-muse-app-be-the-companys-chatgpt-moment-8e7075aa?mod=mw_rss_topstories",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "markets",
+            "column": "macro",
+            "scores": {
+              "authority": 8.8,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 9.2,
+              "total": 6.4
+            }
+          }
+        ],
+        "company-moves": [
+          {
+            "id": "markets-company-moves-20260923-1",
+            "source": "SEC EDGAR / 8-K",
+            "date": "2026-09-18",
+            "headline": "Permianville Royalty Trust  (PVL)  (CIK 0001520048) Discloses Material Operations in Form 8-K",
+            "summary": "SEC regulatory submission filed by Permianville Royalty Trust (PVL) (CIK 0001520048). Form 8-K detailing material operations and capital restructuring.",
+            "tag": "MARKETS",
+            "url": "https://www.sec.gov/edgar/browse/?CIK=0001520048",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "markets",
+            "column": "company-moves",
+            "scores": {
+              "authority": 9.6,
+              "corroboration": 9,
+              "novelty": 5,
+              "magnitude": 8.2,
+              "relevance": 8.3,
+              "total": 8.1
+            }
+          },
+          {
+            "id": "markets-company-moves-20260923-2",
+            "source": "SEC EDGAR / 8-K",
+            "date": "2026-09-18",
+            "headline": "Omega Flex, Inc.  (OFLX)  (CIK 0001317945) Discloses Material Operations in Form 8-K",
+            "summary": "SEC regulatory submission filed by Omega Flex, Inc. Form 8-K detailing material operations and capital restructuring.",
+            "tag": "MARKETS",
+            "url": "https://www.sec.gov/edgar/browse/?CIK=0001317945",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "markets",
+            "column": "company-moves",
+            "scores": {
+              "authority": 9.6,
+              "corroboration": 9,
+              "novelty": 5,
+              "magnitude": 8.2,
+              "relevance": 8.3,
+              "total": 8.1
+            }
+          },
+          {
+            "id": "markets-company-moves-20260923-3",
+            "source": "SEC EDGAR / 8-K",
+            "date": "2026-09-21",
+            "headline": "Algorhythm Holdings, Inc.  (RIME)  (CIK 0000923601) Discloses Material Operations in Form 8-K",
+            "summary": "SEC regulatory submission filed by Algorhythm Holdings, Inc. Form 8-K detailing material operations and capital restructuring.",
+            "tag": "MARKETS",
+            "url": "https://www.sec.gov/edgar/browse/?CIK=0000923601",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "markets",
+            "column": "company-moves",
+            "scores": {
+              "authority": 9.6,
+              "corroboration": 9,
+              "novelty": 5,
+              "magnitude": 8.2,
+              "relevance": 8.3,
+              "total": 8.1
+            }
+          },
+          {
+            "id": "markets-company-moves-20260923-4",
+            "source": "SEC EDGAR / 10-Q",
+            "date": "2026-09-22",
+            "headline": "AIRWA INC.  (YYAI)  (CIK 0001674440) Discloses Material Operations in Form 10-Q",
+            "summary": "SEC regulatory submission filed by AIRWA INC. Form 10-Q detailing material operations and capital restructuring.",
+            "tag": "MARKETS",
+            "url": "https://www.sec.gov/edgar/browse/?CIK=0001674440",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "markets",
+            "column": "company-moves",
+            "scores": {
+              "authority": 9.6,
+              "corroboration": 9,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 9.1,
+              "total": 7.5
+            }
+          }
+        ],
+        "analysts": []
+      }
+    },
+    "science": {
+      "columns": {
+        "frontier": [
+          {
+            "id": "science-frontier-20260923-10",
+            "source": "arXiv Preprint",
+            "date": "2026-09-21",
+            "headline": "Nucleosome simulations suggest mechanisms of electrostatically-driven mesoscale chromatin evolution",
+            "summary": "Nucleosomes are structures made up of proteins called histones that bind and compact DNA, driving the mesoscale organization of the chromatin polymer. Although histone proteins have diversified over evolutionary time, their contributions to the corresponding diversification of chromatin structure are poorly understood. Here, we mine protein databases for histones and create \\emph{in silico} nucleosomes for 3241 organisms spanning $>$1.5B years of evolution.",
+            "tag": "SCIENCE",
+            "url": "http://arxiv.org/abs/2609.24907v1",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "science",
+            "column": "frontier",
+            "scores": {
+              "authority": 9.6,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 9.1,
+              "relevance": 8.9,
+              "total": 7.5
+            }
+          }
+        ]
+      }
+    },
+    "culture": {
+      "columns": {
+        "industry": [
+          {
+            "id": "culture-industry-20260923-41",
+            "source": "Wired Culture",
+            "date": "2026-09-22",
+            "headline": "Patti Harrison Had Dreams of a Tech Utopia. Silicon Valley Smashed Them",
+            "summary": "The comedian sat down with WIRED to talk about social media, AI, and getting laughs for impersonating Boston Dynamics’ robot dogs.",
+            "tag": "REPORT",
+            "url": "https://www.wired.com/story/big-interview-patti-harrison/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "culture",
+            "column": "industry",
+            "scores": {
+              "authority": 8.9,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 9.2,
+              "total": 6.4
+            }
+          },
+          {
+            "id": "culture-industry-20260923-42",
+            "source": "Wired Culture",
+            "date": "2026-09-20",
+            "headline": "Welcome to Dogs Anonymous, the Online Support Group for Pet Owners on the Brink",
+            "summary": "“This is a place where you can come and say, I fucking hate my dog today,” a Dogs Anonymous cofounder tells WIRED. “And there are people who are going to be like, yeah, that was me last Tuesday.”.",
+            "tag": "REPORT",
+            "url": "https://www.wired.com/story/inside-dogs-anonymous-the-online-support-group-for-people-with-difficult-dogs/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "culture",
+            "column": "industry",
+            "scores": {
+              "authority": 8.9,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 9.2,
+              "total": 6.4
+            }
+          },
+          {
+            "id": "culture-industry-20260923-43",
+            "source": "Wired Culture",
+            "date": "2026-09-18",
+            "headline": "Submit Your Questions: Why Is Silicon Valley Still a Boys’ Club?",
+            "summary": "How are women really faring in Silicon Valley? Submit your questions to our panel and we'll give you the scoop on September 24.",
+            "tag": "REPORT",
+            "url": "https://www.wired.com/story/livestream-women-in-tech/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "culture",
+            "column": "industry",
+            "scores": {
+              "authority": 8.9,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 9.2,
+              "total": 6.4
+            }
+          },
+          {
+            "id": "culture-industry-20260923-44",
+            "source": "Wired Culture",
+            "date": "2026-09-17",
+            "headline": "‘Fast & Furious’ Takes a Victory Lap With a Ferociously Fun Roller Coaster",
+            "summary": "Vin Diesel, the star of the series, didn’t make a planned appearance at the grand opening of its dynamite new theme park ride. But it didn’t stop his fans from having a good time.",
+            "tag": "REPORT",
+            "url": "https://www.wired.com/story/fast-and-furious-roller-coaster/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "culture",
+            "column": "industry",
+            "scores": {
+              "authority": 8.9,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 9.2,
+              "total": 6.4
+            }
+          },
+          {
+            "id": "culture-industry-20260923-45",
+            "source": "Wired Culture",
+            "date": "2026-09-16",
+            "headline": "The Best Movies to Stream This Month (September 2026)",
+            "summary": "The Mandalorian and Grogu, The Wild Robot, and Obsession are among the must-watch films arriving this month.",
+            "tag": "REPORT",
+            "url": "https://www.wired.com/story/the-8-best-movies-to-stream-right-now/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "culture",
+            "column": "industry",
+            "scores": {
+              "authority": 8.9,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 9.2,
+              "total": 6.4
+            }
+          }
+        ],
+        "voices": [
+          {
+            "id": "culture-voices-20260923-11",
+            "source": "The Atlantic Ideas",
+            "date": "2026-09-22",
+            "headline": "Israel Can’t Postpone Its Reckoning Forever",
+            "summary": "This article was featured in the One Story to Read Today newsletter. O n October 13 of last year, Hamas released its last living Israeli hostages—20 Jews in various states of disrepair. And Israel, along with a remarkably small fraction of the rest of the world, allowed itself a brief moment to celebrate.",
+            "tag": "REPORT",
+            "url": "https://www.theatlantic.com/ideas/2026/09/israel-secular-religious-divide/688649/?utm_source=feed",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "culture",
+            "column": "voices",
+            "scores": {
+              "authority": 9,
+              "corroboration": 4.5,
+              "novelty": 6.2,
+              "magnitude": 8.2,
+              "relevance": 8.8,
+              "total": 7.4
+            }
+          },
+          {
+            "id": "culture-voices-20260923-12",
+            "source": "The Atlantic Ideas",
+            "date": "2026-09-22",
+            "headline": "David Ellison Will Get Control of CNN After All",
+            "summary": "Eighteen months ago, David Ellison was mostly known as an ATM for Hollywood producers seeking to pad out budgets for dad-core flicks such as Jack Ryan: Shadow Recruit , Jack Reacher: Never Go Back , and Transformers: Rise of the Beasts . But now, thanks to a timely reallocation of his father’s money , he’s set to be one of the biggest news-media moguls in American history. Having already taken control of CBS News—with little to show for it audience-wise but plenty ideologically —he seems clear to add CNN to his roster of outlets.",
+            "tag": "REPORT",
+            "url": "https://www.theatlantic.com/ideas/2026/09/david-ellison-cnn-control/688740/?utm_source=feed",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "culture",
+            "column": "voices",
+            "scores": {
+              "authority": 9,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 9.1,
+              "relevance": 8.7,
+              "total": 7.3
+            }
+          },
+          {
+            "id": "culture-voices-20260923-13",
+            "source": "The Atlantic Ideas",
+            "date": "2026-09-21",
+            "headline": "The Curious Left-Wing Argument Against New AI Regulations",
+            "summary": "ET on September 21, 2026 D onald Trump has reacted to terrifying calls for regulation from inside the AI industry with predictable skepticism— insisting , questionably, that the solution requires nothing more than having a “High IQ” president, and further asserting, even more questionably, that he qualifies as one. A more surprising flank of opposition has arisen from a different source: the populist left, which has suggested that existing regulations would be perfectly adequate to rein in a rogue superintelligence bent on eliminating the human race. An article in The American Prospect by Whitney Curry Wimbish and David Dayen, headlined “Congressional Democrats in Hysterics About Saving the World From AI,” argues that the danger from runaway AI is overblown and that no new laws are needed to contain it.",
+            "tag": "REPORT",
+            "url": "https://www.theatlantic.com/ideas/2026/09/ai-regulation-anti-monopoly-challenge/688707/?utm_source=feed",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "culture",
+            "column": "voices",
+            "scores": {
+              "authority": 9,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 8.2,
+              "relevance": 8.5,
+              "total": 7.1
+            }
+          },
+          {
+            "id": "culture-voices-20260923-14",
+            "source": "The Atlantic Ideas",
+            "date": "2026-09-21",
+            "headline": "In Defense of Guilt by Association",
+            "summary": "Sign up for Inside the Trump Presidency , a newsletter featuring coverage of the second Trump term. Vance and Abdul El-Sayed have very little in common ideologically and seem to like each other even less. As part of a nasty exchange of personal insults last month, the Democratic nominee for Senate in Michigan implied that Vance’s grandfather would disapprove of the vice president’s Indian American wife.",
+            "tag": "REPORT",
+            "url": "https://www.theatlantic.com/ideas/2026/09/vance-sayed-piker-carlson-friendships/688657/?utm_source=feed",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "culture",
+            "column": "voices",
+            "scores": {
+              "authority": 9,
+              "corroboration": 4.5,
+              "novelty": 6.2,
+              "magnitude": 4.5,
+              "relevance": 8.1,
+              "total": 6.5
+            }
+          },
+          {
+            "id": "culture-voices-20260923-15",
+            "source": "The Atlantic Ideas",
+            "date": "2026-09-21",
+            "headline": "How to Regulate the Ghosts",
+            "summary": "Ghostbusters is a movie about friendship and slime and the specific melting point of giant marshmallows—which makes it easy to forget that it’s also a movie about regulation. The catastrophe at its center begins when Walter Peck (William Atherton), a bureaucrat from the Environmental Protection Agency, visits the basement of the Ghostbusters’ headquarters and finds a machine he does not understand. The nerdy scientist Egon Spengler (Harold Ramis) explains that it’s a containment system; shutting it off would be “like dropping a bomb on the city.” Peck doesn’t believe in ghosts, and he sure doesn’t believe in the Ghostbusters, so he orders an electrician to turn the machine off.",
+            "tag": "REPORT",
+            "url": "https://www.theatlantic.com/ideas/2026/09/ai-regulation-trump/688726/?utm_source=feed",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "culture",
+            "column": "voices",
+            "scores": {
+              "authority": 9,
+              "corroboration": 4.5,
+              "novelty": 3.5,
+              "magnitude": 7.5,
+              "relevance": 8,
+              "total": 6.5
+            }
+          }
+        ]
+      }
+    }
+  }
+}
