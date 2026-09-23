@@ -302,8 +302,14 @@ async function listAvailableModels(apiKey) {
   }
 }
 
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 /**
- * Invokes Gemini API across prioritized model endpoints, disabling dead models immediately.
+ * Invokes Gemini API across prioritized curated model endpoints.
+ * Handles 503 exponential backoff (2s, 4s, 8s, max 3 attempts per model).
+ * Handles 429 quota exhaustion (immediately disables all models for the run).
+ * Handles 400 as request/model incompatibility (disables that specific model).
+ * Handles 401/403 as auth failures.
  */
 async function callGemini(item, apiKey, candidateModels, disabledModels) {
   const sanitizedText = sanitizeBoilerplate(item.rawText);
@@ -327,75 +333,127 @@ Context: ${sanitizedText || item.headline}`;
 
   let lastStatus = 0;
   let lastErr = '';
+  const backoffs = [2000, 4000, 8000];
 
   for (const model of candidateModels) {
     if (disabledModels.has(model)) {
       continue;
     }
 
-    try {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 10000);
+    let attempt = 0;
+    const maxAttempts = 3;
 
-      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-goog-api-key': apiKey,
-        },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: {
-            responseMimeType: 'application/json',
-            temperature: 0.2,
+    while (attempt < maxAttempts) {
+      attempt++;
+      try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 12000);
+
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-goog-api-key': apiKey,
           },
-        }),
-        signal: controller.signal,
-      });
-      clearTimeout(timeout);
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: {
+              responseMimeType: 'application/json',
+              temperature: 0.2,
+            },
+          }),
+          signal: controller.signal,
+        });
+        clearTimeout(timeout);
 
-      lastStatus = res.status;
-      if (res.ok) {
-        const result = await res.json();
-        const jsonText = result.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (!jsonText) throw new Error('Empty candidate response');
-        let parsed;
-        try {
-          parsed = JSON.parse(jsonText);
-        } catch {
-          const cleaned = jsonText.replace(/^```(?:json)?\s*/, '').replace(/\s*```$/, '').trim();
-          parsed = JSON.parse(cleaned);
+        lastStatus = res.status;
+        if (res.ok) {
+          const result = await res.json();
+          const jsonText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (!jsonText) throw new Error('Empty candidate response');
+          let parsed;
+          try {
+            parsed = JSON.parse(jsonText);
+          } catch {
+            const cleaned = jsonText.replace(/^```(?:json)?\s*/, '').replace(/\s*```$/, '').trim();
+            parsed = JSON.parse(cleaned);
+          }
+          const pTokens = result.usageMetadata?.promptTokenCount || 250;
+          const cTokens = result.usageMetadata?.candidatesTokenCount || 80;
+          return {
+            success: true,
+            model,
+            parsed,
+            promptTokens: pTokens,
+            candidatesTokens: cTokens,
+          };
         }
-        const pTokens = result.usageMetadata?.promptTokenCount || 250;
-        const cTokens = result.usageMetadata?.candidatesTokenCount || 80;
-        return {
-          success: true,
-          model,
-          parsed,
-          promptTokens: pTokens,
-          candidatesTokens: cTokens,
-        };
-      } else {
+
         const errBody = await res.text().catch(() => '');
         lastErr = errBody;
         console.error(`[SYNTH LLM ERROR] Model ${model} HTTP ${res.status}: ${errBody.slice(0, 180)}`);
 
-        // Mark dead models (404, 403, 410) as unavailable for the rest of this run
-        if (res.status === 404 || res.status === 403 || res.status === 410) {
-          disabledModels.add(model);
-          console.warn(`[SYNTH] Model ${model} returned HTTP ${res.status}. Marking model as unavailable for this run.`);
-        } else if (res.status === 400 && (errBody.includes('API key') || errBody.includes('not valid') || errBody.includes('INVALID_ARGUMENT'))) {
+        // Handle 429: Quota exhausted - stop ALL LLM calls for this run immediately
+        if (res.status === 429) {
+          console.warn(`[SYNTH] Quota exhausted (HTTP 429). Halting all LLM calls for this run.`);
           for (const m of candidateModels) disabledModels.add(m);
-          console.warn(`[SYNTH] API key rejected with HTTP 400. Disabling LLM calls for this run.`);
-          break;
-        } else {
+          return {
+            success: false,
+            status: 429,
+            quotaExhausted: true,
+            error: errBody,
+          };
+        }
+
+        // Handle 503: Service temporarily overloaded - wait 2s, 4s, 8s, max 3 attempts per model
+        if (res.status === 503) {
+          if (attempt < maxAttempts) {
+            const delay = backoffs[attempt - 1] || 2000;
+            console.warn(`[SYNTH] Model ${model} temporarily overloaded (HTTP 503). Retrying in ${delay / 1000}s (attempt ${attempt}/${maxAttempts})...`);
+            await sleep(delay);
+            continue;
+          } else {
+            console.warn(`[SYNTH] Model ${model} still 503 after ${maxAttempts} attempts. Moving to next candidate.`);
+            disabledModels.add(model);
+            break;
+          }
+        }
+
+        // Handle 401 / 403: Authentication or permission failure
+        if (res.status === 401 || res.status === 403) {
+          console.warn(`[SYNTH] Authentication failed (HTTP ${res.status}). Disabling LLM calls for this run.`);
+          for (const m of candidateModels) disabledModels.add(m);
+          return {
+            success: false,
+            status: res.status,
+            authFailure: true,
+            error: errBody,
+          };
+        }
+
+        // Handle 400: Request/model incompatibility (e.g. non-text model, bad format)
+        if (res.status === 400) {
+          console.warn(`[SYNTH] Model ${model} returned HTTP 400 (request/model incompatibility). Disabling this model.`);
           disabledModels.add(model);
           break;
         }
+
+        // Handle 404 / 410: Model not found / deprecated
+        if (res.status === 404 || res.status === 410) {
+          console.warn(`[SYNTH] Model ${model} returned HTTP ${res.status}. Marking model unavailable.`);
+          disabledModels.add(model);
+          break;
+        }
+
+        // Any other non-200 code
+        disabledModels.add(model);
+        break;
+      } catch (err) {
+        console.error(`[SYNTH LLM EXCEPTION] Model ${model}:`, err.message);
+        lastErr = err.message;
+        disabledModels.add(model);
+        break;
       }
-    } catch (err) {
-      console.error(`[SYNTH LLM EXCEPTION] Model ${model}:`, err.message);
-      lastErr = err.message;
     }
   }
 
@@ -875,40 +933,44 @@ async function synth(rankedCandidates, agentLog) {
   let lastLlmErrorStatus = null;
 
   const apiKey = process.env.GEMINI_API_KEY || process.env.LLM_API_KEY;
-  let candidateModels = ['gemini-3.6-flash', 'gemini-3.5-flash', 'gemini-3.5-flash-lite'];
+  const curatedCandidates = ['gemini-3.6-flash', 'gemini-3.5-flash', 'gemini-3.5-flash-lite'];
+  let candidateModels = [...curatedCandidates];
   const disabledModels = new Set();
+  let quotaExhausted = false;
+  let authFailed = false;
 
-  // Pre-flight: Call ListModels once to inspect which models are active for this key
+  // Pre-flight: Call ListModels once to VERIFY curated candidate list against available models
   if (apiKey) {
     const listRes = await listAvailableModels(apiKey);
     if (listRes.success) {
       const active = listRes.models;
-      const flash = active.filter((m) => /flash/i.test(m));
-      console.log(`[SYNTH] ListModels verified ${active.length} active models (flash: ${flash.join(', ') || 'none'}).`);
+      const verified = curatedCandidates.filter((m) => active.includes(m));
+      const missing = curatedCandidates.filter((m) => !active.includes(m));
+
+      console.log(`[SYNTH] ListModels verified curated models: ${verified.join(', ') || 'none'}. Missing: ${missing.join(', ') || 'none'}.`);
       agentLog.push({
         timestamp: getFormattedTime(),
         module: 'SYNTH',
-        message: `Available Gemini models: ${flash.length > 0 ? flash.join(', ') : active.slice(0, 5).join(', ')}.`,
-        status: 'ok',
+        message: `Verified curated models: ${verified.length > 0 ? verified.join(', ') : 'none'}${missing.length > 0 ? ` (missing: ${missing.join(', ')})` : ''}.`,
+        status: verified.length > 0 ? 'ok' : 'warn',
       });
 
-      // Prioritize active flash models discovered from the API key
-      const activePrioritized = candidateModels.filter((m) => active.includes(m));
-      const otherActiveFlash = active.filter((m) => /flash/i.test(m) && !candidateModels.includes(m));
-      if (activePrioritized.length > 0 || otherActiveFlash.length > 0) {
-        candidateModels = [...new Set([...activePrioritized, ...otherActiveFlash, ...candidateModels])];
+      // ONLY ever call models from the curated candidate list!
+      if (verified.length > 0) {
+        candidateModels = verified;
       }
     } else {
       console.warn(`[SYNTH] ListModels query failed: HTTP ${listRes.status || 'error'}: ${listRes.error?.slice(0, 150)}`);
       agentLog.push({
         timestamp: getFormattedTime(),
         module: 'SYNTH',
-        message: `ListModels query returned HTTP ${listRes.status || 'error'}. Attempting candidate models (${candidateModels.join(', ')}).`,
+        message: `ListModels query returned HTTP ${listRes.status || 'error'}. Attempting curated models (${candidateModels.join(', ')}).`,
         status: 'warn',
       });
       if (listRes.status) {
         lastLlmErrorStatus = listRes.status;
-        if (listRes.status === 400 || listRes.status === 401 || listRes.status === 403) {
+        if (listRes.status === 401 || listRes.status === 403) {
+          authFailed = true;
           for (const m of candidateModels) disabledModels.add(m);
         }
       }
@@ -918,8 +980,8 @@ async function synth(rankedCandidates, agentLog) {
   for (const item of selectedForSynthesis) {
     const sanitizedText = sanitizeBoilerplate(item.rawText);
 
-    // Attempt LLM synthesis if API key is provided and viable candidate models remain
-    if (apiKey) {
+    // Attempt LLM synthesis if API key is provided, quota is not exhausted, and auth succeeded
+    if (apiKey && !quotaExhausted && !authFailed) {
       const viableModels = candidateModels.filter((m) => !disabledModels.has(m));
       if (viableModels.length > 0) {
         const geminiRes = await callGemini(item, apiKey, viableModels, disabledModels);
@@ -944,7 +1006,13 @@ async function synth(rankedCandidates, agentLog) {
           });
           continue;
         } else {
-          if (!lastLlmErrorStatus && geminiRes.status) {
+          if (geminiRes.quotaExhausted) {
+            quotaExhausted = true;
+          }
+          if (geminiRes.authFailure) {
+            authFailed = true;
+          }
+          if (geminiRes.status) {
             lastLlmErrorStatus = geminiRes.status;
           }
         }
@@ -1003,22 +1071,29 @@ async function synth(rankedCandidates, agentLog) {
       status: 'ok',
     });
   } else {
-    let message = `Deterministic synthesis produced ${synthesized.length} items (${droppedForLackOfSubstance} dropped for lack of substantive source text, LLM key not configured). Est cost: free tier.`;
+    let reasonDetail = 'LLM key not configured';
     if (apiKey) {
-      const allCandidatesDisabled = candidateModels.every((m) => disabledModels.has(m));
-      if (allCandidatesDisabled || lastLlmErrorStatus === 404) {
-        message = `Deterministic synthesis (no LLM model available: all endpoints returned 404). Produced ${synthesized.length} items. Est cost: free tier.`;
+      if (quotaExhausted || lastLlmErrorStatus === 429) {
+        reasonDetail = 'LLM quota exhausted, HTTP 429';
+      } else if (lastLlmErrorStatus === 503) {
+        reasonDetail = 'LLM temporarily unavailable, HTTP 503';
+      } else if (authFailed || lastLlmErrorStatus === 401 || lastLlmErrorStatus === 403) {
+        reasonDetail = `LLM authentication failed, HTTP ${lastLlmErrorStatus}`;
+      } else if (lastLlmErrorStatus === 404) {
+        reasonDetail = 'no LLM model available: all endpoints returned 404';
+      } else if (lastLlmErrorStatus === 400) {
+        reasonDetail = 'request/model incompatibility, HTTP 400';
       } else if (lastLlmErrorStatus) {
-        message = `Deterministic synthesis produced ${synthesized.length} items (LLM call failed with HTTP ${lastLlmErrorStatus}). Est cost: free tier.`;
+        reasonDetail = `LLM call failed with HTTP ${lastLlmErrorStatus}`;
       } else {
-        message = `Deterministic synthesis produced ${synthesized.length} items (LLM endpoints unavailable). Est cost: free tier.`;
+        reasonDetail = 'no LLM model available: all endpoints returned 404';
       }
     }
 
     agentLog.push({
       timestamp: getFormattedTime(),
       module: 'SYNTH',
-      message,
+      message: `Deterministic synthesis (${reasonDetail}). Produced ${synthesized.length} items (${droppedForLackOfSubstance} dropped for lack of substantive source text). Est cost: free tier.`,
       status: 'ok',
     });
   }
