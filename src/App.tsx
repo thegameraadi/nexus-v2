@@ -33,7 +33,10 @@ export const App: React.FC = () => {
   // Index of available dates
   const [indexEntries, setIndexEntries] = useState<IndexEntry[]>([]);
   const [activeDate, setActiveDate] = useState<string>(initialDate);
-  const [activeLabel, setActiveLabel] = useState<string>('Today');
+
+  // Dynamically compute current edition label anchored to latest available edition in reader local time
+  const latestEditionDate = indexEntries.length > 0 ? indexEntries[0].date : activeDate;
+  const currentEditionLabel = getReaderLocalEditionLabel(activeDate, latestEditionDate);
 
   // Active day's digest (defaults to clean unpopulated empty digest)
   const [digest, setDigest] = useState<DayDigest>(() => createEmptyDigest(initialDate, 'Today'));
@@ -103,19 +106,16 @@ export const App: React.FC = () => {
         if (Array.isArray(data) && data.length > 0) {
           setIndexEntries(data);
           setActiveDate(data[0].date);
-          setActiveLabel(getReaderLocalEditionLabel(data[0].date));
         } else {
           // Empty index on clean install / zero editions
           setIndexEntries([]);
           setActiveDate(initialDate);
-          setActiveLabel(getReaderLocalEditionLabel(initialDate));
         }
       })
       .catch((err) => {
         console.info('No external /data/index.json found, running with clean default edition:', err.message);
         setIndexEntries([]);
         setActiveDate(initialDate);
-        setActiveLabel(getReaderLocalEditionLabel(initialDate));
       });
   }, [initialDate]);
 
@@ -131,21 +131,19 @@ export const App: React.FC = () => {
       .then((data: DayDigest) => {
         if (data && data.beats) {
           setDigest(data);
-          setActiveLabel(getReaderLocalEditionLabel(activeDate));
         } else {
-          setDigest(createEmptyDigest(activeDate, getReaderLocalEditionLabel(activeDate)));
+          setDigest(createEmptyDigest(activeDate, currentEditionLabel));
         }
       })
       .catch(() => {
         // If file does not exist on disk, render clean unpopulated edition for that date
-        setDigest(createEmptyDigest(activeDate, getReaderLocalEditionLabel(activeDate)));
+        setDigest(createEmptyDigest(activeDate, currentEditionLabel));
       });
-  }, [activeDate]);
+  }, [activeDate, currentEditionLabel]);
 
   const handleSelectDate = (date: string) => {
     setIsSavedViewActive(false);
     setActiveDate(date);
-    setActiveLabel(getReaderLocalEditionLabel(date));
   };
 
   const handleToggleSaved = () => {
@@ -160,7 +158,7 @@ export const App: React.FC = () => {
 
       {/* Main Masthead */}
       <Masthead
-        activeEditionLabel={isSavedViewActive ? 'SAVED DISPATCHES' : activeLabel}
+        activeEditionLabel={isSavedViewActive ? 'SAVED DISPATCHES' : currentEditionLabel}
         onOpenBeatPicker={() => setIsBeatPickerOpen(true)}
         selectedBeatsCount={selectedBeats.length}
         lastUpdated={digest.lastUpdated}

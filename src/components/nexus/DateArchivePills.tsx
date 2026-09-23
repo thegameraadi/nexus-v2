@@ -20,25 +20,28 @@ export const DateArchivePills: React.FC<DateArchivePillsProps> = ({
   savedCount,
   onToggleSaved,
 }) => {
-  // Compute labels dynamically in the reader's local browser timezone and deduplicate
+  // Compute labels dynamically in reader's local context and deduplicate strictly by edition date
   const computedEntries = useMemo(() => {
+    const latestDate = entries && entries.length > 0 ? entries[0]?.date : selectedDate;
+
     if (!entries || entries.length === 0) {
       // Zero editions in index.json: provide a clean current edition pill
-      const localLabel = getReaderLocalEditionLabel(selectedDate);
+      const localLabel = getReaderLocalEditionLabel(selectedDate, latestDate);
       return [{ date: selectedDate, label: localLabel }];
     }
 
-    const seen = new Set<string>();
+    const seenDates = new Set<string>();
     const result: IndexEntry[] = [];
 
     for (const item of entries) {
       if (!item || !item.date) continue;
-      // Evaluate label strictly in reader's local timezone
-      const localLabel = getReaderLocalEditionLabel(item.date);
-      const normalizedLabel = localLabel.trim().toLowerCase();
 
-      if (!seen.has(normalizedLabel)) {
-        seen.add(normalizedLabel);
+      // Recompute label strictly in reader's local context
+      const localLabel = getReaderLocalEditionLabel(item.date, latestDate);
+
+      // De-duplicate AFTER reader-local label recomputation, keyed on the edition date, not the label string
+      if (!seenDates.has(item.date)) {
+        seenDates.add(item.date);
         result.push({
           date: item.date,
           label: localLabel,
@@ -46,7 +49,7 @@ export const DateArchivePills: React.FC<DateArchivePillsProps> = ({
       }
     }
 
-    const fallbackLabel = getReaderLocalEditionLabel(selectedDate);
+    const fallbackLabel = getReaderLocalEditionLabel(selectedDate, latestDate);
     return result.length > 0 ? result : [{ date: selectedDate, label: fallbackLabel }];
   }, [entries, selectedDate]);
 

@@ -6,9 +6,9 @@ export const HeroBand: React.FC = () => {
       aria-hidden="true"
       className="w-full h-[130px] border-y border-white/[0.07] bg-[#0c0c0e] relative overflow-hidden select-none"
     >
-      {/* Monochrome earth-from-orbit / city-lights-from-space imagery */}
+      {/* Monochrome earth-from-orbit / city-lights-from-space imagery (self-contained local asset) */}
       <img
-        src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80"
+        src="/hero-earth.jpg"
         alt=""
         className="w-full h-full object-cover object-[center_35%] nexus-img opacity-45 pointer-events-none"
       />

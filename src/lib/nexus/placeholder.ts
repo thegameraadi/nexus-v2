@@ -10,29 +10,43 @@ export function getTodayISODate(): string {
 /**
  * Evaluates edition labels ('Today', 'Yesterday', 'MMM D') strictly in the
  * reader's local browser timezone, preventing UTC-rollover date skew.
+ *
+ * If latestEditionDateStr is provided (e.g. from the archive index), the latest
+ * available edition anchors 'Today' for the reader, ensuring readers in timezones
+ * behind UTC (e.g. UTC-7 at 18:29 on Sept 22 viewing the 2026-09-23 edition) see
+ * exactly 'Today' for the active edition and 'Yesterday' for the preceding edition.
  */
-export function getReaderLocalEditionLabel(editionDateStr: string): string {
+export function getReaderLocalEditionLabel(
+  editionDateStr: string,
+  latestEditionDateStr?: string
+): string {
   try {
     if (!editionDateStr || !/^\d{4}-\d{2}-\d{2}$/.test(editionDateStr)) {
       return editionDateStr || 'Today';
     }
 
     const now = new Date();
-    // Reader's local today at midnight
-    const localToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const utcDateStr = now.toISOString().split('T')[0];
+    const localDateStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
 
-    // Target edition date at midnight
-    const [year, month, day] = editionDateStr.split('-').map(Number);
-    const targetDate = new Date(year, month - 1, day);
+    // Determine the reference baseline date for 'Today'.
+    // If a latest edition date is provided and is >= localDateStr, it anchors 'Today';
+    // otherwise fallback to UTC date (if >= localDateStr) or localDateStr.
+    let refDate = latestEditionDateStr && latestEditionDateStr >= localDateStr ? latestEditionDateStr : utcDateStr;
+    if (refDate < localDateStr) refDate = localDateStr;
 
-    const diffMs = localToday.getTime() - targetDate.getTime();
-    const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24));
+    const [y1, m1, d1] = refDate.split('-').map(Number);
+    const [y2, m2, d2] = editionDateStr.split('-').map(Number);
+    const refUtc = Date.UTC(y1, m1 - 1, d1);
+    const targetUtc = Date.UTC(y2, m2 - 1, d2);
+    const diffDays = Math.round((refUtc - targetUtc) / (1000 * 60 * 60 * 24));
 
-    if (diffDays === 0) return 'Today';
+    if (diffDays <= 0) return 'Today';
     if (diffDays === 1) return 'Yesterday';
 
+    const targetDate = new Date(targetUtc);
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    return `${months[targetDate.getMonth()]} ${targetDate.getDate()}`;
+    return `${months[targetDate.getUTCMonth()]} ${targetDate.getUTCDate()}`;
   } catch {
     return editionDateStr;
   }
