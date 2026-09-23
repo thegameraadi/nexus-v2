@@ -1,186 +1,72 @@
 {
   "date": "2026-09-23",
   "label": "Today",
-  "lastUpdated": "2026-09-23T01:12:45.555Z",
+  "lastUpdated": "2026-09-23T04:52:51.658Z",
   "agentLog": [
     {
       "timestamp": "00:24:34",
-      "module": "EDITOR",
-      "message": "3x daily merge: retained 46 existing dispatches, integrated 0 new dispatches.",
+      "module": "SYSTEM",
+      "message": "Earlier runs today: 9 prior audit records archived from previous execution cycles.",
       "status": "ok"
     },
     {
-      "timestamp": "00:25:19",
+      "timestamp": "04:52:00",
       "module": "SCOUT",
-      "message": "Pipeline active on commit 2d77388: \"fix(ci): handle git push race with rebase retry, f\"",
+      "message": "Pipeline active on commit ce234c4: \"fix: self-contained hero earth asset, date-keyed a\"",
       "status": "ok"
     },
     {
-      "timestamp": "00:25:19",
-      "module": "SCOUT",
-      "message": "Initializing ingestion pipeline across 5 beats (strict 7-day recency filter).",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:25:26",
-      "module": "SCOUT",
-      "message": "Scouted 116 candidate signals across 5 beats (all within 7-day window).",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:25:26",
-      "module": "RANK",
-      "message": "Initiating deduplication & 4-factor scoring heuristics (discriminating deals vs administrative noise).",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:25:26",
-      "module": "RANK",
-      "message": "Deduplication dropped 0 redundant wires. 116 candidates evaluated.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:25:26",
-      "module": "SYNTH",
-      "message": "Selecting candidates clearing quality floor for synthesis.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:25:26",
-      "module": "SYNTH",
-      "message": "Deterministic synthesis produced 45 items (4 dropped for lack of substantive source text, LLM key not configured). Est cost: free tier.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:25:26",
-      "module": "EDITOR",
-      "message": "Computing composite 5-factor scores and executing non-destructive edition merge.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:25:26",
-      "module": "EDITOR",
-      "message": "3x daily merge: retained 46 existing dispatches, integrated 0 new dispatches.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:36:22",
-      "module": "SCOUT",
-      "message": "Pipeline active on commit a926502: \"fix(synth): use gemini-3.6-flash, discover models \"",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:36:22",
+      "timestamp": "04:52:00",
       "module": "SCOUT",
       "message": "Initializing ingestion pipeline across 5 beats (strict 7-day recency filter).",
       "status": "ok"
     },
     {
-      "timestamp": "00:36:27",
+      "timestamp": "04:52:51",
       "module": "SCOUT",
-      "message": "Scouted 109 candidate signals across 5 beats (all within 7-day window).",
+      "message": "Scouted 114 candidate signals across 5 beats (all within 7-day window).",
       "status": "ok"
     },
     {
-      "timestamp": "00:36:27",
+      "timestamp": "04:52:51",
       "module": "RANK",
       "message": "Initiating deduplication & 4-factor scoring heuristics (discriminating deals vs administrative noise).",
       "status": "ok"
     },
     {
-      "timestamp": "00:36:27",
+      "timestamp": "04:52:51",
       "module": "RANK",
-      "message": "Deduplication dropped 0 redundant wires. 109 candidates evaluated.",
+      "message": "Deduplication & relevance floor dropped 63 off-beat/redundant wires. 51 candidates evaluated.",
       "status": "ok"
     },
     {
-      "timestamp": "00:36:27",
+      "timestamp": "04:52:51",
       "module": "SYNTH",
       "message": "Selecting candidates clearing quality floor for synthesis.",
       "status": "ok"
     },
     {
-      "timestamp": "00:36:28",
+      "timestamp": "04:52:51",
       "module": "SYNTH",
-      "message": "Available Gemini models: gemini-2.5-flash, gemini-2.5-flash-preview-tts, gemini-flash-latest, gemini-flash-lite-latest, gemini-2.5-flash-lite, gemini-2.5-flash-image, gemini-3-flash-preview, gemini-3.1-flash-lite-preview, gemini-3.1-flash-lite, gemini-3.1-flash-image-preview, gemini-3.1-flash-image, gemini-3.1-flash-lite-image, gemini-3.5-flash, gemini-3.5-flash-lite, gemini-omni-flash-preview, gemini-omni-1.1-flash, gemini-3.6-flash, gemini-3.7-flash, gemini-3.8-flash, gemini-3.1-flash-tts-preview.",
+      "message": "Deterministic synthesis (LLM key not configured): 33 items via deterministic synthesis, 0 via LLM (1 dropped for thin context). Est cost: free tier.",
       "status": "ok"
     },
     {
-      "timestamp": "00:38:14",
-      "module": "SYNTH",
-      "message": "LLM synthesis complete for 22 items (0 dropped for thin context). Tokens: 28295. Est cost: $0.00532.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:38:14",
+      "timestamp": "04:52:51",
       "module": "EDITOR",
       "message": "Computing composite 5-factor scores and executing non-destructive edition merge.",
       "status": "ok"
     },
     {
-      "timestamp": "00:38:14",
+      "timestamp": "04:52:51",
       "module": "EDITOR",
-      "message": "3x daily merge: retained 46 existing dispatches, integrated 4 new dispatches.",
+      "message": "Daily merge: retained existing dispatches, integrated new signals, enforced strict 5-item column quotas.",
       "status": "ok"
     },
     {
-      "timestamp": "01:11:31",
-      "module": "SCOUT",
-      "message": "Pipeline active on commit 40bd482: \"fix(synth): restrict to curated models, handle 503\"",
-      "status": "ok"
-    },
-    {
-      "timestamp": "01:11:31",
-      "module": "SCOUT",
-      "message": "Initializing ingestion pipeline across 5 beats (strict 7-day recency filter).",
-      "status": "ok"
-    },
-    {
-      "timestamp": "01:11:41",
-      "module": "SCOUT",
-      "message": "Scouted 117 candidate signals across 5 beats (all within 7-day window).",
-      "status": "ok"
-    },
-    {
-      "timestamp": "01:11:41",
-      "module": "RANK",
-      "message": "Initiating deduplication & 4-factor scoring heuristics (discriminating deals vs administrative noise).",
-      "status": "ok"
-    },
-    {
-      "timestamp": "01:11:41",
-      "module": "RANK",
-      "message": "Deduplication dropped 0 redundant wires. 117 candidates evaluated.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "01:11:41",
-      "module": "SYNTH",
-      "message": "Selecting candidates clearing quality floor for synthesis.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "01:11:41",
-      "module": "SYNTH",
-      "message": "Verified curated models: gemini-3.6-flash, gemini-3.5-flash, gemini-3.5-flash-lite.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "01:12:45",
-      "module": "SYNTH",
-      "message": "LLM synthesis complete for 16 items (2 dropped for thin context). Tokens: 26275. Est cost: $0.00473.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "01:12:45",
-      "module": "EDITOR",
-      "message": "Computing composite 5-factor scores and executing non-destructive edition merge.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "01:12:45",
-      "module": "EDITOR",
-      "message": "3x daily merge: retained 50 existing dispatches, integrated 3 new dispatches.",
+      "timestamp": "04:52:51",
+      "module": "PUBLISH",
+      "message": "Artifacts committed to /public/data/. Edition 2026-09-23 live (45 dispatches).",
       "status": "ok"
     }
   ],
@@ -206,46 +92,6 @@
               "magnitude": 9.5,
               "relevance": 8.7,
               "total": 7.3
-            }
-          },
-          {
-            "id": "ai-venture-venture-20260923-22",
-            "source": "TechCrunch AI",
-            "date": "2026-09-22",
-            "headline": "Qualcomm launches two new smartphone chips with emphasis on AI",
-            "summary": "Qualcomm said that its new top chip can run 30B mixture-of-expert model locally.",
-            "tag": "VENTURE",
-            "url": "https://techcrunch.com/2026/09/22/qualcomm-launches-two-new-smartphone-chips-with-emphasis-on-ai/",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "ai-venture",
-            "column": "venture",
-            "scores": {
-              "authority": 8.8,
-              "corroboration": 4.5,
-              "novelty": 5,
-              "magnitude": 5.2,
-              "relevance": 7.9,
-              "total": 6.3
-            }
-          },
-          {
-            "id": "ai-venture-venture-20260923-23",
-            "source": "TechCrunch AI",
-            "date": "2026-09-22",
-            "headline": "OpenAI launches GPT-6 Sol and Luna, boasting lower cost and fewer mistakes",
-            "summary": "OpenAI is launching two new models, which it says are cut from the same cloth as Astra.",
-            "tag": "VENTURE",
-            "url": "https://techcrunch.com/2026/09/22/openai-launches-gpt-6-sol-and-luna/",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "ai-venture",
-            "column": "venture",
-            "scores": {
-              "authority": 8.8,
-              "corroboration": 4.5,
-              "novelty": 5,
-              "magnitude": 5.2,
-              "relevance": 7.9,
-              "total": 6.3
             }
           },
           {
@@ -287,9 +133,89 @@
               "relevance": 9.2,
               "total": 6.4
             }
+          },
+          {
+            "id": "ai-venture-venture-20260923-22",
+            "source": "TechCrunch AI",
+            "date": "2026-09-22",
+            "headline": "Qualcomm launches two new smartphone chips with emphasis on AI",
+            "summary": "Qualcomm said that its new top chip can run 30B mixture-of-expert model locally.",
+            "tag": "VENTURE",
+            "url": "https://techcrunch.com/2026/09/22/qualcomm-launches-two-new-smartphone-chips-with-emphasis-on-ai/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "venture",
+            "scores": {
+              "authority": 8.8,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 5.2,
+              "relevance": 7.9,
+              "total": 6.3
+            }
+          },
+          {
+            "id": "ai-venture-venture-20260923-23",
+            "source": "TechCrunch AI",
+            "date": "2026-09-22",
+            "headline": "OpenAI launches GPT-6 Sol and Luna, boasting lower cost and fewer mistakes",
+            "summary": "OpenAI is launching two new models, which it says are cut from the same cloth as Astra.",
+            "tag": "VENTURE",
+            "url": "https://techcrunch.com/2026/09/22/openai-launches-gpt-6-sol-and-luna/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "venture",
+            "scores": {
+              "authority": 8.8,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 5.2,
+              "relevance": 7.9,
+              "total": 6.3
+            }
           }
         ],
         "research": [
+          {
+            "id": "ai-venture-research-20260923-49",
+            "source": "arXiv Preprint",
+            "date": "2026-09-22",
+            "headline": "Agensh: Scaling Organizational Intelligence to 1,024 Agents",
+            "summary": "A multi-agent system can reduce latency on complex tasks by executing work concurrently. Several pioneering harness frameworks support multi-agent systems. However, the scalability of current multi-agent harnesses is often constrained by a central orchestrator's capacity to allocate tasks and coordinate workers.",
+            "tag": "BENCHMARK",
+            "url": "http://arxiv.org/abs/2609.26781v1",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "research",
+            "scores": {
+              "authority": 8.5,
+              "corroboration": 3,
+              "novelty": 9.4,
+              "magnitude": 9.4,
+              "relevance": 7.8,
+              "total": 7.7
+            }
+          },
+          {
+            "id": "ai-venture-research-20260923-51",
+            "source": "arXiv Preprint",
+            "date": "2026-09-22",
+            "headline": "CliffCompaction: Cost-Efficient Compaction for Long-Horizon Coding Agents",
+            "summary": "Agents often work on complex problems that require millions of tokens of context, which necessitates compacting across sessions due to limited context windows. We develop CliffCompaction, an autocompaction technique that reduces cost by up to 50% under a bounded context while maintaining or improving performance on Terminal-Bench and achieving new levels of efficiency for test-time scaling and state-of-the-art results on KernelBench. The per-rollout savings of CliffCompaction make the performance--cost trade-off of test-time scaling more efficient, adding over 10 percentage points on Terminal-Bench for less than the cost of two full-context runs.",
+            "tag": "REASONING",
+            "url": "http://arxiv.org/abs/2609.26779v1",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "research",
+            "scores": {
+              "authority": 8.5,
+              "corroboration": 3,
+              "novelty": 9.4,
+              "magnitude": 9.4,
+              "relevance": 6.5,
+              "total": 7.5
+            }
+          },
           {
             "id": "ai-venture-research-20260923-5",
             "source": "arXiv Preprint",
@@ -331,63 +257,23 @@
             }
           },
           {
-            "id": "ai-venture-research-20260923-7",
+            "id": "ai-venture-research-20260923-54",
             "source": "arXiv Preprint",
-            "date": "2026-09-21",
-            "headline": "GameHorizon Suite: Multi-Horizon Data and Evaluation in Gameplay",
-            "summary": "Modern video games provide a measurable testbed for AI models, combining abilities of visual understanding, instruction decomposition, goal planning, and precise action control over multiple temporal horizons. Existing datasets and benchmarks, however, either cover a narrow range of games, lack language instructions, or rely on high-variance online rollouts. To address these challenges, we introduce GameHorizon, a unified data and evaluation suite that measures gameplay capabilities at different horizons for diverse model families.",
+            "date": "2026-09-22",
+            "headline": "Flash-dLLM: IO-Aware KV Caching and Parallel Decoding for Fast, Memory-Efficient Diffusion LLMs",
+            "summary": "Diffusion Large Language Models (dLLMs) have recently emerged as a promising alternative to autoregressive LLMs by enabling non-autoregressive text generation. However, their practical deployment remains limited by inefficient inference, largely due to the absence of effective Key-Value (KV) caching and scalable parallel decoding mechanisms. Existing acceleration methods typically study KV caching and parallel decoding in isolation, overlooking the I/O bottlenecks that arise when cache reuse and parallel token verification are jointly applied.",
             "tag": "BENCHMARK",
-            "url": "http://arxiv.org/abs/2609.25001v1",
+            "url": "http://arxiv.org/abs/2609.26796v1",
             "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
             "beat": "ai-venture",
             "column": "research",
             "scores": {
-              "authority": 9.5,
-              "corroboration": 4.5,
-              "novelty": 6.2,
-              "magnitude": 4.5,
-              "relevance": 8.2,
-              "total": 6.6
-            }
-          },
-          {
-            "id": "ai-venture-research-20260923-8",
-            "source": "arXiv Preprint",
-            "date": "2026-09-21",
-            "headline": "onPanda: Efficient Annotation of On-Policy Alignment Data for LLMs and Agents via Token-Level Correction",
-            "summary": "We present onPanda, an interactive tool for efficiently annotating LLM alignment data and agent trajectories. onPanda adopts token-level correction as its core interaction: while reading a model response, the annotator locates the first inappropriate token and either picks a substitute from the model's candidate tokens or types the correct text via free-form editing. The system then truncates everything after that position and continues generation from the corrected prefix, repeating this locate-correct-continue loop until a satisfactory response is obtained.",
-            "tag": "BENCHMARK",
-            "url": "http://arxiv.org/abs/2609.24983v1",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "ai-venture",
-            "column": "research",
-            "scores": {
-              "authority": 9.5,
-              "corroboration": 4.5,
-              "novelty": 6.2,
-              "magnitude": 4.5,
-              "relevance": 8.2,
-              "total": 6.6
-            }
-          },
-          {
-            "id": "ai-venture-research-20260923-9",
-            "source": "arXiv Preprint",
-            "date": "2026-09-21",
-            "headline": "Harness-Zero: Harness Distillation via Agent-as-Harness",
-            "summary": "Agent harnesses, the external systems that mediate model-environment interaction, can substantially improve agent performance, but their gains remain tied to the harness at deployment. Because the best harness varies across domains, instances, and models, a general-purpose agent must either settle for a suboptimal shared harness or route among an ever-growing set of specialized ones. We therefore study agent harness distillation: using a domain- or instance-optimized harness as training-time guidance and transferring the behaviors it induces into model weights, so that its gains survive under a single fixed target harness.",
-            "tag": "REASONING",
-            "url": "http://arxiv.org/abs/2609.24974v1",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "ai-venture",
-            "column": "research",
-            "scores": {
-              "authority": 9.5,
-              "corroboration": 4.5,
-              "novelty": 6.2,
-              "magnitude": 4.5,
-              "relevance": 8.2,
-              "total": 6.6
+              "authority": 8.5,
+              "corroboration": 3,
+              "novelty": 9.4,
+              "magnitude": 4.2,
+              "relevance": 9.5,
+              "total": 6.9
             }
           }
         ],
@@ -433,13 +319,13 @@
             }
           },
           {
-            "id": "ai-venture-titans-20260923-28",
+            "id": "ai-venture-titans-20260923-46",
             "source": "The Verge AI",
-            "date": "2026-09-22",
-            "headline": "Anthropic launches Claude Opus 5.5 with stricter safeguards for cybersecurity",
-            "summary": "Anthropic says its new Claude Opus 5.5 model comes with stronger safeguards in the wake of recent rogue AI hacking incidents. In an announcement on Tuesday, Anthropic says Opus 5.5 comes with improvements to certain risky behaviors, including attempts to escape the company's testing sandbox. It's the first model released by Anthropic after CEO Dario.",
+            "date": "2026-09-23",
+            "headline": "OpenAI wants to consult elite mathematicians about how to not fumble again",
+            "summary": "After turning a string of spectacular mathematical results into a reputational crisis, OpenAI is consulting human mathematicians to help it figure out a less disastrous path forward. On Monday, the company announced a new independent panel of mathematicians tasked with advising it and other AI companies on their interactions with mathematical research and the wider.",
             "tag": "TITANS",
-            "url": "https://www.theverge.com/ai-artificial-intelligence/998868/anthropic-claude-opus-5-5-cybersecurity",
+            "url": "https://www.theverge.com/ai-artificial-intelligence/999167/openai-elite-mathematicians-panel",
             "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
             "beat": "ai-venture",
             "column": "titans",
@@ -447,9 +333,9 @@
               "authority": 8.7,
               "corroboration": 4.5,
               "novelty": 5,
-              "magnitude": 5.2,
-              "relevance": 7.8,
-              "total": 6.3
+              "magnitude": 4.5,
+              "relevance": 9.2,
+              "total": 6.4
             }
           },
           {
@@ -480,26 +366,6 @@
             "summary": "In a speech Tuesday morning at the UN General Assembly, Donald Trump railed against Iran, \"globalists,\" climate change, and transgender people while also claiming that the US is now \"officially\" renaming artificial intelligence to \"super intelligence.\" Oddly, this wasn't one of the entries in the poll Trump posted a few days ago when he started.",
             "tag": "TITANS",
             "url": "https://www.theverge.com/ai-artificial-intelligence/998816/donald-trump-ai-super-intelligence",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "ai-venture",
-            "column": "titans",
-            "scores": {
-              "authority": 8.7,
-              "corroboration": 4.5,
-              "novelty": 5,
-              "magnitude": 4.5,
-              "relevance": 9.2,
-              "total": 6.4
-            }
-          },
-          {
-            "id": "ai-venture-titans-20260923-46",
-            "source": "The Verge AI",
-            "date": "2026-09-23",
-            "headline": "OpenAI wants to consult elite mathematicians about how to not fumble again",
-            "summary": "After turning a string of spectacular mathematical results into a reputational crisis, OpenAI is consulting human mathematicians to help it figure out a less disastrous path forward. On Monday, the company announced a new independent panel of mathematicians tasked with advising it and other AI companies on their interactions with mathematical research and the wider.",
-            "tag": "TITANS",
-            "url": "https://www.theverge.com/ai-artificial-intelligence/999167/openai-elite-mathematicians-panel",
             "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
             "beat": "ai-venture",
             "column": "titans",
@@ -731,8 +597,8 @@
             "id": "markets-macro-20260923-36",
             "source": "MarketWatch Top",
             "date": "2026-09-22",
-            "headline": "The Nasdaq&#x2019;s rapid rise to a record is sending a message to investors: Don&#x2019;t wait for a pullback to buy",
-            "summary": "Some analysts say the upbeat data on the Nasdaq&#x2019;s outlook is backed up by improving fundamentals.",
+            "headline": "The Nasdaq’s rapid rise to a record is sending a message to investors: Don’t wait for a pullback to buy",
+            "summary": "Some analysts say the upbeat data on the Nasdaq’s outlook is backed up by improving fundamentals.",
             "tag": "EQUITIES",
             "url": "https://www.marketwatch.com/story/the-nasdaqs-rapid-rise-to-a-record-is-sending-a-message-to-investors-dont-wait-for-a-pullback-to-buy-5f533ed8?mod=mw_rss_topstories",
             "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
@@ -748,30 +614,10 @@
             }
           },
           {
-            "id": "markets-macro-20260923-37",
-            "source": "MarketWatch Top",
-            "date": "2026-09-22",
-            "headline": "My husband and I are in our 50s and have no kids. We have $2 million in IRAs and 401(k)s. Do we really need a will?",
-            "summary": "&#x201c;We have no debt and own our primary home, a vacation home, as well as my mother&#x2019;s home in another state.&#x201d.",
-            "tag": "MARKETS",
-            "url": "https://www.marketwatch.com/story/my-husband-and-i-are-in-our-50s-and-have-no-kids-we-have-2-million-do-we-need-a-will-62fb422f?mod=mw_rss_topstories",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "markets",
-            "column": "macro",
-            "scores": {
-              "authority": 8.8,
-              "corroboration": 4.5,
-              "novelty": 5,
-              "magnitude": 5.5,
-              "relevance": 7.9,
-              "total": 6.4
-            }
-          },
-          {
             "id": "markets-macro-20260923-38",
             "source": "MarketWatch Top",
             "date": "2026-09-22",
-            "headline": "Sandisk&#x2019;s stock is rising: Why one analyst says AI could help it reach new heights",
+            "headline": "Sandisk’s stock is rising: Why one analyst says AI could help it reach new heights",
             "summary": "Larger AI models and inference are turning NAND from a commodity into a critical component, a Rosenblatt analyst said.",
             "tag": "MARKETS",
             "url": "https://www.marketwatch.com/story/sandisks-stock-is-rising-why-one-analyst-says-ai-could-help-it-reach-new-heights-5541ded8?mod=mw_rss_topstories",
@@ -811,8 +657,8 @@
             "id": "markets-macro-20260923-40",
             "source": "MarketWatch Top",
             "date": "2026-09-22",
-            "headline": "Could Meta&#x2019;s viral Muse app be the company&#x2019;s ChatGPT moment?",
-            "summary": "Meta&#x2019;s new assistant is topping App Store charts and beating ChatGPT&#x2019;s early download pace, spurring renewed confidence in the company&#x2019;s AI strategy.",
+            "headline": "Could Meta’s viral Muse app be the company’s ChatGPT moment?",
+            "summary": "Meta’s new assistant is topping App Store charts and beating ChatGPT’s early download pace, spurring renewed confidence in the company’s AI strategy.",
             "tag": "MARKETS",
             "url": "https://www.marketwatch.com/story/could-metas-viral-muse-app-be-the-companys-chatgpt-moment-8e7075aa?mod=mw_rss_topstories",
             "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
@@ -830,83 +676,23 @@
         ],
         "company-moves": [
           {
-            "id": "markets-company-moves-20260923-1",
-            "source": "SEC EDGAR / 8-K",
-            "date": "2026-09-18",
-            "headline": "Permianville Royalty Trust  (PVL)  (CIK 0001520048) Discloses Material Operations in Form 8-K",
-            "summary": "SEC regulatory submission filed by Permianville Royalty Trust (PVL) (CIK 0001520048). Form 8-K detailing material operations and capital restructuring.",
-            "tag": "MARKETS",
-            "url": "https://www.sec.gov/edgar/browse/?CIK=0001520048",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "markets",
-            "column": "company-moves",
-            "scores": {
-              "authority": 9.6,
-              "corroboration": 9,
-              "novelty": 5,
-              "magnitude": 8.2,
-              "relevance": 8.3,
-              "total": 8.1
-            }
-          },
-          {
-            "id": "markets-company-moves-20260923-2",
-            "source": "SEC EDGAR / 8-K",
-            "date": "2026-09-18",
-            "headline": "Omega Flex, Inc.  (OFLX)  (CIK 0001317945) Discloses Material Operations in Form 8-K",
-            "summary": "SEC regulatory submission filed by Omega Flex, Inc. Form 8-K detailing material operations and capital restructuring.",
-            "tag": "MARKETS",
-            "url": "https://www.sec.gov/edgar/browse/?CIK=0001317945",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "markets",
-            "column": "company-moves",
-            "scores": {
-              "authority": 9.6,
-              "corroboration": 9,
-              "novelty": 5,
-              "magnitude": 8.2,
-              "relevance": 8.3,
-              "total": 8.1
-            }
-          },
-          {
-            "id": "markets-company-moves-20260923-3",
+            "id": "markets-company-moves-20260923-64",
             "source": "SEC EDGAR / 8-K",
             "date": "2026-09-21",
-            "headline": "Algorhythm Holdings, Inc.  (RIME)  (CIK 0000923601) Discloses Material Operations in Form 8-K",
-            "summary": "SEC regulatory submission filed by Algorhythm Holdings, Inc. Form 8-K detailing material operations and capital restructuring.",
+            "headline": "Algorhythm Holdings, Inc.: Form 8-K Discloses Material Definitive Agreement, Asset Acquisition or Disposition, Unregistered Equity Sale",
+            "summary": "SEC regulatory submission filed by Algorhythm Holdings, Inc. Disclosed event: Material Definitive Agreement, Asset Acquisition or Disposition, Unregistered Equity Sale. Verified filing date 2026-09-21.",
             "tag": "MARKETS",
             "url": "https://www.sec.gov/edgar/browse/?CIK=0000923601",
             "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
             "beat": "markets",
             "column": "company-moves",
             "scores": {
-              "authority": 9.6,
-              "corroboration": 9,
-              "novelty": 5,
-              "magnitude": 8.2,
-              "relevance": 8.3,
-              "total": 8.1
-            }
-          },
-          {
-            "id": "markets-company-moves-20260923-4",
-            "source": "SEC EDGAR / 10-Q",
-            "date": "2026-09-22",
-            "headline": "AIRWA INC.  (YYAI)  (CIK 0001674440) Discloses Material Operations in Form 10-Q",
-            "summary": "SEC regulatory submission filed by AIRWA INC. Form 10-Q detailing material operations and capital restructuring.",
-            "tag": "MARKETS",
-            "url": "https://www.sec.gov/edgar/browse/?CIK=0001674440",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "markets",
-            "column": "company-moves",
-            "scores": {
-              "authority": 9.6,
-              "corroboration": 9,
-              "novelty": 5,
-              "magnitude": 4.5,
-              "relevance": 9.1,
-              "total": 7.5
+              "authority": 7.2,
+              "corroboration": 4,
+              "novelty": 2.4,
+              "magnitude": 2.5,
+              "relevance": 7.8,
+              "total": 4.8
             }
           }
         ],
@@ -916,6 +702,26 @@
     "science": {
       "columns": {
         "frontier": [
+          {
+            "id": "science-frontier-20260923-50",
+            "source": "arXiv Preprint",
+            "date": "2026-09-22",
+            "headline": "Evidence for a low-gap component in compressively stressed niobium thin films",
+            "summary": "We investigate the microwave response of sputtered Nb films as a function of biaxial film stress. Although transport measurements show nearly identical superconducting transition temperatures ($9.0\\pm 0.2$K) and residual resistance ratios across the stress series, microwave resonators fabricated from highly compressive films exhibit enhanced temperature-dependent loss and larger frequency shifts. A conventional single-phase Mattis--Bardeen description yields an effective critical temperature of $2.4\\pm0.2$K, approximately a factor of four below the value obtained from transport measurements.",
+            "tag": "SCIENCE",
+            "url": "http://arxiv.org/abs/2609.26714v1",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "science",
+            "column": "frontier",
+            "scores": {
+              "authority": 8.6,
+              "corroboration": 3,
+              "novelty": 9.4,
+              "magnitude": 9.4,
+              "relevance": 6.5,
+              "total": 7.5
+            }
+          },
           {
             "id": "science-frontier-20260923-10",
             "source": "arXiv Preprint",
@@ -937,83 +743,43 @@
             }
           },
           {
-            "id": "science-frontier-20260923-47",
+            "id": "science-frontier-20260923-52",
             "source": "ScienceDaily",
-            "date": "2026-09-22",
-            "headline": "Caffeine disrupts deep sleep even when duration remains normal",
-            "summary": "Caffeine can reduce restorative deep sleep, as measured by EEG recordings showing fewer slow brain waves, even for individuals who fall asleep normally and stay in bed for eight hours. Individual sensitivity varies greatly, meaning caffeine consumed earlier in the day may still impact nighttime recovery for some people.",
+            "date": "2026-09-23",
+            "headline": "One of America’s largest reservoirs just hit a record low",
+            "summary": "Lake Powell has fallen to its lowest level on record after an exceptionally dry and warm winter left the Colorado River Basin with little mountain snow to melt. Lake Mead also reached record lows, raising concerns for a river system that supplies water and power to more than 40 million people. Federal officials have taken emergency steps to stabilize Lake Powell, including sending in water from another reservoir and reducing releases downstream.",
             "tag": "SCIENCE",
-            "url": "https://www.sciencedaily.com/releases/2026/09/260922005719.htm",
+            "url": "https://www.sciencedaily.com/releases/2026/09/260922005701.htm",
             "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
             "beat": "science",
             "column": "frontier",
             "scores": {
-              "authority": 8.6,
-              "corroboration": 4.5,
-              "novelty": 6.2,
-              "magnitude": 4.5,
-              "relevance": 8.5,
-              "total": 6.5
+              "authority": 7.5,
+              "corroboration": 9.2,
+              "novelty": 9.4,
+              "magnitude": 4.2,
+              "relevance": 6.5,
+              "total": 7.4
             }
           },
           {
-            "id": "science-frontier-20260923-48",
-            "source": "arXiv Preprint",
-            "date": "2026-09-21",
-            "headline": "Analytical framework translates detector sensitivity into stray light requirements",
-            "summary": "Researchers present an analytical framework to translate detector sensitivity into stray light requirements for ground-based gravitational wave interferometers. The study derives estimates for various scattering regimes, planar baffles, and deterministic ghost beams intercepted by beam dumps. Applied to Cosmic Explorer, the framework provides conservative design tools for early stray light budgeting in current and future detectors.",
-            "tag": "OPTICS",
-            "url": "http://arxiv.org/abs/2609.25003v1",
+            "id": "science-frontier-20260923-53",
+            "source": "ScienceDaily",
+            "date": "2026-09-23",
+            "headline": "The LHC just ruled out another hiding place for quantum black holes",
+            "summary": "Physicists searching through Large Hadron Collider data found no evidence that the machine has been producing microscopic quantum black holes, but the result sharply narrows where such exotic physics could still be hiding. These hypothetical black holes could form if extra spatial dimensions make gravity much stronger at extremely tiny scales, potentially offering clues toward the long-sought theory of quantum gravity.",
+            "tag": "PHYSICS",
+            "url": "https://www.sciencedaily.com/releases/2026/09/260922005649.htm",
             "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
             "beat": "science",
             "column": "frontier",
             "scores": {
-              "authority": 9.6,
-              "corroboration": 4.5,
-              "novelty": 5,
-              "magnitude": 4.5,
-              "relevance": 8.5,
-              "total": 6.5
-            }
-          },
-          {
-            "id": "science-frontier-20260923-49",
-            "source": "arXiv Preprint",
-            "date": "2026-09-21",
-            "headline": "Researchers design quantum Mpemba effect using Stark localization",
-            "summary": "Scientists have demonstrated a quantum energy landscape design utilizing Stark localization and localized incoherent hopping that produces the Mpemba effect. Rare detection events trigger hops at rates growing with energy, enabling hotter states to cool faster with super-exponentially separated timescales. This effect is further enhanced by the collective hopping of bound pairs via attractive on-site interactions, with clear signatures accessible in current experimental setups.",
-            "tag": "QUANTUM",
-            "url": "http://arxiv.org/abs/2609.24993v1",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "science",
-            "column": "frontier",
-            "scores": {
-              "authority": 9.6,
-              "corroboration": 4.5,
-              "novelty": 5,
-              "magnitude": 4.5,
-              "relevance": 9,
-              "total": 6.5
-            }
-          },
-          {
-            "id": "science-frontier-20260923-50",
-            "source": "arXiv Preprint",
-            "date": "2026-09-21",
-            "headline": "Researchers establish quantitative entropy contraction bounds for finite-dimensional quantum channels",
-            "summary": "Quantitative entropy contraction bounds are established for finite-dimensional quantum channels beyond detailed balance. For channels compatible with a faithful conditional expectation, GNS norm contraction yields relative entropy contraction with a logarithmic dimensional loss. This approach also yields a lower bound on the complete modified logarithmic Sobolev constant for quantum Markov semigroups.",
-            "tag": "QUANTUM",
-            "url": "http://arxiv.org/abs/2609.24953v1",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "science",
-            "column": "frontier",
-            "scores": {
-              "authority": 9.6,
-              "corroboration": 4.5,
-              "novelty": 5,
-              "magnitude": 4.5,
-              "relevance": 8.5,
-              "total": 6.5
+              "authority": 7.5,
+              "corroboration": 9.2,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 8.8,
+              "total": 6.9
             }
           },
           {
@@ -1024,46 +790,6 @@
             "summary": "Charged particle track reconstruction is one of the heaviest computational tasks in the event reconstruction chain at LHC experiments. Furthermore, projections for the High Luminosity LHC (HL-LHC) show that the required computing resources for single-threaded CPU algorithms will exceed those that are expected to be available. It follows that experiments at the HL-LHC will need to employ novel and evolved track reconstruction algorithms, within heterogeneous computing systems that include many-core CPUs as well as GPUs, in the attempt to maximize the computational performance while retaining the best possible reconstruction efficiency.",
             "tag": "BIOTECH",
             "url": "http://arxiv.org/abs/2609.26376v1",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "science",
-            "column": "frontier",
-            "scores": {
-              "authority": 9.6,
-              "corroboration": 4.5,
-              "novelty": 6.2,
-              "magnitude": 4.5,
-              "relevance": 8.3,
-              "total": 6.7
-            }
-          },
-          {
-            "id": "science-frontier-20260923-52",
-            "source": "arXiv Preprint",
-            "date": "2026-09-22",
-            "headline": "Non-Markovian Charging of a Micromaser Quantum Battery",
-            "summary": "We theoretically investigate the role played by non-Markovianity in the charging of a quantum battery. We focus on the case of a Micromaser, where the energy is stored in a resonant cavity mode and memory effects are introduced and controlled by coupling this mode to a memory ancilla, described as a two-level system, that in turn sequentially interacts with a stream of two-level chargers through pairwise exchange interactions leading to a partial swap. Through numerical analysis, we show that non-Markovian memory effects act as a resource that enhances both the charging capacity and the stability of this device with respect to the Markovian counterpart.",
-            "tag": "PHYSICS",
-            "url": "http://arxiv.org/abs/2609.26341v1",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "science",
-            "column": "frontier",
-            "scores": {
-              "authority": 9.6,
-              "corroboration": 4.5,
-              "novelty": 6.2,
-              "magnitude": 4.5,
-              "relevance": 8.3,
-              "total": 6.7
-            }
-          },
-          {
-            "id": "science-frontier-20260923-53",
-            "source": "arXiv Preprint",
-            "date": "2026-09-22",
-            "headline": "Hyperbolic Restricted Boltzmann Machine Neural Quantum State",
-            "summary": "We construct the first type of non-Euclidean non-autoregressive neural quantum state (NQS) in the form of the hyperbolic Restricted Boltzmann Machine (HRBM), which is studied in the variational Monte-Carlo (VMC) setting of the Quantum Sherrington-Kirkpatrick (QSK) model whose ground state exhibits volume-law entanglement. Across a 512-fold increase in the Hilbert space dimension corresponding to a system size increase from $N=14$ to $N=24$, HRBM NQS robustly outperforms its Euclidean version, the RBM NQS, in terms of better ground state energy optimization as well as lower Renyi-2 $S_2$ and von Neumann $S_{vN}$ absolute entanglement entropy reconstruction errors. More importantly, for all QSK system sizes, HRBM NQS demonstrates a superior expressivity in faithfully reproducing the entire entanglement spectrum of the QSK model from the top eigenvalues down to the tail end across 15 orders of magnitude, while RBM NQS consistently overestimates the sub-dominant modes.",
-            "tag": "PHYSICS",
-            "url": "http://arxiv.org/abs/2609.26032v1",
             "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
             "beat": "science",
             "column": "frontier",

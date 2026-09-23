@@ -40,13 +40,10 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* Bottom line: Authorship and Version */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 nexus-meta text-zinc-500 text-[11px]">
+        {/* Bottom line: Authorship */}
+        <div className="pt-6 flex items-center justify-between gap-3 nexus-meta text-zinc-500 text-[11px]">
           <div>
             NEXUS ENGINE © {new Date().getFullYear()} · AUTONOMOUS INFORMATION INFRASTRUCTURE
-          </div>
-          <div>
-            STATIC DEPLOYMENT TARGET: NETLIFY
           </div>
         </div>
       </div>

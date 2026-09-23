@@ -59,9 +59,6 @@ export const Masthead: React.FC<MastheadProps> = ({
                 </span>
               </>
             )}
-
-            <span className="text-zinc-700 hidden sm:inline">|</span>
-            <span className="hidden sm:inline">BUILD: STATIC V2</span>
           </div>
         </div>
 

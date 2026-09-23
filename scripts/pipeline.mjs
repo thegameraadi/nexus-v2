@@ -44,28 +44,124 @@ function getFormattedTime() {
   return new Date().toISOString().substring(11, 19);
 }
 
+const HTML_NAMED_ENTITIES = {
+  quot: '"',
+  apos: "'",
+  amp: '&',
+  lt: '<',
+  gt: '>',
+  nbsp: ' ',
+  iexcl: '¡',
+  cent: '¢',
+  pound: '£',
+  curren: '¤',
+  yen: '¥',
+  brvbar: '¦',
+  sect: '§',
+  uml: '¨',
+  copy: '©',
+  ordf: 'ª',
+  laquo: '«',
+  not: '¬',
+  shy: '',
+  reg: '®',
+  macr: '¯',
+  deg: '°',
+  plusmn: '±',
+  sup2: '²',
+  sup3: '³',
+  acute: '´',
+  micro: 'µ',
+  para: '¶',
+  middot: '·',
+  cedil: '¸',
+  sup1: '¹',
+  ordm: 'º',
+  raquo: '»',
+  frac14: '¼',
+  frac12: '½',
+  frac34: '¾',
+  iquest: '¿',
+  times: '×',
+  divide: '÷',
+  ndash: '–',
+  mdash: '—',
+  lsquo: '‘',
+  rsquo: '’',
+  sbquo: '‚',
+  ldquo: '“',
+  rdquo: '”',
+  bdquo: '„',
+  dagger: '†',
+  Dagger: '‡',
+  bull: '•',
+  hellip: '…',
+  permil: '‰',
+  prime: '′',
+  Prime: '″',
+  lsaquo: '‹',
+  rsaquo: '›',
+  euro: '€',
+  trade: '™',
+  asymp: '≈',
+  ne: '≠',
+  le: '≤',
+  ge: '≥',
+};
+
+/**
+ * Decodes all HTML entities (named, numeric decimal, and numeric hexadecimal)
+ * e.g., &#x2019; -> ’, &#8217; -> ’, &quot; -> ", &amp; -> &, &rsquo; -> ’
+ */
+function decodeHtmlEntities(raw) {
+  if (!raw || typeof raw !== 'string') return '';
+  let text = raw;
+
+  for (let pass = 0; pass < 2; pass++) {
+    // Hexadecimal numeric entities: &#x2019;, &#X2019;, etc.
+    text = text.replace(/&#x([0-9a-fA-F]+);/gi, (match, hex) => {
+      try {
+        const code = parseInt(hex, 16);
+        return String.fromCodePoint(code);
+      } catch {
+        return match;
+      }
+    });
+
+    // Decimal numeric entities: &#8217;, &#39;, etc.
+    text = text.replace(/&#([0-9]+);/g, (match, dec) => {
+      try {
+        const code = parseInt(dec, 10);
+        return String.fromCodePoint(code);
+      } catch {
+        return match;
+      }
+    });
+
+    // Named entities
+    text = text.replace(/&([a-zA-Z]+);/g, (match, name) => {
+      const direct = HTML_NAMED_ENTITIES[name];
+      if (direct !== undefined) return direct;
+      const lower = HTML_NAMED_ENTITIES[name.toLowerCase()];
+      if (lower !== undefined) return lower;
+      return match;
+    });
+
+    if (!/&#x[0-9a-fA-F]+;|&#[0-9]+;|&[a-zA-Z]+;/i.test(text)) {
+      break;
+    }
+  }
+
+  return text;
+}
+
 function cleanHtml(raw) {
   if (!raw) return '';
-  return raw
+  let text = raw
     .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&apos;/g, "'")
-    .replace(/&#8217;|&rsquo;/g, "'")
-    .replace(/&#8216;|&lsquo;/g, "'")
-    .replace(/&#8220;|&ldquo;/g, '"')
-    .replace(/&#8221;|&rdquo;/g, '"')
-    .replace(/&#8230;|&hellip;/g, '...')
-    .replace(/&#8211;|&ndash;/g, '-')
-    .replace(/&#8212;|&mdash;/g, '—')
-    .replace(/&#[0-9]+;/g, ' ')
-    .replace(/&[a-z]+;/gi, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
+    .replace(/<[^>]+>/g, ' ');
+  text = decodeHtmlEntities(text);
+  return text.replace(/\s+/g, ' ').trim();
 }
 
 /**
@@ -194,7 +290,7 @@ function computeMagnitude(item) {
   if (/\b(?:antitrust suit|monopoly ruling|doj lawsuit|supreme court|merger agreement|acquisition agreement|historic action|deceptive business practices)\b/i.test(combined)) {
     return 9.2;
   }
-  if (/\b(?:form 8-k|quarterly earnings|earnings release|settlement)\b/i.test(combined)) {
+  if (/\b(?:quarterly earnings|earnings release|settlement)\b/i.test(combined)) {
     return 7.8;
   }
 
@@ -203,10 +299,12 @@ function computeMagnitude(item) {
     return 8.5;
   }
 
-  // Routine administrative filings without disclosed amounts (Form D, Form D/A, Form 4)
+  // Routine administrative filings without disclosed amounts (Form D, Form D/A, Form 4, routine Form 8-K)
   if (
-    /\b(?:form d(?:\/a)?|form 4|form 3|schedule 13[gd]|notice of exempt offering|amendment)\b/i.test(combined) ||
+    /\b(?:form d(?:\/a)?|form 4|form 3|form 8-k|form 10-q|schedule 13[gd]|notice of exempt offering|amendment)\b/i.test(combined) ||
+    item.source.includes('SEC EDGAR') ||
     item.source.includes('/ D') ||
+    item.source.includes('/ 8-K') ||
     item.source.includes('/ 4')
   ) {
     return 2.5; // Routine filing noise: 2.0 - 3.2
@@ -221,29 +319,163 @@ function computeMagnitude(item) {
 }
 
 /**
- * Computes dynamic topical relevance score based on keyword match density to the beat's core topics.
- * Returns a score roughly between 4.0 and 9.5.
+ * Detects personal finance advice columns, first-person queries, retirement/estate planning,
+ * and consumer lifestyle advice that are off-beat for institutional macro/market intelligence.
  */
-function computeRelevance(item) {
-  const combined = `${item.headline} ${item.rawText || ''}`.toLowerCase();
-  const beat = item.beat;
+function isOffBeatAdviceOrPersonalFinance(headline, rawText = '') {
+  const h = (headline || '').toLowerCase();
 
+  // 1. Explicit advice column titles / syndication series
+  if (/\b(?:dear quentin|the moneyist|moneyist|help me retire|ask\s+[a-z]+|retire with me)\b/i.test(h)) {
+    return true;
+  }
+
+  // 2. First-person conversational headlines (questions / advice prompts)
+  // e.g. "My husband and I are in our 50s... do we really need a will?"
+  if (/\b(?:my husband|my wife|my daughter|my son|my father|my mother|my in-laws|my partner|my spouse|my family)\b/i.test(h)) {
+    return true;
+  }
+
+  if (/\b(?:should i|can i|do i|am i|how do i|how can i|do we|can we|should we|will i)\b/i.test(h)) {
+    return true;
+  }
+
+  if (/\b(?:i am|i'm)\s+(?:\d{2}|in my|retired|retiring|broke|planning|wondering)\b/i.test(h)) {
+    return true;
+  }
+
+  if (/\b(?:we are|we're)\s+(?:\d{2}|in our|retired|retiring)\b/i.test(h)) {
+    return true;
+  }
+
+  // 3. Personal lifestyle / consumer advice topics
+  if (/\b(?:do we (?:really )?need a will|estate planning|probate|inherited|inheritance tax|living with my|roommate|buying a home|buy or rent|down payment|mortgage rate tips)\b/i.test(h)) {
+    return true;
+  }
+
+  if (/\b(?:401\(k\)|ira|iras|roth ira|social security)\b/i.test(h) && /\b(?:will|husband|wife|kids|retire|retiring|retiree|save|saving|debt|borrow|advice)\b/i.test(h)) {
+    return true;
+  }
+
+  return false;
+}
+
+// Strict relevance floors per column. Off-beat items below this floor are dropped.
+const COLUMN_RELEVANCE_FLOORS = {
+  'macro': 6.0,
+  'company-moves': 5.5,
+  'analysts': 5.0,
+  'venture': 5.5,
+  'research': 6.0,
+  'titans': 5.5,
+  'regulatory': 5.5,
+  'global': 5.0,
+  'voices': 4.5,
+  'frontier': 5.5,
+  'industry': 5.0,
+};
+
+function getColumnRelevanceFloor(columnHint) {
+  return COLUMN_RELEVANCE_FLOORS[columnHint] || 5.0;
+}
+
+/**
+ * Computes dynamic topical relevance score based on keyword match density to the column's core topics.
+ * Returns a score between 1.5 (off-beat/advice) and 9.5 (spot-on column focus).
+ */
+function computeRelevance(item, columnHint = item.columnHint) {
+  const combined = `${item.headline} ${item.rawText || ''}`.toLowerCase();
+  const headline = (item.headline || '').toLowerCase();
+  const col = columnHint || item.columnHint;
+
+  // 1. Immediately penalize first-person personal-finance or advice column content
+  if (isOffBeatAdviceOrPersonalFinance(item.headline, item.rawText)) {
+    return 1.5; // Far below any column floor (dropped by filter)
+  }
+
+  // Column-specific targeted keyword matching
+  const columnKeywords = {
+    'macro': [
+      'federal reserve', 'central bank', 'interest rate', 'rate cut', 'rate hike',
+      'inflation', 'cpi', 'pce', 'treasury', 'yield', 'yield curve', 'bond market',
+      'gdp', 'recession', 'labor market', 'payroll', 'unemployment', 'monetary policy',
+      'liquidity', 'tariff', 'trade deficit', 'fiscal deficit', 'sovereign debt',
+      'nasdaq', 's&p 500', 'equities', 'stock market', 'rally', 'selloff'
+    ],
+    'company-moves': [
+      'earnings', 'revenue', 'quarterly', 'guidance', 'acquisition', 'merger',
+      'buys', 'acquires', 'ipo', 'stock', 'shares', 'capex', 'layoffs', 'restructuring',
+      'sec filing', 'operating margin', 'valuation', 'contract'
+    ],
+    'analysts': [
+      'upgrade', 'downgrade', 'price target', 'analyst', 'wall street', 'forecast',
+      'rating', 'bull', 'bear', 'estimate', 'outperform', 'underperform'
+    ],
+    'venture': [
+      'venture', 'seed', 'series a', 'series b', 'series c', 'funding', 'fundraising',
+      'valuation', 'startup', 'founder', 'investor', 'term sheet', 'capital', 'incubator',
+      'angel round', 'raise', 'raised'
+    ],
+    'research': [
+      'benchmark', 'eval', 'score', 'leaderboard', 'mmlu', 'reasoning', 'transformer',
+      'architecture', 'model', 'dataset', 'arxiv', 'weights', 'pretraining', 'inference',
+      'tokens', 'latency', 'accuracy', 'rlhf', 'distillation', 'neural'
+    ],
+    'titans': [
+      'datacenter', 'compute', 'cluster', 'gpu', 'chips', 'nvidia', 'openai',
+      'anthropic', 'microsoft', 'google deepmind', 'apple', 'meta', 'amazon', 'megawatt',
+      'monopoly', 'cloud infrastructure', 'hyperscaler', 'doj', 'ftc'
+    ],
+    'regulatory': [
+      'ftc', 'doj', 'antitrust', 'sec', 'policy', 'legislation', 'congress', 'senate',
+      'court', 'judge', 'ruling', 'injunction', 'monopoly', 'ban', 'sanction', 'compliance'
+    ],
+    'global': [
+      'geopolitics', 'trade', 'sanctions', 'treaty', 'diplomacy', 'defense',
+      'international', 'european union', 'china', 'taiwan', 'export control', 'border'
+    ],
+    'frontier': [
+      'physics', 'quantum', 'superconducting', 'crispr', 'fusion', 'biology', 'protein',
+      'enzyme', 'tokamak', 'cern', 'telescope', 'astronomy', 'nature', 'laboratory'
+    ],
+    'industry': [
+      'industry', 'platform', 'developer', 'ecosystem', 'hardware', 'software',
+      'gaming', 'media', 'studio', 'creative', 'consumption'
+    ],
+    'voices': [
+      'essay', 'critique', 'analysis', 'perspective', 'philosophy', 'ethics',
+      'argument', 'editorial', 'opinion', 'future'
+    ]
+  };
+
+  const colKws = columnKeywords[col];
+  if (colKws) {
+    let matches = 0;
+    for (const kw of colKws) {
+      if (headline.includes(kw)) matches += 2;
+      else if (combined.includes(kw)) matches += 1;
+    }
+    if (matches >= 4) return 9.5;
+    if (matches === 3) return 8.8;
+    if (matches === 2) return 7.8;
+    if (matches === 1) return 6.5;
+    return 4.0;
+  }
+
+  // Fallback to beat level keywords
   const beatKeywords = {
     'ai-venture': [
       'artificial intelligence', 'machine learning', 'llm', 'deep learning', 'neural',
       'agent', 'gpu', 'datacenter', 'compute', 'venture', 'seed', 'series a', 'series b',
-      'valuation', 'transformer', 'anthropic', 'openai', 'nvidia', 'google deepmind', 'chips',
-      'gpt', 'model', 'founder', 'fundraising'
+      'valuation', 'transformer', 'anthropic', 'openai', 'nvidia', 'google deepmind', 'chips'
     ],
     'politics': [
       'policy', 'regulation', 'antitrust', 'ftc', 'congress', 'senate', 'legislation',
-      'white house', 'european union', 'geopolitics', 'sanctions', 'treaty', 'defense',
-      'border', 'deceptive', 'enforcement', 'historic action'
+      'white house', 'european union', 'geopolitics', 'sanctions', 'defense'
     ],
     'markets': [
       'treasury', 'yield', 'inflation', 'fed', 'central bank', 'revenue', 'multiple',
-      'margin', 'equities', 'shares', 'quarterly', 'guidance', 'capex', 'bond', 'royalty',
-      'operations', 'form 8-k'
+      'margin', 'equities', 'shares', 'quarterly', 'guidance', 'capex', 'bond'
     ],
     'science': [
       'physics', 'quantum', 'superconducting', 'crispr', 'biology', 'protein',
@@ -251,21 +483,22 @@ function computeRelevance(item) {
     ],
     'culture': [
       'narrative', 'studio', 'developer', 'essay', 'curation', 'critique',
-      'intellectual', 'art', 'music', 'gaming', 'philosophy', 'ethics', 'border'
+      'intellectual', 'art', 'music', 'gaming', 'philosophy', 'ethics'
     ]
   };
 
-  const keywords = beatKeywords[beat] || beatKeywords['ai-venture'];
+  const keywords = beatKeywords[item.beat] || beatKeywords['ai-venture'];
   let matchCount = 0;
   for (const kw of keywords) {
-    if (combined.includes(kw)) matchCount++;
+    if (headline.includes(kw)) matchCount += 2;
+    else if (combined.includes(kw)) matchCount += 1;
   }
 
   if (matchCount >= 4) return 9.5;
   if (matchCount === 3) return 8.8;
   if (matchCount === 2) return 7.8;
   if (matchCount === 1) return 6.5;
-  return 4.5;
+  return 4.2;
 }
 
 /**
@@ -682,23 +915,66 @@ async function scout(sourcesConfig, agentLog) {
           const json = await res.json();
           const hits = json?.hits?.hits || [];
           for (const hit of hits.slice(0, 4)) {
-            const entityName = hit._source?.entity_name || hit._source?.display_names?.[0] || 'Public Issuer';
+            const rawEntity = hit._source?.entity_name || hit._source?.display_names?.[0] || 'Public Issuer';
+            // Clean ticker and CIK noise from entity name
+            const entityName = rawEntity.replace(/\s*\([^)]*\)\s*/g, ' ').replace(/\s+/g, ' ').trim();
             const formType = hit._source?.form || 'SEC';
             const rawFileDate = hit._source?.file_date;
             if (rawFileDate && rawFileDate < sevenDaysAgo) continue;
             const fileDate = rawFileDate && rawFileDate <= today ? rawFileDate : today;
 
-            const desc = hit._source?.description || '';
+            // Check if filing has genuine substantive text (not just empty or file type)
+            const rawDesc = hit._source?.file_description || hit._source?.description || '';
+            const isBoilerplateDesc = !rawDesc || /^(?:ex-99|8-k|10-q|form\s+|submission)/i.test(rawDesc.trim());
+            
+            // If the 8-K has only routine administrative items and no substantive narrative, drop it
+            // Routine items: 5.02 (officer/director turnover), 5.03 (bylaws), 9.01 (exhibits), 7.01 (FD), 8.01 (other)
+            const items = Array.isArray(hit._source?.items) ? hit._source.items : [];
+            const isRoutineItemsOnly = items.length > 0 && items.every((it) => /^(?:5\.02|5\.03|7\.01|8\.01|9\.01)$/.test(it));
+
+            if (isBoilerplateDesc && (items.length === 0 || isRoutineItemsOnly)) {
+              // Routine administrative filing without substantive extract — drop like Form D/A
+              continue;
+            }
+
+            // Extract substantive event description from items or desc
+            let eventDesc = '';
+            if (!isBoilerplateDesc && rawDesc.length >= 25) {
+              eventDesc = cleanHtml(rawDesc);
+            } else {
+              // Decode meaningful item types
+              const itemLabels = items.map((it) => {
+                if (it === '1.01') return 'Material Definitive Agreement';
+                if (it === '1.02') return 'Termination of Material Agreement';
+                if (it === '1.03') return 'Bankruptcy or Receivership';
+                if (it === '2.01') return 'Asset Acquisition or Disposition';
+                if (it === '2.02') return 'Financial Condition & Operating Results';
+                if (it === '2.05') return 'Restructuring & Layoff Costs';
+                if (it === '2.06') return 'Material Impairments';
+                if (it === '3.02') return 'Unregistered Equity Sale';
+                if (it === '4.02') return 'Financial Restatement';
+                return '';
+              }).filter(Boolean);
+
+              if (itemLabels.length > 0) {
+                eventDesc = itemLabels.join(', ');
+              }
+            }
+
+            if (!eventDesc) {
+              // No extractable event description: drop routine filing
+              continue;
+            }
 
             candidates.push({
               source: `SEC EDGAR / ${formType}`,
               date: fileDate,
-              headline: `${entityName} Discloses Material Operations in Form ${formType}`,
-              rawText: `SEC regulatory submission filed by ${entityName}. Form ${formType}${desc ? ': ' + desc : ' detailing material operations and capital restructuring.'}`,
+              headline: `${entityName}: Form ${formType} Discloses ${eventDesc}`,
+              rawText: `SEC regulatory submission filed by ${entityName} (${formType}). Disclosed event: ${eventDesc}. Verified filing date ${fileDate}.`,
               url: `https://www.sec.gov/edgar/browse/?CIK=${hit._source?.ciks?.[0] || ''}`,
               beat: beatId,
-              columnHint: beatConfig.secEdgar.defaultColumn || 'venture',
-              baseAuthority: beatConfig.secEdgar.authority || 9.6,
+              columnHint: beatConfig.secEdgar.defaultColumn || 'company-moves',
+              baseAuthority: 7.2, // Calibrated: corporate filings are unilateral disclosures, not investigative/peer-reviewed authority
             });
           }
         }
@@ -902,9 +1178,9 @@ function rank(candidates, agentLog) {
         overlapCount++;
       }
     }
-    const isPrimaryGovernmentOrScience = /ftc press|nature|cern|science|sec edgar/i.test(item.source);
+    const isPrimaryGovernmentOrScience = /ftc press|nature|cern|science/i.test(item.source);
     const isMajorPublisher = /techcrunch|reuters|verge|mit tech review|atlantic|wired/i.test(item.source);
-    let rawCorroboration = isPrimaryGovernmentOrScience ? 9.2 : (isMajorPublisher ? 6.5 : 3.0);
+    let rawCorroboration = isPrimaryGovernmentOrScience ? 9.2 : (isMajorPublisher ? 6.5 : (item.source.includes('SEC EDGAR') ? 4.0 : 3.0));
     if (overlapCount === 1) rawCorroboration = Math.max(rawCorroboration, 7.5);
     else if (overlapCount === 2) rawCorroboration = Math.max(rawCorroboration, 8.5);
     else if (overlapCount >= 3) rawCorroboration = Math.min(9.8, 8.8 + overlapCount * 0.3);
@@ -917,7 +1193,7 @@ function rank(candidates, agentLog) {
       noveltyScore = 9.4;
     } else if (/\b(?:unveils|launches|announces|new architecture|outperforms|releases|foundry|new smartphone chips)\b/i.test(combinedText)) {
       noveltyScore = 7.8;
-    } else if (/\b(?:form d(?:\/a)?|form 4|form 3|routine|amendment|notice of exempt offering)\b/i.test(combinedText)) {
+    } else if (/\b(?:form d(?:\/a)?|form 4|form 3|form 8-k|form 10-q|routine|amendment|notice of exempt offering)\b/i.test(combinedText) || item.source.includes('SEC EDGAR')) {
       noveltyScore = 2.4;
     } else if (/\b(?:partnership|hires|expansion|advisory)\b/i.test(combinedText)) {
       noveltyScore = 4.4;
@@ -927,8 +1203,13 @@ function rank(candidates, agentLog) {
     // Magnitude: granular deal size & materiality scoring (2.2 to 9.8 spread)
     const magnitude = computeMagnitude(item);
 
-    // Initial floor rank for synthesis candidate ordering
-    const relEstimate = computeRelevance(item);
+    // Initial floor rank for synthesis candidate ordering & strict relevance floor check
+    const relEstimate = computeRelevance(item, item.columnHint);
+    const colFloor = getColumnRelevanceFloor(item.columnHint);
+    if (relEstimate < colFloor) {
+      return null;
+    }
+
     const floorRank = authority * 0.25 + corroboration * 0.20 + novelty * 0.20 + magnitude * 0.20 + relEstimate * 0.15;
 
     return {
@@ -943,16 +1224,19 @@ function rank(candidates, agentLog) {
     };
   });
 
-  scored.sort((a, b) => b.floorRank - a.floorRank);
+  const validScored = scored.filter(Boolean);
+  const droppedByFloorCount = scored.length - validScored.length;
+
+  validScored.sort((a, b) => b.floorRank - a.floorRank);
 
   agentLog.push({
     timestamp: getFormattedTime(),
     module: 'RANK',
-    message: `Deduplication dropped ${droppedCount} redundant wires. ${scored.length} candidates evaluated.`,
+    message: `Deduplication & relevance floor dropped ${droppedCount + droppedByFloorCount} off-beat/redundant wires. ${validScored.length} candidates evaluated.`,
     status: 'ok',
   });
 
-  return scored;
+  return validScored;
 }
 
 // ----------------------------------------------------------------------------
@@ -971,6 +1255,7 @@ async function synth(rankedCandidates, agentLog) {
   // Group by beat and column
   const groups = {};
   for (const c of rankedCandidates) {
+    if (!c || !c.beat || !c.columnHint) continue;
     const key = `${c.beat}:${c.columnHint}`;
     if (!groups[key]) groups[key] = [];
     if (groups[key].length < 5) {
@@ -1211,7 +1496,7 @@ function editor(synthesizedItems, sourcesConfig, agentLog) {
   }
 
   // Populate existing items from earlier runs of the day (preserving their IDs, scores, and summaries)
-  // Prune any legacy items that violate the strict 7-day recency window
+  // Prune any legacy items that violate the strict 7-day recency window or column relevance floors
   let existingItemsKeptCount = 0;
   if (existingDigest?.beats) {
     for (const [beatId, beatObj] of Object.entries(existingDigest.beats)) {
@@ -1224,6 +1509,27 @@ function editor(synthesizedItems, sourcesConfig, agentLog) {
             if (item.date && item.date < sevenDaysAgo) {
               continue;
             }
+            // Prune off-beat personal-finance or advice columns
+            if (isOffBeatAdviceOrPersonalFinance(item.headline, item.summary)) {
+              continue;
+            }
+            // Prune templated boilerplate 8-K filings
+            if (
+              /Discloses Material Operations in Form/i.test(item.headline) ||
+              /detailing material operations and capital restructuring/i.test(item.summary || '')
+            ) {
+              continue;
+            }
+            // Enforce column relevance floor on retained items
+            const colFloor = getColumnRelevanceFloor(colKey);
+            if ((item.scores?.relevance || 0) < colFloor) {
+              continue;
+            }
+
+            // Decode HTML entities
+            item.headline = decodeHtmlEntities(item.headline);
+            item.summary = decodeHtmlEntities(item.summary);
+
             // Enforce column-aware tags on retained existing items
             if (colKey === 'research' && item.tag === 'VENTURE') {
               item.tag = assignTag(item, 'research');
@@ -1250,6 +1556,12 @@ function editor(synthesizedItems, sourcesConfig, agentLog) {
       continue;
     }
 
+    const colFloor = getColumnRelevanceFloor(colKey);
+    const rel = item.relevanceScore;
+    if (rel < colFloor) {
+      continue;
+    }
+
     const targetColumn = dayDigest.beats[beatId].columns[colKey];
 
     // Check for duplicate in targetColumn by URL or high headline similarity (> 0.85)
@@ -1268,7 +1580,6 @@ function editor(synthesizedItems, sourcesConfig, agentLog) {
     const corr = item.scores.corroboration;
     const nov = item.scores.novelty;
     const mag = item.scores.magnitude;
-    const rel = item.relevanceScore;
 
     // Composite 5-factor calculation: strictly 0.25*auth + 0.20*corr + 0.20*nov + 0.20*mag + 0.15*rel
     // Clamped between 4.0 and 9.5 without artificial compression
@@ -1284,8 +1595,8 @@ function editor(synthesizedItems, sourcesConfig, agentLog) {
       id: `${beatId}-${colKey}-${today.replace(/-/g, '')}-${itemIdCounter++}`,
       source: item.source,
       date: validItemDate,
-      headline: item.headline,
-      summary: item.summary,
+      headline: decodeHtmlEntities(item.headline),
+      summary: decodeHtmlEntities(item.summary),
       tag: item.tag || assignTag(item, colKey),
       url: item.url,
       thumbnail: `https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80`,

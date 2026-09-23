@@ -573,8 +573,8 @@
             "id": "markets-macro-20260922-35",
             "source": "MarketWatch Top",
             "date": "2026-09-22",
-            "headline": "The Nasdaq&#x2019;s rapid rise to a record is sending a message to investors: Don&#x2019;t wait for a pullback to buy",
-            "summary": "Some analysts say the upbeat data on the Nasdaq&#x2019;s outlook is backed up by improving fundamentals.",
+            "headline": "The Nasdaq’s rapid rise to a record is sending a message to investors: Don’t wait for a pullback to buy",
+            "summary": "Some analysts say the upbeat data on the Nasdaq’s outlook is backed up by improving fundamentals.",
             "tag": "REPORT",
             "url": "https://www.marketwatch.com/story/the-nasdaqs-rapid-rise-to-a-record-is-sending-a-message-to-investors-dont-wait-for-a-pullback-to-buy-5f533ed8?mod=mw_rss_topstories",
             "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
@@ -590,30 +590,10 @@
             }
           },
           {
-            "id": "markets-macro-20260922-34",
-            "source": "MarketWatch Top",
-            "date": "2026-09-22",
-            "headline": "My husband and I are in our 50s and have no kids. We have $2 million in IRAs and 401(k)s. Do we really need a will?",
-            "summary": "&#x201c;We have no debt and own our primary home, a vacation home, as well as my mother&#x2019;s home in another state.&#x201d;",
-            "tag": "REPORT",
-            "url": "https://www.marketwatch.com/story/my-husband-and-i-are-in-our-50s-and-have-no-kids-we-have-2-million-do-we-need-a-will-62fb422f?mod=mw_rss_topstories",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "markets",
-            "column": "macro",
-            "scores": {
-              "authority": 8.4,
-              "corroboration": 3,
-              "novelty": 5.2,
-              "magnitude": 5.2,
-              "relevance": 4.5,
-              "total": 5.5
-            }
-          },
-          {
             "id": "markets-macro-20260922-36",
             "source": "MarketWatch Top",
             "date": "2026-09-22",
-            "headline": "Sandisk&#x2019;s stock is rising: Why one analyst says AI could help it reach new heights",
+            "headline": "Sandisk’s stock is rising: Why one analyst says AI could help it reach new heights",
             "summary": "Larger AI models and inference are turning NAND from a commodity into a critical component, a Rosenblatt analyst said.",
             "tag": "REPORT",
             "url": "https://www.marketwatch.com/story/sandisks-stock-is-rising-why-one-analyst-says-ai-could-help-it-reach-new-heights-5541ded8?mod=mw_rss_topstories",
@@ -653,8 +633,8 @@
             "id": "markets-macro-20260922-38",
             "source": "MarketWatch Top",
             "date": "2026-09-22",
-            "headline": "Could Meta&#x2019;s viral Muse app be the company&#x2019;s ChatGPT moment?",
-            "summary": "Meta&#x2019;s new assistant is topping App Store charts and beating ChatGPT&#x2019;s early download pace, spurring renewed confidence in the company&#x2019;s AI strategy",
+            "headline": "Could Meta’s viral Muse app be the company’s ChatGPT moment?",
+            "summary": "Meta’s new assistant is topping App Store charts and beating ChatGPT’s early download pace, spurring renewed confidence in the company’s AI strategy",
             "tag": "REPORT",
             "url": "https://www.marketwatch.com/story/could-metas-viral-muse-app-be-the-companys-chatgpt-moment-8e7075aa?mod=mw_rss_topstories",
             "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
@@ -670,88 +650,7 @@
             }
           }
         ],
-        "company-moves": [
-          {
-            "id": "markets-company-moves-20260922-40",
-            "source": "SEC EDGAR / 8-K",
-            "date": "2026-09-18",
-            "headline": "Permianville Royalty Trust  (PVL)  (CIK 0001520048) Discloses Material Operations in Form 8-K",
-            "summary": "SEC regulatory submission filed by Permianville Royalty Trust (PVL) (CIK 0001520048). Form 8-K detailing material operations and capital restructuring.",
-            "tag": "MARKETS",
-            "url": "https://www.sec.gov/edgar/browse/?CIK=0001520048",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "markets",
-            "column": "company-moves",
-            "scores": {
-              "authority": 9.4,
-              "corroboration": 9.7,
-              "novelty": 5.2,
-              "magnitude": 7.8,
-              "relevance": 8.8,
-              "total": 8.2
-            }
-          },
-          {
-            "id": "markets-company-moves-20260922-41",
-            "source": "SEC EDGAR / 8-K",
-            "date": "2026-09-18",
-            "headline": "Omega Flex, Inc.  (OFLX)  (CIK 0001317945) Discloses Material Operations in Form 8-K",
-            "summary": "SEC regulatory submission filed by Omega Flex, Inc. Form 8-K detailing material operations and capital restructuring.",
-            "tag": "MARKETS",
-            "url": "https://www.sec.gov/edgar/browse/?CIK=0001317945",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "markets",
-            "column": "company-moves",
-            "scores": {
-              "authority": 9.4,
-              "corroboration": 9.7,
-              "novelty": 5.2,
-              "magnitude": 7.8,
-              "relevance": 7.8,
-              "total": 8.1
-            }
-          },
-          {
-            "id": "markets-company-moves-20260922-42",
-            "source": "SEC EDGAR / 8-K",
-            "date": "2026-09-21",
-            "headline": "Algorhythm Holdings, Inc.  (RIME)  (CIK 0000923601) Discloses Material Operations in Form 8-K",
-            "summary": "SEC regulatory submission filed by Algorhythm Holdings, Inc. Form 8-K detailing material operations and capital restructuring.",
-            "tag": "MARKETS",
-            "url": "https://www.sec.gov/edgar/browse/?CIK=0000923601",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "markets",
-            "column": "company-moves",
-            "scores": {
-              "authority": 9.4,
-              "corroboration": 9.7,
-              "novelty": 5.2,
-              "magnitude": 7.8,
-              "relevance": 7.8,
-              "total": 8.1
-            }
-          },
-          {
-            "id": "markets-company-moves-20260922-43",
-            "source": "SEC EDGAR / 10-Q",
-            "date": "2026-09-22",
-            "headline": "AIRWA INC.  (YYAI)  (CIK 0001674440) Discloses Material Operations in Form 10-Q",
-            "summary": "SEC regulatory submission filed by AIRWA INC. Form 10-Q detailing material operations and capital restructuring.",
-            "tag": "MARKETS",
-            "url": "https://www.sec.gov/edgar/browse/?CIK=0001674440",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "markets",
-            "column": "company-moves",
-            "scores": {
-              "authority": 9.4,
-              "corroboration": 9.7,
-              "novelty": 5.2,
-              "magnitude": 4.2,
-              "relevance": 6.5,
-              "total": 7.1
-            }
-          }
-        ],
+        "company-moves": [],
         "analysts": []
       }
     },

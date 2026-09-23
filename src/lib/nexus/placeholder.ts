@@ -74,6 +74,41 @@ export function getRelativeTimeString(isoTimestamp?: string): string {
   }
 }
 
+const HTML_NAMED_ENTITIES: Record<string, string> = {
+  quot: '"', apos: "'", amp: '&', lt: '<', gt: '>', nbsp: ' ',
+  iexcl: '¡', cent: '¢', pound: '£', curren: '¤', yen: '¥',
+  sect: '§', uml: '¨', copy: '©', ordf: 'ª', laquo: '«',
+  reg: '®', deg: '°', plusmn: '±', sup2: '²', sup3: '³',
+  acute: '´', micro: 'µ', para: '¶', middot: '·', sup1: '¹',
+  ordm: 'º', raquo: '»', frac14: '¼', frac12: '½', frac34: '¾',
+  times: '×', divide: '÷', ndash: '–', mdash: '—', lsquo: '‘',
+  rsquo: '’', sbquo: '‚', ldquo: '“', rdquo: '”', bdquo: '„',
+  dagger: '†', Dagger: '‡', bull: '•', hellip: '…', euro: '€',
+  trade: '™', asymp: '≈', ne: '≠', le: '≤', ge: '≥',
+};
+
+/**
+ * Decodes numeric (hex and decimal) and named HTML entities in strings.
+ */
+export function decodeHtmlEntities(raw?: string): string {
+  if (!raw) return '';
+  let text = raw;
+  for (let pass = 0; pass < 2; pass++) {
+    text = text.replace(/&#x([0-9a-fA-F]+);/gi, (match, hex) => {
+      try { return String.fromCodePoint(parseInt(hex, 16)); } catch { return match; }
+    });
+    text = text.replace(/&#([0-9]+);/g, (match, dec) => {
+      try { return String.fromCodePoint(parseInt(dec, 10)); } catch { return match; }
+    });
+    text = text.replace(/&([a-zA-Z]+);/g, (match, name) => {
+      const lower = name.toLowerCase();
+      return HTML_NAMED_ENTITIES[name] ?? HTML_NAMED_ENTITIES[lower] ?? match;
+    });
+    if (!/&#x[0-9a-fA-F]+;|&#[0-9]+;|&[a-zA-Z]+;/i.test(text)) break;
+  }
+  return text;
+}
+
 /**
  * Empty fallback index when no published editions are available yet.
  */

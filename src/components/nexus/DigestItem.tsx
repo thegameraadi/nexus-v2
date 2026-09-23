@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Bookmark, ExternalLink } from 'lucide-react';
 import { DigestItem as DigestItemType } from '../../lib/nexus/types';
 import { isItemSaved, toggleSaveItem, SAVED_CHANGE_EVENT } from '../../lib/nexus/storage';
+import { decodeHtmlEntities } from '../../lib/nexus/placeholder';
 import { ScoreBreakdown } from './ScoreBreakdown';
 
 interface DigestItemProps {
@@ -104,13 +105,13 @@ export const DigestItem: React.FC<DigestItemProps> = ({ item }) => {
                 rel="noopener noreferrer"
                 className="inline-flex items-baseline gap-1.5 focus:outline-none focus:underline"
               >
-                <span>{item.headline}</span>
+                <span>{decodeHtmlEntities(item.headline)}</span>
                 <ExternalLink className="w-3 h-3 text-zinc-500 inline-block opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
               </a>
             </h3>
 
             <p className="nexus-body mt-2 leading-relaxed">
-              {item.summary}
+              {decodeHtmlEntities(item.summary)}
             </p>
           </div>
         </div>
