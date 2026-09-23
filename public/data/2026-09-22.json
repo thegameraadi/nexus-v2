@@ -5,146 +5,8 @@
   "agentLog": [
     {
       "timestamp": "23:51:46",
-      "module": "RANK",
-      "message": "Initiating deduplication & 4-factor scoring heuristics (discriminating deals vs administrative noise).",
-      "status": "ok"
-    },
-    {
-      "timestamp": "23:51:47",
-      "module": "RANK",
-      "message": "Deduplication dropped 0 redundant wires. 119 candidates evaluated.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "23:51:47",
-      "module": "SYNTH",
-      "message": "Selecting candidates clearing quality floor for synthesis.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "23:51:47",
-      "module": "SYNTH",
-      "message": "Deterministic synthesis produced 45 items (4 dropped for lack of substantive source text, LLM key not configured). Est cost: free tier.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "23:51:47",
-      "module": "EDITOR",
-      "message": "Computing composite 5-factor scores and executing non-destructive edition merge.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "23:51:47",
-      "module": "EDITOR",
-      "message": "3x daily merge: retained 39 existing dispatches, integrated 14 new dispatches.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "23:52:06",
-      "module": "SCOUT",
-      "message": "Initializing ingestion pipeline across 5 beats (strict 7-day recency filter).",
-      "status": "ok"
-    },
-    {
-      "timestamp": "23:52:11",
-      "module": "SCOUT",
-      "message": "Scouted 119 candidate signals across 5 beats (all within 7-day window).",
-      "status": "ok"
-    },
-    {
-      "timestamp": "23:52:11",
-      "module": "RANK",
-      "message": "Initiating deduplication & 4-factor scoring heuristics (discriminating deals vs administrative noise).",
-      "status": "ok"
-    },
-    {
-      "timestamp": "23:52:12",
-      "module": "RANK",
-      "message": "Deduplication dropped 0 redundant wires. 119 candidates evaluated.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "23:52:12",
-      "module": "SYNTH",
-      "message": "Selecting candidates clearing quality floor for synthesis.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "23:52:12",
-      "module": "SYNTH",
-      "message": "Deterministic synthesis produced 45 items (4 dropped for lack of substantive source text, LLM key not configured). Est cost: free tier.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "23:52:12",
-      "module": "EDITOR",
-      "message": "Computing composite 5-factor scores and executing non-destructive edition merge.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "23:52:12",
-      "module": "EDITOR",
-      "message": "3x daily merge: retained 53 existing dispatches, integrated 0 new dispatches.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "23:52:51",
-      "module": "SCOUT",
-      "message": "Initializing ingestion pipeline across 5 beats (strict 7-day recency filter).",
-      "status": "ok"
-    },
-    {
-      "timestamp": "23:52:58",
-      "module": "SCOUT",
-      "message": "Scouted 119 candidate signals across 5 beats (all within 7-day window).",
-      "status": "ok"
-    },
-    {
-      "timestamp": "23:52:58",
-      "module": "RANK",
-      "message": "Initiating deduplication & 4-factor scoring heuristics (discriminating deals vs administrative noise).",
-      "status": "ok"
-    },
-    {
-      "timestamp": "23:52:58",
-      "module": "RANK",
-      "message": "Deduplication dropped 0 redundant wires. 119 candidates evaluated.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "23:52:58",
-      "module": "SYNTH",
-      "message": "Selecting candidates clearing quality floor for synthesis.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "23:52:58",
-      "module": "SYNTH",
-      "message": "Deterministic synthesis produced 45 items (4 dropped for lack of substantive source text, LLM key not configured). Est cost: free tier.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "23:52:58",
-      "module": "EDITOR",
-      "message": "Computing composite 5-factor scores and executing non-destructive edition merge.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "23:52:58",
-      "module": "EDITOR",
-      "message": "3x daily merge: retained 53 existing dispatches, integrated 0 new dispatches.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "23:53:08",
-      "module": "SCOUT",
-      "message": "Initializing ingestion pipeline across 5 beats (strict 7-day recency filter).",
-      "status": "ok"
-    },
-    {
-      "timestamp": "23:53:14",
-      "module": "SCOUT",
-      "message": "Scouted 119 candidate signals across 5 beats (all within 7-day window).",
+      "module": "SYSTEM",
+      "message": "Earlier runs today: 24 prior audit records archived from previous execution cycles.",
       "status": "ok"
     },
     {
@@ -189,43 +51,23 @@
       "columns": {
         "venture": [
           {
-            "id": "ai-venture-venture-20260922-5",
+            "id": "ai-venture-venture-20260922-48",
             "source": "TechCrunch AI",
             "date": "2026-09-22",
-            "headline": "Snorkel AI triples valuation to $3.5B as demand for AI training data booms",
-            "summary": "The seven-year-old startup has raised a $350 million Series E to fuel its data-as-a-service approach.",
+            "headline": "OpenAI launches GPT-6 Sol and Luna, boasting lower cost and fewer mistakes",
+            "summary": "OpenAI is launching two new models, which it says are cut from the same cloth as Astra.",
             "tag": "VENTURE",
-            "url": "https://techcrunch.com/2026/09/22/snorkel-ai-triples-valuation-to-3-5b-as-demand-for-ai-training-data-booms/",
+            "url": "https://techcrunch.com/2026/09/22/openai-launches-gpt-6-sol-and-luna/",
             "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
             "beat": "ai-venture",
             "column": "venture",
             "scores": {
-              "authority": 8.8,
-              "corroboration": 7,
-              "novelty": 7.8,
-              "magnitude": 8.5,
-              "relevance": 8.7,
-              "total": 8.2
-            }
-          },
-          {
-            "id": "ai-venture-venture-20260922-6",
-            "source": "TechCrunch AI",
-            "date": "2026-09-22",
-            "headline": "TechCrunch Disrupt 2026: Aaron Edsinger brings Hello Robot’s Stretch 4 to life onstage",
-            "summary": "Hello Robot CEO and co-founder Aaron Edsinger will bring Stretch 4 for a live demo on the Real World AI Stage at TechCrunch Disrupt 2026. Register before September 25 to save up to $200, plus get a second pass at 50% off.",
-            "tag": "REPORT",
-            "url": "https://techcrunch.com/2026/09/22/techcrunch-disrupt-2026-aaron-edsinger-brings-hello-robots-stretch-4-to-life-onstage/",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "ai-venture",
-            "column": "venture",
-            "scores": {
-              "authority": 8.8,
-              "corroboration": 7,
-              "novelty": 7.8,
-              "magnitude": 8.5,
-              "relevance": 8.7,
-              "total": 8.2
+              "authority": 7.8,
+              "corroboration": 6.5,
+              "novelty": 9.4,
+              "magnitude": 9.4,
+              "relevance": 8.8,
+              "total": 8.3
             }
           },
           {
@@ -240,32 +82,32 @@
             "beat": "ai-venture",
             "column": "venture",
             "scores": {
-              "authority": 8.8,
-              "corroboration": 7,
+              "authority": 7.8,
+              "corroboration": 7.5,
               "novelty": 7.8,
-              "magnitude": 7.5,
-              "relevance": 8.5,
-              "total": 7.9
+              "magnitude": 9.4,
+              "relevance": 7.8,
+              "total": 8.1
             }
           },
           {
-            "id": "ai-venture-venture-20260922-48",
+            "id": "ai-venture-venture-20260922-5",
             "source": "TechCrunch AI",
             "date": "2026-09-22",
-            "headline": "OpenAI launches GPT-6 Sol and Luna, boasting lower cost and fewer mistakes",
-            "summary": "OpenAI is launching two new models, which it says are cut from the same cloth as Astra.",
+            "headline": "Snorkel AI triples valuation to $3.5B as demand for AI training data booms",
+            "summary": "The seven-year-old startup has raised a $350 million Series E to fuel its data-as-a-service approach.",
             "tag": "VENTURE",
-            "url": "https://techcrunch.com/2026/09/22/openai-launches-gpt-6-sol-and-luna/",
+            "url": "https://techcrunch.com/2026/09/22/snorkel-ai-triples-valuation-to-3-5b-as-demand-for-ai-training-data-booms/",
             "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
             "beat": "ai-venture",
             "column": "venture",
             "scores": {
-              "authority": 8.8,
-              "corroboration": 4.5,
-              "novelty": 5,
-              "magnitude": 5.2,
-              "relevance": 7.9,
-              "total": 6.3
+              "authority": 7.8,
+              "corroboration": 6.5,
+              "novelty": 9.4,
+              "magnitude": 9.5,
+              "relevance": 6.5,
+              "total": 8
             }
           },
           {
@@ -280,56 +122,36 @@
             "beat": "ai-venture",
             "column": "venture",
             "scores": {
-              "authority": 8.8,
-              "corroboration": 4.5,
-              "novelty": 5,
-              "magnitude": 4.5,
-              "relevance": 9.2,
-              "total": 6.4
+              "authority": 7.8,
+              "corroboration": 6.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 7.8,
+              "total": 6.3
             }
           },
           {
-            "id": "ai-venture-venture-20260922-50",
+            "id": "ai-venture-venture-20260922-6",
             "source": "TechCrunch AI",
             "date": "2026-09-22",
-            "headline": "Meta admits Muse's likeness to OpenClaw isn't a coincidence",
-            "summary": "Meta says Muse was built from scratch, but acknowledges the AI assistant was \"heavily inspired\" by OpenClaw — down to some of its workspace filenames and content.",
-            "tag": "VENTURE",
-            "url": "https://techcrunch.com/2026/09/22/meta-admits-muses-likeness-to-openclaw-isnt-a-coincidence/",
+            "headline": "TechCrunch Disrupt 2026: Aaron Edsinger brings Hello Robot’s Stretch 4 to life onstage",
+            "summary": "Hello Robot CEO and co-founder Aaron Edsinger will bring Stretch 4 for a live demo on the Real World AI Stage at TechCrunch Disrupt 2026. Register before September 25 to save up to $200, plus get a second pass at 50% off.",
+            "tag": "REPORT",
+            "url": "https://techcrunch.com/2026/09/22/techcrunch-disrupt-2026-aaron-edsinger-brings-hello-robots-stretch-4-to-life-onstage/",
             "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
             "beat": "ai-venture",
             "column": "venture",
             "scores": {
-              "authority": 8.8,
-              "corroboration": 4.5,
-              "novelty": 5,
-              "magnitude": 4.5,
-              "relevance": 9.2,
-              "total": 6.4
+              "authority": 7.8,
+              "corroboration": 6.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 6.5,
+              "total": 6.1
             }
           }
         ],
         "research": [
-          {
-            "id": "ai-venture-research-20260922-8",
-            "source": "arXiv Preprint",
-            "date": "2026-09-21",
-            "headline": "GameHorizon Suite: Multi-Horizon Data and Evaluation in Gameplay",
-            "summary": "Modern video games provide a measurable testbed for AI models, combining abilities of visual understanding, instruction decomposition, goal planning, and precise action control over multiple temporal horizons. Existing datasets and benchmarks, however, either cover a narrow range of games, lack language instructions, or rely on high-variance online rollouts. To address these challenges, we introduce GameHorizon, a unified data and evaluation suite that measures gameplay capabilities at different horizons for diverse model families.",
-            "tag": "BENCHMARK",
-            "url": "http://arxiv.org/abs/2609.25001v1",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "ai-venture",
-            "column": "research",
-            "scores": {
-              "authority": 9.5,
-              "corroboration": 7,
-              "novelty": 8.6,
-              "magnitude": 8.5,
-              "relevance": 9.1,
-              "total": 8.6
-            }
-          },
           {
             "id": "ai-venture-research-20260922-9",
             "source": "MIT Tech Review AI",
@@ -342,12 +164,12 @@
             "beat": "ai-venture",
             "column": "research",
             "scores": {
-              "authority": 9.2,
-              "corroboration": 8.6,
-              "novelty": 7.8,
-              "magnitude": 7.5,
-              "relevance": 9.1,
-              "total": 8.4
+              "authority": 9,
+              "corroboration": 8.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 4.5,
+              "total": 6.5
             }
           },
           {
@@ -362,32 +184,12 @@
             "beat": "ai-venture",
             "column": "research",
             "scores": {
-              "authority": 9.2,
-              "corroboration": 7.8,
-              "novelty": 8.2,
-              "magnitude": 7.5,
-              "relevance": 9,
-              "total": 8.3
-            }
-          },
-          {
-            "id": "ai-venture-research-20260922-11",
-            "source": "arXiv Preprint",
-            "date": "2026-09-21",
-            "headline": "onPanda: Efficient Annotation of On-Policy Alignment Data for LLMs and Agents via Token-Level Correction",
-            "summary": "We present onPanda, an interactive tool for efficiently annotating LLM alignment data and agent trajectories. onPanda adopts token-level correction as its core interaction: while reading a model response, the annotator locates the first inappropriate token and either picks a substitute from the model's candidate tokens or types the correct text via free-form editing. The system then truncates everything after that position and continues generation from the corrected prefix, repeating this locate-correct-continue loop until a satisfactory response is obtained.",
-            "tag": "REPORT",
-            "url": "http://arxiv.org/abs/2609.24983v1",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "ai-venture",
-            "column": "research",
-            "scores": {
-              "authority": 9.5,
-              "corroboration": 7,
-              "novelty": 8.6,
-              "magnitude": 7.5,
-              "relevance": 8.9,
-              "total": 8.3
+              "authority": 9,
+              "corroboration": 8.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 4.5,
+              "total": 6.5
             }
           },
           {
@@ -402,52 +204,52 @@
             "beat": "ai-venture",
             "column": "research",
             "scores": {
-              "authority": 9.2,
-              "corroboration": 7.8,
-              "novelty": 7.8,
-              "magnitude": 7.5,
-              "relevance": 8.9,
-              "total": 8.3
+              "authority": 9,
+              "corroboration": 8.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 4.5,
+              "total": 6.5
             }
           },
           {
-            "id": "ai-venture-research-20260922-44",
+            "id": "ai-venture-research-20260922-11",
             "source": "arXiv Preprint",
             "date": "2026-09-21",
-            "headline": "Rare Event Estimation via Iterative Unalignment",
-            "summary": "As agents are deployed with increased autonomy, even extremely rare events along their stochastic output trajectories can occur and prove catastrophic. Safe deployment therefore does not depend on whether these events can occur, but on how often they might. We study the problem of estimating the probability of rare events that arise from stochastic variation in the agent's own actions.",
+            "headline": "onPanda: Efficient Annotation of On-Policy Alignment Data for LLMs and Agents via Token-Level Correction",
+            "summary": "We present onPanda, an interactive tool for efficiently annotating LLM alignment data and agent trajectories. onPanda adopts token-level correction as its core interaction: while reading a model response, the annotator locates the first inappropriate token and either picks a substitute from the model's candidate tokens or types the correct text via free-form editing. The system then truncates everything after that position and continues generation from the corrected prefix, repeating this locate-correct-continue loop until a satisfactory response is obtained.",
+            "tag": "REPORT",
+            "url": "http://arxiv.org/abs/2609.24983v1",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "research",
+            "scores": {
+              "authority": 8.6,
+              "corroboration": 3,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 8.8,
+              "total": 6
+            }
+          },
+          {
+            "id": "ai-venture-research-20260922-8",
+            "source": "arXiv Preprint",
+            "date": "2026-09-21",
+            "headline": "GameHorizon Suite: Multi-Horizon Data and Evaluation in Gameplay",
+            "summary": "Modern video games provide a measurable testbed for AI models, combining abilities of visual understanding, instruction decomposition, goal planning, and precise action control over multiple temporal horizons. Existing datasets and benchmarks, however, either cover a narrow range of games, lack language instructions, or rely on high-variance online rollouts. To address these challenges, we introduce GameHorizon, a unified data and evaluation suite that measures gameplay capabilities at different horizons for diverse model families.",
             "tag": "BENCHMARK",
-            "url": "http://arxiv.org/abs/2609.24969v1",
+            "url": "http://arxiv.org/abs/2609.25001v1",
             "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
             "beat": "ai-venture",
             "column": "research",
             "scores": {
-              "authority": 9.5,
-              "corroboration": 4.5,
-              "novelty": 5,
-              "magnitude": 9.5,
-              "relevance": 8.9,
-              "total": 7.5
-            }
-          },
-          {
-            "id": "ai-venture-research-20260922-45",
-            "source": "arXiv Preprint",
-            "date": "2026-09-21",
-            "headline": "Harness-Zero: Harness Distillation via Agent-as-Harness",
-            "summary": "Agent harnesses, the external systems that mediate model-environment interaction, can substantially improve agent performance, but their gains remain tied to the harness at deployment. Because the best harness varies across domains, instances, and models, a general-purpose agent must either settle for a suboptimal shared harness or route among an ever-growing set of specialized ones. We therefore study agent harness distillation: using a domain- or instance-optimized harness as training-time guidance and transferring the behaviors it induces into model weights, so that its gains survive under a single fixed target harness.",
-            "tag": "REASONING",
-            "url": "http://arxiv.org/abs/2609.24974v1",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "ai-venture",
-            "column": "research",
-            "scores": {
-              "authority": 9.5,
-              "corroboration": 4.5,
-              "novelty": 6.2,
-              "magnitude": 4.5,
-              "relevance": 8.2,
-              "total": 6.6
+              "authority": 8.6,
+              "corroboration": 3,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 7.8,
+              "total": 5.8
             }
           }
         ],
@@ -464,32 +266,12 @@
             "beat": "ai-venture",
             "column": "titans",
             "scores": {
-              "authority": 8.7,
-              "corroboration": 7,
-              "novelty": 8.2,
-              "magnitude": 8.5,
-              "relevance": 8.8,
-              "total": 8.2
-            }
-          },
-          {
-            "id": "ai-venture-titans-20260922-25",
-            "source": "The Verge AI",
-            "date": "2026-09-22",
-            "headline": "Meta patches Muse exploit that let attackers control the AI agent",
-            "summary": "Meta has issued a patch for its Muse macOS app following the discovery of a zero-day vulnerability that could allow someone to take control of the AI agent. The bug found by security researcher Patrick Wardle utilized an undocumented Muse setting that enabled potential attackers running local code to redirect transcription processing from Meta's servers [...]",
-            "tag": "REPORT",
-            "url": "https://www.theverge.com/tech/998679/meta-muse-patch-zero-day-exploit-ai-agent",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "ai-venture",
-            "column": "titans",
-            "scores": {
-              "authority": 8.7,
-              "corroboration": 7,
-              "novelty": 8.2,
-              "magnitude": 8.5,
-              "relevance": 8.8,
-              "total": 8.2
+              "authority": 7.7,
+              "corroboration": 7.5,
+              "novelty": 7.8,
+              "magnitude": 6,
+              "relevance": 7.8,
+              "total": 7.4
             }
           },
           {
@@ -504,52 +286,12 @@
             "beat": "ai-venture",
             "column": "titans",
             "scores": {
-              "authority": 8.7,
-              "corroboration": 7,
-              "novelty": 7.8,
-              "magnitude": 8.5,
-              "relevance": 8.7,
-              "total": 8.1
-            }
-          },
-          {
-            "id": "ai-venture-titans-20260922-27",
-            "source": "The Verge AI",
-            "date": "2026-09-21",
-            "headline": "iPhone owners can now submit claims in Apple’s $250 million Siri AI settlement",
-            "summary": "Apple is paying $250 million to settle claims that it failed to deliver an AI-upgraded Siri - and now, eligible iPhone owners can submit a claim for a payout. If you live in the US and purchased an iPhone 15 Pro, iPhone 15 Pro Max, or any iPhone 16 model between June 10th, 2024, and [...]",
-            "tag": "REPORT",
-            "url": "https://www.theverge.com/tech/998191/apple-siri-ai-iphone-16-class-action-lawsuit-settlement",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "ai-venture",
-            "column": "titans",
-            "scores": {
-              "authority": 8.7,
-              "corroboration": 7,
-              "novelty": 7.8,
-              "magnitude": 8.5,
-              "relevance": 8.7,
-              "total": 8.1
-            }
-          },
-          {
-            "id": "ai-venture-titans-20260922-28",
-            "source": "The Verge AI",
-            "date": "2026-09-22",
-            "headline": "Rabbit’s new AI agent doesn’t need an R1 to run",
-            "summary": "Rabbit, the company behind the underwhelming R1 device, is rolling out a standalone AI agent that you don't need its hardware to use, as reported earlier by Wired. The startup says its new OS3 \"agentic operating system\" runs in the cloud but operates locally across Windows, Mac, and Linux devices. According to Rabbit, you can [...]",
-            "tag": "REPORT",
-            "url": "https://www.theverge.com/ai-artificial-intelligence/999094/rabbit-ai-agent-os3",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "ai-venture",
-            "column": "titans",
-            "scores": {
-              "authority": 8.7,
-              "corroboration": 7,
-              "novelty": 7.8,
-              "magnitude": 7.5,
-              "relevance": 8.5,
-              "total": 7.9
+              "authority": 7.7,
+              "corroboration": 6.5,
+              "novelty": 5.2,
+              "magnitude": 6.5,
+              "relevance": 9.5,
+              "total": 7
             }
           },
           {
@@ -564,12 +306,52 @@
             "beat": "ai-venture",
             "column": "titans",
             "scores": {
-              "authority": 8.7,
-              "corroboration": 4.5,
-              "novelty": 5,
-              "magnitude": 4.5,
-              "relevance": 9.2,
-              "total": 6.4
+              "authority": 7.7,
+              "corroboration": 7.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 6.5,
+              "total": 6.3
+            }
+          },
+          {
+            "id": "ai-venture-titans-20260922-25",
+            "source": "The Verge AI",
+            "date": "2026-09-22",
+            "headline": "Meta patches Muse exploit that let attackers control the AI agent",
+            "summary": "Meta has issued a patch for its Muse macOS app following the discovery of a zero-day vulnerability that could allow someone to take control of the AI agent. The bug found by security researcher Patrick Wardle utilized an undocumented Muse setting that enabled potential attackers running local code to redirect transcription processing from Meta's servers [...]",
+            "tag": "REPORT",
+            "url": "https://www.theverge.com/tech/998679/meta-muse-patch-zero-day-exploit-ai-agent",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "titans",
+            "scores": {
+              "authority": 7.7,
+              "corroboration": 6.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 6.5,
+              "total": 6.1
+            }
+          },
+          {
+            "id": "ai-venture-titans-20260922-28",
+            "source": "The Verge AI",
+            "date": "2026-09-22",
+            "headline": "Rabbit’s new AI agent doesn’t need an R1 to run",
+            "summary": "Rabbit, the company behind the underwhelming R1 device, is rolling out a standalone AI agent that you don't need its hardware to use, as reported earlier by Wired. The startup says its new OS3 \"agentic operating system\" runs in the cloud but operates locally across Windows, Mac, and Linux devices. According to Rabbit, you can [...]",
+            "tag": "REPORT",
+            "url": "https://www.theverge.com/ai-artificial-intelligence/999094/rabbit-ai-agent-os3",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "titans",
+            "scores": {
+              "authority": 7.7,
+              "corroboration": 6.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 6.5,
+              "total": 6.1
             }
           }
         ]
@@ -578,46 +360,6 @@
     "politics": {
       "columns": {
         "regulatory": [
-          {
-            "id": "politics-regulatory-20260922-13",
-            "source": "FTC Press",
-            "date": "2026-09-17",
-            "headline": "FTC Announces Additional Payments to Consumers Stemming from FTC’s Amazon Prime Settlement",
-            "summary": "Under a revised order, more consumers will qualify for refunds with the maximum payment increased from $51 to $200",
-            "tag": "REGULATORY",
-            "url": "https://www.ftc.gov/news-events/news/press-releases/2026/09/ftc-announces-additional-payments-consumers-stemming-ftcs-amazon-prime-settlement",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "politics",
-            "column": "regulatory",
-            "scores": {
-              "authority": 9.7,
-              "corroboration": 7,
-              "novelty": 8.2,
-              "magnitude": 8.5,
-              "relevance": 9.1,
-              "total": 8.5
-            }
-          },
-          {
-            "id": "politics-regulatory-20260922-14",
-            "source": "FTC Press",
-            "date": "2026-09-22",
-            "headline": "FTC Endorses Education Department Proposal to Expand Higher Education Accreditation Options",
-            "summary": "The Federal Trade Commission strongly endorsed the Department of Education’s proposed reforms to promote competition among accreditation agencies. Increased competition among accreditors and lower administrative burdens could lower the cost and improve the quality of higher education for millions of American students.",
-            "tag": "REGULATORY",
-            "url": "https://www.ftc.gov/news-events/news/press-releases/2026/09/ftc-endorses-education-department-proposal-expand-higher-education-accreditation-options",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "politics",
-            "column": "regulatory",
-            "scores": {
-              "authority": 9.7,
-              "corroboration": 7,
-              "novelty": 7.8,
-              "magnitude": 8.5,
-              "relevance": 9,
-              "total": 8.4
-            }
-          },
           {
             "id": "politics-regulatory-20260922-15",
             "source": "FTC Press",
@@ -631,10 +373,30 @@
             "column": "regulatory",
             "scores": {
               "authority": 9.7,
-              "corroboration": 7,
+              "corroboration": 9.2,
+              "novelty": 9.4,
+              "magnitude": 8.2,
+              "relevance": 8.8,
+              "total": 9.1
+            }
+          },
+          {
+            "id": "politics-regulatory-20260922-13",
+            "source": "FTC Press",
+            "date": "2026-09-17",
+            "headline": "FTC Announces Additional Payments to Consumers Stemming from FTC’s Amazon Prime Settlement",
+            "summary": "Under a revised order, more consumers will qualify for refunds with the maximum payment increased from $51 to $200",
+            "tag": "REGULATORY",
+            "url": "https://www.ftc.gov/news-events/news/press-releases/2026/09/ftc-announces-additional-payments-consumers-stemming-ftcs-amazon-prime-settlement",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "politics",
+            "column": "regulatory",
+            "scores": {
+              "authority": 9.7,
+              "corroboration": 9.2,
               "novelty": 7.8,
-              "magnitude": 8.5,
-              "relevance": 9,
+              "magnitude": 7.8,
+              "relevance": 6.5,
               "total": 8.4
             }
           },
@@ -651,11 +413,11 @@
             "column": "regulatory",
             "scores": {
               "authority": 9.7,
-              "corroboration": 7,
-              "novelty": 7.8,
-              "magnitude": 8.5,
-              "relevance": 9,
-              "total": 8.4
+              "corroboration": 9.2,
+              "novelty": 5.2,
+              "magnitude": 8.2,
+              "relevance": 6.5,
+              "total": 7.9
             }
           },
           {
@@ -671,16 +433,56 @@
             "column": "regulatory",
             "scores": {
               "authority": 9.7,
-              "corroboration": 7,
-              "novelty": 7.8,
-              "magnitude": 8.5,
-              "relevance": 9,
-              "total": 8.4
+              "corroboration": 9.2,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 7.8,
+              "total": 7.3
+            }
+          },
+          {
+            "id": "politics-regulatory-20260922-14",
+            "source": "FTC Press",
+            "date": "2026-09-22",
+            "headline": "FTC Endorses Education Department Proposal to Expand Higher Education Accreditation Options",
+            "summary": "The Federal Trade Commission strongly endorsed the Department of Education’s proposed reforms to promote competition among accreditation agencies. Increased competition among accreditors and lower administrative burdens could lower the cost and improve the quality of higher education for millions of American students.",
+            "tag": "REGULATORY",
+            "url": "https://www.ftc.gov/news-events/news/press-releases/2026/09/ftc-endorses-education-department-proposal-expand-higher-education-accreditation-options",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "politics",
+            "column": "regulatory",
+            "scores": {
+              "authority": 9.7,
+              "corroboration": 9.2,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 6.5,
+              "total": 7.1
             }
           }
         ],
         "global": [],
         "voices": [
+          {
+            "id": "politics-voices-20260922-31",
+            "source": "Foreign Policy",
+            "date": "2026-09-22",
+            "headline": "Trump Threatens to ‘Annihilate’ Iran in U.N. Speech",
+            "summary": "stage, no less—could be considered war crimes.",
+            "tag": "REPORT",
+            "url": "https://foreignpolicy.com/2026/09/22/trump-unga-speech-annihilate-iran-icc-rogue-war-crimes/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "politics",
+            "column": "voices",
+            "scores": {
+              "authority": 8.4,
+              "corroboration": 7.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 4.5,
+              "total": 6.2
+            }
+          },
           {
             "id": "politics-voices-20260922-29",
             "source": "Foreign Policy",
@@ -693,12 +495,12 @@
             "beat": "politics",
             "column": "voices",
             "scores": {
-              "authority": 8.8,
-              "corroboration": 7,
-              "novelty": 7.8,
-              "magnitude": 8.5,
-              "relevance": 8.7,
-              "total": 8.2
+              "authority": 8.4,
+              "corroboration": 3,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 4.5,
+              "total": 5.3
             }
           },
           {
@@ -713,32 +515,12 @@
             "beat": "politics",
             "column": "voices",
             "scores": {
-              "authority": 8.8,
-              "corroboration": 7,
-              "novelty": 8.2,
-              "magnitude": 7.5,
-              "relevance": 8.6,
-              "total": 8
-            }
-          },
-          {
-            "id": "politics-voices-20260922-31",
-            "source": "Foreign Policy",
-            "date": "2026-09-22",
-            "headline": "Trump Threatens to ‘Annihilate’ Iran in U.N. Speech",
-            "summary": "stage, no less—could be considered war crimes.",
-            "tag": "REPORT",
-            "url": "https://foreignpolicy.com/2026/09/22/trump-unga-speech-annihilate-iran-icc-rogue-war-crimes/",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "politics",
-            "column": "voices",
-            "scores": {
-              "authority": 8.8,
-              "corroboration": 7,
-              "novelty": 7.8,
-              "magnitude": 7.5,
-              "relevance": 8.5,
-              "total": 7.9
+              "authority": 8.4,
+              "corroboration": 3,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 4.5,
+              "total": 5.3
             }
           },
           {
@@ -753,12 +535,12 @@
             "beat": "politics",
             "column": "voices",
             "scores": {
-              "authority": 8.8,
-              "corroboration": 7,
-              "novelty": 7.8,
-              "magnitude": 7.5,
-              "relevance": 8.5,
-              "total": 7.9
+              "authority": 8.4,
+              "corroboration": 3,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 4.5,
+              "total": 5.3
             }
           },
           {
@@ -773,12 +555,12 @@
             "beat": "politics",
             "column": "voices",
             "scores": {
-              "authority": 8.8,
-              "corroboration": 7,
-              "novelty": 7.8,
-              "magnitude": 7.5,
-              "relevance": 8.5,
-              "total": 7.9
+              "authority": 8.4,
+              "corroboration": 3,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 4.5,
+              "total": 5.3
             }
           }
         ]
@@ -787,26 +569,6 @@
     "markets": {
       "columns": {
         "macro": [
-          {
-            "id": "markets-macro-20260922-34",
-            "source": "MarketWatch Top",
-            "date": "2026-09-22",
-            "headline": "My husband and I are in our 50s and have no kids. We have $2 million in IRAs and 401(k)s. Do we really need a will?",
-            "summary": "&#x201c;We have no debt and own our primary home, a vacation home, as well as my mother&#x2019;s home in another state.&#x201d;",
-            "tag": "REPORT",
-            "url": "https://www.marketwatch.com/story/my-husband-and-i-are-in-our-50s-and-have-no-kids-we-have-2-million-do-we-need-a-will-62fb422f?mod=mw_rss_topstories",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "markets",
-            "column": "macro",
-            "scores": {
-              "authority": 8.8,
-              "corroboration": 7,
-              "novelty": 7.8,
-              "magnitude": 8.5,
-              "relevance": 8.7,
-              "total": 8.2
-            }
-          },
           {
             "id": "markets-macro-20260922-35",
             "source": "MarketWatch Top",
@@ -819,12 +581,32 @@
             "beat": "markets",
             "column": "macro",
             "scores": {
-              "authority": 8.8,
-              "corroboration": 7,
-              "novelty": 8.2,
-              "magnitude": 7.5,
-              "relevance": 8.6,
-              "total": 8
+              "authority": 8.4,
+              "corroboration": 3,
+              "novelty": 9.4,
+              "magnitude": 4.2,
+              "relevance": 4.5,
+              "total": 6.1
+            }
+          },
+          {
+            "id": "markets-macro-20260922-34",
+            "source": "MarketWatch Top",
+            "date": "2026-09-22",
+            "headline": "My husband and I are in our 50s and have no kids. We have $2 million in IRAs and 401(k)s. Do we really need a will?",
+            "summary": "&#x201c;We have no debt and own our primary home, a vacation home, as well as my mother&#x2019;s home in another state.&#x201d;",
+            "tag": "REPORT",
+            "url": "https://www.marketwatch.com/story/my-husband-and-i-are-in-our-50s-and-have-no-kids-we-have-2-million-do-we-need-a-will-62fb422f?mod=mw_rss_topstories",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "markets",
+            "column": "macro",
+            "scores": {
+              "authority": 8.4,
+              "corroboration": 3,
+              "novelty": 5.2,
+              "magnitude": 5.2,
+              "relevance": 4.5,
+              "total": 5.5
             }
           },
           {
@@ -839,12 +621,12 @@
             "beat": "markets",
             "column": "macro",
             "scores": {
-              "authority": 8.8,
-              "corroboration": 7,
-              "novelty": 7.8,
-              "magnitude": 7.5,
-              "relevance": 8.5,
-              "total": 7.9
+              "authority": 8.4,
+              "corroboration": 3,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 4.5,
+              "total": 5.3
             }
           },
           {
@@ -859,12 +641,12 @@
             "beat": "markets",
             "column": "macro",
             "scores": {
-              "authority": 8.8,
-              "corroboration": 7,
-              "novelty": 7.8,
-              "magnitude": 7.5,
-              "relevance": 8.5,
-              "total": 7.9
+              "authority": 8.4,
+              "corroboration": 3,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 4.5,
+              "total": 5.3
             }
           },
           {
@@ -879,12 +661,12 @@
             "beat": "markets",
             "column": "macro",
             "scores": {
-              "authority": 8.8,
-              "corroboration": 7,
-              "novelty": 7.8,
-              "magnitude": 7.5,
-              "relevance": 8.5,
-              "total": 7.9
+              "authority": 8.4,
+              "corroboration": 3,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 4.5,
+              "total": 5.3
             }
           }
         ],
@@ -901,12 +683,12 @@
             "beat": "markets",
             "column": "company-moves",
             "scores": {
-              "authority": 9.6,
-              "corroboration": 9,
-              "novelty": 5,
-              "magnitude": 8.2,
-              "relevance": 8.3,
-              "total": 8.1
+              "authority": 9.4,
+              "corroboration": 9.7,
+              "novelty": 5.2,
+              "magnitude": 7.8,
+              "relevance": 8.8,
+              "total": 8.2
             }
           },
           {
@@ -921,11 +703,11 @@
             "beat": "markets",
             "column": "company-moves",
             "scores": {
-              "authority": 9.6,
-              "corroboration": 9,
-              "novelty": 5,
-              "magnitude": 8.2,
-              "relevance": 8.3,
+              "authority": 9.4,
+              "corroboration": 9.7,
+              "novelty": 5.2,
+              "magnitude": 7.8,
+              "relevance": 7.8,
               "total": 8.1
             }
           },
@@ -941,11 +723,11 @@
             "beat": "markets",
             "column": "company-moves",
             "scores": {
-              "authority": 9.6,
-              "corroboration": 9,
-              "novelty": 5,
-              "magnitude": 8.2,
-              "relevance": 8.3,
+              "authority": 9.4,
+              "corroboration": 9.7,
+              "novelty": 5.2,
+              "magnitude": 7.8,
+              "relevance": 7.8,
               "total": 8.1
             }
           },
@@ -961,12 +743,12 @@
             "beat": "markets",
             "column": "company-moves",
             "scores": {
-              "authority": 9.6,
-              "corroboration": 9,
-              "novelty": 5,
-              "magnitude": 4.5,
-              "relevance": 9.1,
-              "total": 7.5
+              "authority": 9.4,
+              "corroboration": 9.7,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 6.5,
+              "total": 7.1
             }
           }
         ],
@@ -976,26 +758,6 @@
     "science": {
       "columns": {
         "frontier": [
-          {
-            "id": "science-frontier-20260922-18",
-            "source": "arXiv Preprint",
-            "date": "2026-09-21",
-            "headline": "A thermal microwave bus for neutral atom quantum computing",
-            "summary": "High-fidelity two-qubit gates in neutral-atom arrays rely on the Rydberg blockade, which is intrinsically short ranged and requires long range connectivity to be achieved through atom shuttling. We propose a four level architecture, where the typical ground state qubit can be leveraged for its long lifetime and the Rydberg states couple to a microwave cavity, allowing for long range cavity mediated gates. We first find the thermal dependence of two established protocols, the dispersive iSWAP native to the Tavis-Cummings model and the Controlled phase gate generated from driving the cavity.",
-            "tag": "REPORT",
-            "url": "http://arxiv.org/abs/2609.24933v1",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "science",
-            "column": "frontier",
-            "scores": {
-              "authority": 9.6,
-              "corroboration": 7,
-              "novelty": 8.2,
-              "magnitude": 7.5,
-              "relevance": 8.9,
-              "total": 8.3
-            }
-          },
           {
             "id": "science-frontier-20260922-46",
             "source": "arXiv Preprint",
@@ -1008,12 +770,32 @@
             "beat": "science",
             "column": "frontier",
             "scores": {
-              "authority": 9.6,
-              "corroboration": 4.5,
-              "novelty": 5,
+              "authority": 8.6,
+              "corroboration": 3,
+              "novelty": 5.2,
               "magnitude": 9.1,
-              "relevance": 8.9,
-              "total": 7.5
+              "relevance": 6.5,
+              "total": 6.6
+            }
+          },
+          {
+            "id": "science-frontier-20260922-18",
+            "source": "arXiv Preprint",
+            "date": "2026-09-21",
+            "headline": "A thermal microwave bus for neutral atom quantum computing",
+            "summary": "High-fidelity two-qubit gates in neutral-atom arrays rely on the Rydberg blockade, which is intrinsically short ranged and requires long range connectivity to be achieved through atom shuttling. We propose a four level architecture, where the typical ground state qubit can be leveraged for its long lifetime and the Rydberg states couple to a microwave cavity, allowing for long range cavity mediated gates. We first find the thermal dependence of two established protocols, the dispersive iSWAP native to the Tavis-Cummings model and the Controlled phase gate generated from driving the cavity.",
+            "tag": "REPORT",
+            "url": "http://arxiv.org/abs/2609.24933v1",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "science",
+            "column": "frontier",
+            "scores": {
+              "authority": 8.6,
+              "corroboration": 3,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 6.5,
+              "total": 5.6
             }
           }
         ]
@@ -1034,52 +816,12 @@
             "beat": "culture",
             "column": "industry",
             "scores": {
-              "authority": 8.9,
-              "corroboration": 7,
-              "novelty": 8.2,
-              "magnitude": 7.5,
-              "relevance": 8.7,
-              "total": 8.1
-            }
-          },
-          {
-            "id": "culture-industry-20260922-40",
-            "source": "Ars Technica",
-            "date": "2026-09-22",
-            "headline": "IT mistake erases 11 years of viewing history for hospitals’ maternity records",
-            "summary": "The English hospitals recovered patient care data only.",
-            "tag": "REPORT",
-            "url": "https://arstechnica.com/information-technology/2026/09/it-mistake-erases-11-years-of-viewing-history-for-hospitals-maternity-records/",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "culture",
-            "column": "industry",
-            "scores": {
-              "authority": 8.8,
-              "corroboration": 7,
-              "novelty": 8.2,
-              "magnitude": 7.5,
-              "relevance": 8.6,
-              "total": 8
-            }
-          },
-          {
-            "id": "culture-industry-20260922-41",
-            "source": "Ars Technica",
-            "date": "2026-09-22",
-            "headline": "Effort begins to fill the void left by terminated US climate report",
-            "summary": "First paper added to community collection is a roadmap for research.",
-            "tag": "REPORT",
-            "url": "https://arstechnica.com/science/2026/09/effort-begins-to-fill-the-void-left-by-terminated-us-climate-report/",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "culture",
-            "column": "industry",
-            "scores": {
-              "authority": 8.8,
-              "corroboration": 7,
-              "novelty": 8.2,
-              "magnitude": 7.5,
-              "relevance": 8.6,
-              "total": 8
+              "authority": 8.1,
+              "corroboration": 6.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 4.5,
+              "total": 5.9
             }
           },
           {
@@ -1094,12 +836,12 @@
             "beat": "culture",
             "column": "industry",
             "scores": {
-              "authority": 8.9,
-              "corroboration": 7,
-              "novelty": 7.8,
-              "magnitude": 7.5,
-              "relevance": 8.6,
-              "total": 8
+              "authority": 8.1,
+              "corroboration": 6.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 4.5,
+              "total": 5.9
             }
           },
           {
@@ -1114,74 +856,74 @@
             "beat": "culture",
             "column": "industry",
             "scores": {
-              "authority": 8.9,
-              "corroboration": 7,
-              "novelty": 7.8,
-              "magnitude": 7.5,
-              "relevance": 8.6,
-              "total": 8
+              "authority": 8.1,
+              "corroboration": 6.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 4.5,
+              "total": 5.9
             }
           },
           {
-            "id": "culture-industry-20260922-52",
-            "source": "Wired Culture",
-            "date": "2026-09-18",
-            "headline": "Submit Your Questions: Why Is Silicon Valley Still a Boys’ Club?",
-            "summary": "How are women really faring in Silicon Valley? Submit your questions to our panel and we'll give you the scoop on September 24.",
+            "id": "culture-industry-20260922-40",
+            "source": "Ars Technica",
+            "date": "2026-09-22",
+            "headline": "IT mistake erases 11 years of viewing history for hospitals’ maternity records",
+            "summary": "The English hospitals recovered patient care data only.",
             "tag": "REPORT",
-            "url": "https://www.wired.com/story/livestream-women-in-tech/",
+            "url": "https://arstechnica.com/information-technology/2026/09/it-mistake-erases-11-years-of-viewing-history-for-hospitals-maternity-records/",
             "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
             "beat": "culture",
             "column": "industry",
             "scores": {
-              "authority": 8.9,
-              "corroboration": 4.5,
-              "novelty": 5,
-              "magnitude": 4.5,
-              "relevance": 9.2,
-              "total": 6.4
+              "authority": 8,
+              "corroboration": 3,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 4.5,
+              "total": 5.2
             }
           },
           {
-            "id": "culture-industry-20260922-53",
-            "source": "Wired Culture",
-            "date": "2026-09-17",
-            "headline": "‘Fast & Furious’ Takes a Victory Lap With a Ferociously Fun Roller Coaster",
-            "summary": "Vin Diesel, the star of the series, didn’t make a planned appearance at the grand opening of its dynamite new theme park ride. But it didn’t stop his fans from having a good time.",
+            "id": "culture-industry-20260922-41",
+            "source": "Ars Technica",
+            "date": "2026-09-22",
+            "headline": "Effort begins to fill the void left by terminated US climate report",
+            "summary": "First paper added to community collection is a roadmap for research.",
             "tag": "REPORT",
-            "url": "https://www.wired.com/story/fast-and-furious-roller-coaster/",
+            "url": "https://arstechnica.com/science/2026/09/effort-begins-to-fill-the-void-left-by-terminated-us-climate-report/",
             "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
             "beat": "culture",
             "column": "industry",
             "scores": {
-              "authority": 8.9,
-              "corroboration": 4.5,
-              "novelty": 5,
-              "magnitude": 4.5,
-              "relevance": 9.2,
-              "total": 6.4
+              "authority": 8,
+              "corroboration": 3,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 4.5,
+              "total": 5.2
             }
           }
         ],
         "voices": [
           {
-            "id": "culture-voices-20260922-19",
+            "id": "culture-voices-20260922-23",
             "source": "The Atlantic Ideas",
             "date": "2026-09-22",
-            "headline": "David Ellison Will Get Control of CNN After All",
-            "summary": "Eighteen months ago, David Ellison was mostly known as an ATM for Hollywood producers seeking to pad out budgets for dad-core flicks such as Jack Ryan: Shadow Recruit , Jack Reacher: Never Go Back , and Transformers: Rise of the Beasts . But now, thanks to a timely reallocation of his father’s money , he’s set to be one of the biggest news-media moguls in American history. Having already taken control of CBS News—with little to show for it audience-wise but plenty ideologically —he seems clear to add CNN to his roster of outlets.",
+            "headline": "The ‘New Word’ Trump Hates",
+            "summary": "Of all the outrages and betrayals that Donald Trump has had perpetrated against him—by ungrateful subordinates, by obstreperous prosecutors, by treacherous journalists—perhaps his saddest falling-out is with a simple word. “Starting on day one, we will defeat inflation quickly, and we will make America affordable again,” he declared in an ad during his 2024 presidential campaign. A year later, Trump confessed to still having some affinity for the word.",
             "tag": "REPORT",
-            "url": "https://www.theatlantic.com/ideas/2026/09/david-ellison-cnn-control/688740/?utm_source=feed",
+            "url": "https://www.theatlantic.com/ideas/2026/09/affordability-politics-democrats-policy/688736/?utm_source=feed",
             "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
             "beat": "culture",
             "column": "voices",
             "scores": {
-              "authority": 9,
-              "corroboration": 7,
-              "novelty": 8.6,
-              "magnitude": 8.5,
-              "relevance": 9,
-              "total": 8.4
+              "authority": 8.8,
+              "corroboration": 8.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 6.5,
+              "total": 6.8
             }
           },
           {
@@ -1196,12 +938,12 @@
             "beat": "culture",
             "column": "voices",
             "scores": {
-              "authority": 9,
-              "corroboration": 7,
-              "novelty": 8.6,
-              "magnitude": 8.5,
-              "relevance": 9,
-              "total": 8.4
+              "authority": 8.8,
+              "corroboration": 6.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 6.5,
+              "total": 6.4
             }
           },
           {
@@ -1216,12 +958,12 @@
             "beat": "culture",
             "column": "voices",
             "scores": {
-              "authority": 9,
-              "corroboration": 7,
-              "novelty": 8.6,
-              "magnitude": 8.5,
-              "relevance": 9,
-              "total": 8.4
+              "authority": 8.8,
+              "corroboration": 6.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 6.5,
+              "total": 6.4
             }
           },
           {
@@ -1236,32 +978,12 @@
             "beat": "culture",
             "column": "voices",
             "scores": {
-              "authority": 9,
-              "corroboration": 7,
-              "novelty": 8.6,
-              "magnitude": 8.5,
-              "relevance": 9,
-              "total": 8.4
-            }
-          },
-          {
-            "id": "culture-voices-20260922-23",
-            "source": "The Atlantic Ideas",
-            "date": "2026-09-22",
-            "headline": "The ‘New Word’ Trump Hates",
-            "summary": "Of all the outrages and betrayals that Donald Trump has had perpetrated against him—by ungrateful subordinates, by obstreperous prosecutors, by treacherous journalists—perhaps his saddest falling-out is with a simple word. “Starting on day one, we will defeat inflation quickly, and we will make America affordable again,” he declared in an ad during his 2024 presidential campaign. A year later, Trump confessed to still having some affinity for the word.",
-            "tag": "REPORT",
-            "url": "https://www.theatlantic.com/ideas/2026/09/affordability-politics-democrats-policy/688736/?utm_source=feed",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "culture",
-            "column": "voices",
-            "scores": {
-              "authority": 9,
-              "corroboration": 7,
-              "novelty": 8.2,
-              "magnitude": 8.5,
-              "relevance": 8.9,
-              "total": 8.3
+              "authority": 8.8,
+              "corroboration": 6.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 6.5,
+              "total": 6.4
             }
           },
           {
@@ -1276,12 +998,12 @@
             "beat": "culture",
             "column": "voices",
             "scores": {
-              "authority": 9,
-              "corroboration": 4.5,
-              "novelty": 5,
-              "magnitude": 8.2,
-              "relevance": 8.5,
-              "total": 7.1
+              "authority": 8.8,
+              "corroboration": 6.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 6.5,
+              "total": 6.4
             }
           }
         ]

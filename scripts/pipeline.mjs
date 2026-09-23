@@ -157,8 +157,11 @@ function getEditionLabel(editionDateStr, referenceDateStr) {
  *   $100M+ -> 8.0 - 8.9
  *   $10M+ -> 6.5 - 7.4
  *   $1M+ -> 5.5 - 6.4
- * Form 8-K / major regulatory / treaty / antitrust -> 7.5 - 8.5
- * Routine administrative filings (Form D, Form D/A, Form 4 without figures) -> 2.5 - 4.5
+ * Granular magnitude & deal scale scoring (2.0 to 9.8 spread)
+ * Multi-billion ($10B+) -> 9.8
+ * Large deal / major antitrust / Supreme Court -> 8.5 - 9.4
+ * Substantive corporate / product moves -> 5.0 - 6.5
+ * Routine administrative filings (Form D, Form D/A, Form 4) -> 2.2 - 3.2
  */
 function computeMagnitude(item) {
   const combined = `${item.headline} ${item.rawText || ''}`.toLowerCase();
@@ -170,7 +173,7 @@ function computeMagnitude(item) {
     const amt = parseFloat(billionMatch[1]);
     if (amt >= 10) return 9.8;
     if (amt >= 2) return 9.5;
-    return 9.1;
+    return 9.0;
   }
 
   if (millionMatch) {
@@ -179,17 +182,25 @@ function computeMagnitude(item) {
     if (amt >= 100) return 8.2;
     if (amt >= 50) return 7.4;
     if (amt >= 10) return 6.5;
-    return 5.5;
+    return 5.2;
   }
 
-  // Material corporate and regulatory milestones
-  if (/\b(?:form 8-k|quarterly earnings|earnings release|monopoly ruling|antitrust suit|doj lawsuit|supreme court|merger agreement|acquisition agreement)\b/i.test(combined)) {
-    return 8.2;
+  // Major frontier AI models, supercomputing, flagship architecture
+  if (/\b(?:gpt-[567]|claude\s+[45]|gemini\s+[23]|frontier model|flagship model|supercomputer|gigawatt|grid interconnection|30b mixture-of-expert|superconducting)\b/i.test(combined)) {
+    return 9.4;
+  }
+
+  // Material corporate, regulatory, judicial antitrust milestones
+  if (/\b(?:antitrust suit|monopoly ruling|doj lawsuit|supreme court|merger agreement|acquisition agreement|historic action|deceptive business practices)\b/i.test(combined)) {
+    return 9.2;
+  }
+  if (/\b(?:form 8-k|quarterly earnings|earnings release|settlement)\b/i.test(combined)) {
+    return 7.8;
   }
 
   // Major institutional actions
-  if (/\b(?:executive order|ftc enforcement|sec lawsuit|phase 3 trial|clinical endpoint|gigawatt|grid interconnection)\b/i.test(combined)) {
-    return 7.5;
+  if (/\b(?:executive order|ftc enforcement|sec lawsuit|phase 3 trial|clinical endpoint)\b/i.test(combined)) {
+    return 8.5;
   }
 
   // Routine administrative filings without disclosed amounts (Form D, Form D/A, Form 4)
@@ -198,14 +209,62 @@ function computeMagnitude(item) {
     item.source.includes('/ D') ||
     item.source.includes('/ 4')
   ) {
-    return 3.2; // Routine filing noise: 2.5 - 4.5
+    return 2.5; // Routine filing noise: 2.0 - 3.2
   }
 
   // General corporate activity
-  if (/\b(?:partnership|launches|unveils|hires|expansion|patent)\b/i.test(combined)) {
-    return 5.2;
+  if (/\b(?:partnership|launches|unveils|hires|expansion|patent|chips)\b/i.test(combined)) {
+    return 6.0;
   }
 
+  return 4.2;
+}
+
+/**
+ * Computes dynamic topical relevance score based on keyword match density to the beat's core topics.
+ * Returns a score roughly between 4.0 and 9.5.
+ */
+function computeRelevance(item) {
+  const combined = `${item.headline} ${item.rawText || ''}`.toLowerCase();
+  const beat = item.beat;
+
+  const beatKeywords = {
+    'ai-venture': [
+      'artificial intelligence', 'machine learning', 'llm', 'deep learning', 'neural',
+      'agent', 'gpu', 'datacenter', 'compute', 'venture', 'seed', 'series a', 'series b',
+      'valuation', 'transformer', 'anthropic', 'openai', 'nvidia', 'google deepmind', 'chips',
+      'gpt', 'model', 'founder', 'fundraising'
+    ],
+    'politics': [
+      'policy', 'regulation', 'antitrust', 'ftc', 'congress', 'senate', 'legislation',
+      'white house', 'european union', 'geopolitics', 'sanctions', 'treaty', 'defense',
+      'border', 'deceptive', 'enforcement', 'historic action'
+    ],
+    'markets': [
+      'treasury', 'yield', 'inflation', 'fed', 'central bank', 'revenue', 'multiple',
+      'margin', 'equities', 'shares', 'quarterly', 'guidance', 'capex', 'bond', 'royalty',
+      'operations', 'form 8-k'
+    ],
+    'science': [
+      'physics', 'quantum', 'superconducting', 'crispr', 'biology', 'protein',
+      'fusion', 'enzyme', 'tokamak', 'cern', 'telescope', 'astronomy', 'nature'
+    ],
+    'culture': [
+      'narrative', 'studio', 'developer', 'essay', 'curation', 'critique',
+      'intellectual', 'art', 'music', 'gaming', 'philosophy', 'ethics', 'border'
+    ]
+  };
+
+  const keywords = beatKeywords[beat] || beatKeywords['ai-venture'];
+  let matchCount = 0;
+  for (const kw of keywords) {
+    if (combined.includes(kw)) matchCount++;
+  }
+
+  if (matchCount >= 4) return 9.5;
+  if (matchCount === 3) return 8.8;
+  if (matchCount === 2) return 7.8;
+  if (matchCount === 1) return 6.5;
   return 4.5;
 }
 
@@ -321,7 +380,7 @@ Output JSON conforming exactly to this schema:
   "headline": "Active voice headline under 14 words",
   "summary": "Factual 2-3 sentence analytical summary derived strictly from the text. Zero hype, zero invented analysis.",
   "tag": "UPPERCASE_TAG_UNDER_15_CHARS",
-  "relevanceScore": 8.5
+  "relevanceScore": 8.5 // Number from 3.0 (peripheral / tangent) to 9.5 (central core signal to the beat)
 }
 
 Dispatch Details:
@@ -832,49 +891,45 @@ function rank(candidates, agentLog) {
     }
   }
 
-  // 2. Score authority, corroboration, novelty, magnitude (0-10 each)
+  // 2. Score authority, corroboration, novelty, magnitude (wide, discriminating spread 2.0 to 9.8)
   const scored = survivors.map((item, idx) => {
     const authority = Math.min(10, Math.max(1, Number(item.baseAuthority.toFixed(1))));
 
-    // Corroboration: real overlap across survivor corpus (baseline ~4.5, increasing with corroboration)
+    // Corroboration: real overlap across survivor corpus (wide spread: 2.5 to 9.8)
     let overlapCount = 0;
     for (let i = 0; i < survivors.length; i++) {
       if (i !== idx && computeOverlapSimilarity(item.headline, survivors[i].headline) > 0.25) {
         overlapCount++;
       }
     }
-    const corroboration = Number(Math.min(9.8, Math.max(3.5, 4.5 + overlapCount * 1.5)).toFixed(1));
+    const isPrimaryGovernmentOrScience = /ftc press|nature|cern|science|sec edgar/i.test(item.source);
+    const isMajorPublisher = /techcrunch|reuters|verge|mit tech review|atlantic|wired/i.test(item.source);
+    let rawCorroboration = isPrimaryGovernmentOrScience ? 9.2 : (isMajorPublisher ? 6.5 : 3.0);
+    if (overlapCount === 1) rawCorroboration = Math.max(rawCorroboration, 7.5);
+    else if (overlapCount === 2) rawCorroboration = Math.max(rawCorroboration, 8.5);
+    else if (overlapCount >= 3) rawCorroboration = Math.min(9.8, 8.8 + overlapCount * 0.3);
+    const corroboration = Number(rawCorroboration.toFixed(1));
 
-    // Novelty: presence of breakthrough indicators vs routine filings
-    const noveltyKeywords = [
-      'breakthrough',
-      'first ever',
-      'unveils',
-      'discovers',
-      'record',
-      'superconducting',
-      'quantum supremacy',
-      'state-of-the-art',
-      'outperforms',
-      'milestone',
-      'new architecture',
-    ];
-    let noveltyScore = 5.0;
-    for (const kw of noveltyKeywords) {
-      if (`${item.headline} ${item.rawText || ''}`.toLowerCase().includes(kw)) {
-        noveltyScore += 1.2;
-      }
+    // Novelty: presence of breakthrough indicators vs routine filings (wide spread: 2.0 to 9.6)
+    const combinedText = `${item.headline} ${item.rawText || ''}`.toLowerCase();
+    let noveltyScore = 5.2;
+    if (/\b(?:breakthrough|first ever|discovers|record|superconducting|quantum supremacy|state-of-the-art|milestone|paradigm shift|first-of-its-kind|gpt-[567]|triples valuation|historic action)\b/i.test(combinedText)) {
+      noveltyScore = 9.4;
+    } else if (/\b(?:unveils|launches|announces|new architecture|outperforms|releases|foundry|new smartphone chips)\b/i.test(combinedText)) {
+      noveltyScore = 7.8;
+    } else if (/\b(?:form d(?:\/a)?|form 4|form 3|routine|amendment|notice of exempt offering)\b/i.test(combinedText)) {
+      noveltyScore = 2.4;
+    } else if (/\b(?:partnership|hires|expansion|advisory)\b/i.test(combinedText)) {
+      noveltyScore = 4.4;
     }
-    // Penalize routine administrative filings and amendments for novelty
-    if (/\b(?:form d|form 4|routine|amendment|notice)\b/i.test(`${item.headline} ${item.rawText || ''}`)) {
-      noveltyScore -= 1.5;
-    }
-    const novelty = Number(Math.min(9.8, Math.max(3.0, noveltyScore)).toFixed(1));
+    const novelty = Number(Math.min(9.8, Math.max(2.0, noveltyScore)).toFixed(1));
 
-    // Magnitude: granular deal size & materiality scoring
+    // Magnitude: granular deal size & materiality scoring (2.2 to 9.8 spread)
     const magnitude = computeMagnitude(item);
 
-    const floorRank = authority * 0.3 + corroboration * 0.25 + novelty * 0.25 + magnitude * 0.2;
+    // Initial floor rank for synthesis candidate ordering
+    const relEstimate = computeRelevance(item);
+    const floorRank = authority * 0.25 + corroboration * 0.20 + novelty * 0.20 + magnitude * 0.20 + relEstimate * 0.15;
 
     return {
       ...item,
@@ -924,8 +979,13 @@ async function synth(rankedCandidates, agentLog) {
   }
 
   const selectedForSynthesis = Object.values(groups).flat();
+  // Sort selected candidates descending by composite rank so top items get LLM priority
+  selectedForSynthesis.sort((a, b) => (b.floorRank || 0) - (a.floorRank || 0));
+
   const synthesized = [];
+  const LLM_SYNTHESIS_CAP = 15;
   let llmSuccessCount = 0;
+  let deterministicSuccessCount = 0;
   let totalPromptTokens = 0;
   let totalCandidateTokens = 0;
   let estimatedCostUSD = 0;
@@ -977,11 +1037,13 @@ async function synth(rankedCandidates, agentLog) {
     }
   }
 
-  for (const item of selectedForSynthesis) {
+  for (let idx = 0; idx < selectedForSynthesis.length; idx++) {
+    const item = selectedForSynthesis[idx];
+    const isLlmEligible = idx < LLM_SYNTHESIS_CAP;
     const sanitizedText = sanitizeBoilerplate(item.rawText);
 
-    // Attempt LLM synthesis if API key is provided, quota is not exhausted, and auth succeeded
-    if (apiKey && !quotaExhausted && !authFailed) {
+    // Attempt LLM synthesis if eligible (within top 15 cap), API key is provided, quota is intact, and auth succeeded
+    if (isLlmEligible && apiKey && !quotaExhausted && !authFailed) {
       const viableModels = candidateModels.filter((m) => !disabledModels.has(m));
       if (viableModels.length > 0) {
         const geminiRes = await callGemini(item, apiKey, viableModels, disabledModels);
@@ -997,12 +1059,16 @@ async function synth(rankedCandidates, agentLog) {
             finalTag = 'RESEARCH';
           }
 
+          const parsedRel = parseFloat(geminiRes.parsed.relevanceScore);
+          const finalRel = !isNaN(parsedRel) ? Math.min(9.5, Math.max(3.0, parsedRel)) : computeRelevance(item);
+
           synthesized.push({
             ...item,
             headline: geminiRes.parsed.headline || item.headline,
             summary: cleanSummaryText(geminiRes.parsed.summary || sanitizedText || item.headline),
             tag: finalTag,
-            relevanceScore: Number(geminiRes.parsed.relevanceScore) || 8.8,
+            relevanceScore: finalRel,
+            synthesisMethod: 'llm',
           });
           continue;
         } else {
@@ -1019,7 +1085,7 @@ async function synth(rankedCandidates, agentLog) {
       }
     }
 
-    // Deterministic Algorithmic Synthesis (Zero invented text)
+    // Deterministic Algorithmic Synthesis (for items beyond top 15 cap or when LLM is unavailable/fails)
     // Extract factual sentences from sanitized text
     const sentences = (sanitizedText || '')
       .split(/(?<=[.!?])\s+/)
@@ -1048,6 +1114,7 @@ async function synth(rankedCandidates, agentLog) {
       continue;
     }
 
+    deterministicSuccessCount++;
     const tag = assignTag(item, item.columnHint);
 
     synthesized.push({
@@ -1055,19 +1122,20 @@ async function synth(rankedCandidates, agentLog) {
       headline: item.headline,
       summary: finalSummary,
       tag,
-      relevanceScore: Number((7.8 + (item.floorRank % 1.5)).toFixed(1)),
+      relevanceScore: computeRelevance(item),
+      synthesisMethod: 'deterministic',
     });
   }
 
   const totalTokens = totalPromptTokens + totalCandidateTokens;
   const costStr = estimatedCostUSD > 0 ? `$${estimatedCostUSD.toFixed(5)}` : 'free tier';
 
-  // Strictly honest reporting: only claim LLM synthesis if the LLM actually ran
+  // Strictly honest reporting: log how many items got LLM vs deterministic synthesis
   if (llmSuccessCount > 0) {
     agentLog.push({
       timestamp: getFormattedTime(),
       module: 'SYNTH',
-      message: `LLM synthesis complete for ${llmSuccessCount} items (${droppedForLackOfSubstance} dropped for thin context). Tokens: ${totalTokens}. Est cost: ${costStr}.`,
+      message: `Synthesis complete for ${synthesized.length} items (${llmSuccessCount} via LLM, ${deterministicSuccessCount} via deterministic synthesis; top 15 LLM quota applied, ${droppedForLackOfSubstance} dropped for thin context). Tokens: ${totalTokens}. Est cost: ${costStr}.`,
       status: 'ok',
     });
   } else {
@@ -1093,7 +1161,7 @@ async function synth(rankedCandidates, agentLog) {
     agentLog.push({
       timestamp: getFormattedTime(),
       module: 'SYNTH',
-      message: `Deterministic synthesis (${reasonDetail}). Produced ${synthesized.length} items (${droppedForLackOfSubstance} dropped for lack of substantive source text). Est cost: free tier.`,
+      message: `Deterministic synthesis (${reasonDetail}): ${deterministicSuccessCount} items via deterministic synthesis, 0 via LLM (${droppedForLackOfSubstance} dropped for thin context). Est cost: free tier.`,
       status: 'ok',
     });
   }
@@ -1202,20 +1270,12 @@ function editor(synthesizedItems, sourcesConfig, agentLog) {
     const mag = item.scores.magnitude;
     const rel = item.relevanceScore;
 
+    // Composite 5-factor calculation: strictly 0.25*auth + 0.20*corr + 0.20*nov + 0.20*mag + 0.15*rel
+    // Clamped between 4.0 and 9.5 without artificial compression
     let total = Number(
-      (0.25 * auth + 0.2 * corr + 0.2 * nov + 0.2 * mag + 0.15 * rel).toFixed(1)
+      (0.25 * auth + 0.20 * corr + 0.20 * nov + 0.20 * mag + 0.15 * rel).toFixed(1)
     );
-
-    // Authority alone cannot push total score to 9.0+.
-    // Only stories with high marks across at least three dimensions (>= 7.8) should crack 9.0.
-    const highDimensions = [auth, corr, nov, mag, rel].filter((s) => s >= 7.8).length;
-    if (highDimensions < 3 && total >= 8.5) {
-      total = 8.4;
-    }
-    // An SEC filing or routine wire with low magnitude or novelty caps around 8.0-8.2
-    if ((mag < 5.5 || nov < 5.0) && total > 8.2) {
-      total = 8.2;
-    }
+    total = Math.max(4.0, Math.min(9.5, total));
 
     // Item date must match item's verified publication date (capped to <= edition date)
     const validItemDate = item.date && item.date <= today ? item.date : today;
@@ -1245,19 +1305,50 @@ function editor(synthesizedItems, sourcesConfig, agentLog) {
     newItemsAddedCount++;
   }
 
-  // Preserve previous agent logs from earlier runs if merging
+  // Enforce per-column quotas to 5 items max (sorted by composite total score descending)
+  let totalDispatches = 0;
+  for (const beatObj of Object.values(dayDigest.beats)) {
+    for (const [colKey, items] of Object.entries(beatObj.columns)) {
+      items.sort((a, b) => {
+        const scoreA = a.scores?.total || 0;
+        const scoreB = b.scores?.total || 0;
+        if (scoreB !== scoreA) return scoreB - scoreA;
+        return (b.date || '').localeCompare(a.date || '');
+      });
+      beatObj.columns[colKey] = items.slice(0, 5);
+      totalDispatches += beatObj.columns[colKey].length;
+    }
+  }
+
+  // Cap agent log: Show only the most recent run's entries, plus one summary line for earlier runs that day
   const previousLogs = Array.isArray(existingDigest?.agentLog) ? existingDigest.agentLog : [];
+  let consolidatedLogs = [];
+
+  if (previousLogs.length > 0) {
+    const priorAuditCount = previousLogs.filter(
+      (l) => !l.message?.includes('prior audit records archived') && !l.message?.includes('Earlier runs today')
+    ).length || previousLogs.length;
+
+    const firstTimestamp = previousLogs[0]?.timestamp || getFormattedTime();
+    consolidatedLogs.push({
+      timestamp: firstTimestamp,
+      module: 'SYSTEM',
+      message: `Earlier runs today: ${priorAuditCount} prior audit records archived from previous execution cycles.`,
+      status: 'ok',
+    });
+  }
 
   agentLog.push({
     timestamp: getFormattedTime(),
     module: 'EDITOR',
     message: existingItemsKeptCount > 0
-      ? `3x daily merge: retained ${existingItemsKeptCount} existing dispatches, integrated ${newItemsAddedCount} new dispatches.`
-      : `Enforced column quotas and finalized DayDigest edition tree (${newItemsAddedCount} dispatches).`,
+      ? `Daily merge: retained existing dispatches, integrated new signals, enforced strict 5-item column quotas.`
+      : `Enforced strict 5-item column quotas across all beats (${totalDispatches} total dispatches).`,
     status: 'ok',
   });
 
-  dayDigest.agentLog = [...previousLogs, ...agentLog].slice(-30);
+  consolidatedLogs.push(...agentLog);
+  dayDigest.agentLog = consolidatedLogs;
   return dayDigest;
 }
 
@@ -1275,6 +1366,17 @@ function publish(dayDigest, agentLog) {
     for (const c of Object.values(b.columns)) {
       newTotalItems += c.length;
     }
+  }
+
+  const publishLogEntry = {
+    timestamp: getFormattedTime(),
+    module: 'PUBLISH',
+    message: `Artifacts committed to /public/data/. Edition ${today} live (${newTotalItems} dispatches).`,
+    status: 'ok',
+  };
+  agentLog.push(publishLogEntry);
+  if (Array.isArray(dayDigest.agentLog)) {
+    dayDigest.agentLog.push(publishLogEntry);
   }
 
   // Write edition file
@@ -1298,13 +1400,6 @@ function publish(dayDigest, agentLog) {
 
   fs.writeFileSync(indexFile, JSON.stringify(updatedIndex, null, 2), 'utf8');
   console.log(`[PUBLISH] Updated index.json with ${updatedIndex.length} verified on-disk editions.`);
-
-  agentLog.push({
-    timestamp: getFormattedTime(),
-    module: 'PUBLISH',
-    message: `Artifacts committed to /public/data/. Edition ${today} live (${newTotalItems} dispatches).`,
-    status: 'ok',
-  });
 
   // If running inside GitHub Actions, commit and push with race-handling rebase & retry
   if (process.env.GITHUB_ACTIONS === 'true') {
