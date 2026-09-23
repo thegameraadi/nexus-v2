@@ -1,68 +1,8 @@
 {
   "date": "2026-09-23",
   "label": "Today",
-  "lastUpdated": "2026-09-23T00:25:26.609Z",
+  "lastUpdated": "2026-09-23T00:38:14.868Z",
   "agentLog": [
-    {
-      "timestamp": "00:12:40",
-      "module": "EDITOR",
-      "message": "Computing composite 5-factor scores and executing non-destructive edition merge.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:12:40",
-      "module": "EDITOR",
-      "message": "Enforced column quotas and finalized DayDigest edition tree (45 dispatches).",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:20:49",
-      "module": "SCOUT",
-      "message": "Pipeline active on commit 2d77388: \"fix(ci): handle git push race with rebase retry, f\"",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:20:49",
-      "module": "SCOUT",
-      "message": "Initializing ingestion pipeline across 5 beats (strict 7-day recency filter).",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:20:56",
-      "module": "SCOUT",
-      "message": "Scouted 116 candidate signals across 5 beats (all within 7-day window).",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:20:56",
-      "module": "RANK",
-      "message": "Initiating deduplication & 4-factor scoring heuristics (discriminating deals vs administrative noise).",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:20:56",
-      "module": "RANK",
-      "message": "Deduplication dropped 0 redundant wires. 116 candidates evaluated.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:20:56",
-      "module": "SYNTH",
-      "message": "Selecting candidates clearing quality floor for synthesis.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:20:56",
-      "module": "SYNTH",
-      "message": "Deterministic synthesis produced 45 items (4 dropped for lack of substantive source text, LLM key not configured). Est cost: free tier.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:20:56",
-      "module": "EDITOR",
-      "message": "Computing composite 5-factor scores and executing non-destructive edition merge.",
-      "status": "ok"
-    },
     {
       "timestamp": "00:20:56",
       "module": "EDITOR",
@@ -181,6 +121,66 @@
       "timestamp": "00:25:26",
       "module": "EDITOR",
       "message": "3x daily merge: retained 46 existing dispatches, integrated 0 new dispatches.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:36:22",
+      "module": "SCOUT",
+      "message": "Pipeline active on commit a926502: \"fix(synth): use gemini-3.6-flash, discover models \"",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:36:22",
+      "module": "SCOUT",
+      "message": "Initializing ingestion pipeline across 5 beats (strict 7-day recency filter).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:36:27",
+      "module": "SCOUT",
+      "message": "Scouted 109 candidate signals across 5 beats (all within 7-day window).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:36:27",
+      "module": "RANK",
+      "message": "Initiating deduplication & 4-factor scoring heuristics (discriminating deals vs administrative noise).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:36:27",
+      "module": "RANK",
+      "message": "Deduplication dropped 0 redundant wires. 109 candidates evaluated.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:36:27",
+      "module": "SYNTH",
+      "message": "Selecting candidates clearing quality floor for synthesis.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:36:28",
+      "module": "SYNTH",
+      "message": "Available Gemini models: gemini-2.5-flash, gemini-2.5-flash-preview-tts, gemini-flash-latest, gemini-flash-lite-latest, gemini-2.5-flash-lite, gemini-2.5-flash-image, gemini-3-flash-preview, gemini-3.1-flash-lite-preview, gemini-3.1-flash-lite, gemini-3.1-flash-image-preview, gemini-3.1-flash-image, gemini-3.1-flash-lite-image, gemini-3.5-flash, gemini-3.5-flash-lite, gemini-omni-flash-preview, gemini-omni-1.1-flash, gemini-3.6-flash, gemini-3.7-flash, gemini-3.8-flash, gemini-3.1-flash-tts-preview.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:38:14",
+      "module": "SYNTH",
+      "message": "LLM synthesis complete for 22 items (0 dropped for thin context). Tokens: 28295. Est cost: $0.00532.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:38:14",
+      "module": "EDITOR",
+      "message": "Computing composite 5-factor scores and executing non-destructive edition merge.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:38:14",
+      "module": "EDITOR",
+      "message": "3x daily merge: retained 46 existing dispatches, integrated 4 new dispatches.",
       "status": "ok"
     }
   ],
@@ -934,6 +934,86 @@
               "magnitude": 9.1,
               "relevance": 8.9,
               "total": 7.5
+            }
+          },
+          {
+            "id": "science-frontier-20260923-47",
+            "source": "ScienceDaily",
+            "date": "2026-09-22",
+            "headline": "Caffeine disrupts deep sleep even when duration remains normal",
+            "summary": "Caffeine can reduce restorative deep sleep, as measured by EEG recordings showing fewer slow brain waves, even for individuals who fall asleep normally and stay in bed for eight hours. Individual sensitivity varies greatly, meaning caffeine consumed earlier in the day may still impact nighttime recovery for some people.",
+            "tag": "SCIENCE",
+            "url": "https://www.sciencedaily.com/releases/2026/09/260922005719.htm",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "science",
+            "column": "frontier",
+            "scores": {
+              "authority": 8.6,
+              "corroboration": 4.5,
+              "novelty": 6.2,
+              "magnitude": 4.5,
+              "relevance": 8.5,
+              "total": 6.5
+            }
+          },
+          {
+            "id": "science-frontier-20260923-48",
+            "source": "arXiv Preprint",
+            "date": "2026-09-21",
+            "headline": "Analytical framework translates detector sensitivity into stray light requirements",
+            "summary": "Researchers present an analytical framework to translate detector sensitivity into stray light requirements for ground-based gravitational wave interferometers. The study derives estimates for various scattering regimes, planar baffles, and deterministic ghost beams intercepted by beam dumps. Applied to Cosmic Explorer, the framework provides conservative design tools for early stray light budgeting in current and future detectors.",
+            "tag": "OPTICS",
+            "url": "http://arxiv.org/abs/2609.25003v1",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "science",
+            "column": "frontier",
+            "scores": {
+              "authority": 9.6,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 8.5,
+              "total": 6.5
+            }
+          },
+          {
+            "id": "science-frontier-20260923-49",
+            "source": "arXiv Preprint",
+            "date": "2026-09-21",
+            "headline": "Researchers design quantum Mpemba effect using Stark localization",
+            "summary": "Scientists have demonstrated a quantum energy landscape design utilizing Stark localization and localized incoherent hopping that produces the Mpemba effect. Rare detection events trigger hops at rates growing with energy, enabling hotter states to cool faster with super-exponentially separated timescales. This effect is further enhanced by the collective hopping of bound pairs via attractive on-site interactions, with clear signatures accessible in current experimental setups.",
+            "tag": "QUANTUM",
+            "url": "http://arxiv.org/abs/2609.24993v1",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "science",
+            "column": "frontier",
+            "scores": {
+              "authority": 9.6,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 9,
+              "total": 6.5
+            }
+          },
+          {
+            "id": "science-frontier-20260923-50",
+            "source": "arXiv Preprint",
+            "date": "2026-09-21",
+            "headline": "Researchers establish quantitative entropy contraction bounds for finite-dimensional quantum channels",
+            "summary": "Quantitative entropy contraction bounds are established for finite-dimensional quantum channels beyond detailed balance. For channels compatible with a faithful conditional expectation, GNS norm contraction yields relative entropy contraction with a logarithmic dimensional loss. This approach also yields a lower bound on the complete modified logarithmic Sobolev constant for quantum Markov semigroups.",
+            "tag": "QUANTUM",
+            "url": "http://arxiv.org/abs/2609.24953v1",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "science",
+            "column": "frontier",
+            "scores": {
+              "authority": 9.6,
+              "corroboration": 4.5,
+              "novelty": 5,
+              "magnitude": 4.5,
+              "relevance": 8.5,
+              "total": 6.5
             }
           }
         ]
