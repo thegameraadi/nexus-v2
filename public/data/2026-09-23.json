@@ -1,72 +1,78 @@
 {
   "date": "2026-09-23",
   "label": "Today",
-  "lastUpdated": "2026-09-23T04:52:51.658Z",
+  "lastUpdated": "2026-09-23T10:26:16.631Z",
   "agentLog": [
     {
       "timestamp": "00:24:34",
       "module": "SYSTEM",
-      "message": "Earlier runs today: 9 prior audit records archived from previous execution cycles.",
+      "message": "Earlier runs today: 10 prior audit records archived from previous execution cycles.",
       "status": "ok"
     },
     {
-      "timestamp": "04:52:00",
+      "timestamp": "10:25:25",
       "module": "SCOUT",
-      "message": "Pipeline active on commit ce234c4: \"fix: self-contained hero earth asset, date-keyed a\"",
+      "message": "Pipeline active on commit 110466c: \"fix: decode all html entities, drop off-beat advic\"",
       "status": "ok"
     },
     {
-      "timestamp": "04:52:00",
+      "timestamp": "10:25:25",
       "module": "SCOUT",
       "message": "Initializing ingestion pipeline across 5 beats (strict 7-day recency filter).",
       "status": "ok"
     },
     {
-      "timestamp": "04:52:51",
+      "timestamp": "10:25:36",
       "module": "SCOUT",
-      "message": "Scouted 114 candidate signals across 5 beats (all within 7-day window).",
+      "message": "Scouted 102 candidate signals across 5 beats (all within 7-day window).",
       "status": "ok"
     },
     {
-      "timestamp": "04:52:51",
+      "timestamp": "10:25:36",
       "module": "RANK",
       "message": "Initiating deduplication & 4-factor scoring heuristics (discriminating deals vs administrative noise).",
       "status": "ok"
     },
     {
-      "timestamp": "04:52:51",
+      "timestamp": "10:25:36",
       "module": "RANK",
-      "message": "Deduplication & relevance floor dropped 63 off-beat/redundant wires. 51 candidates evaluated.",
+      "message": "Deduplication & relevance floor dropped 61 off-beat/redundant wires. 41 candidates evaluated.",
       "status": "ok"
     },
     {
-      "timestamp": "04:52:51",
+      "timestamp": "10:25:36",
       "module": "SYNTH",
       "message": "Selecting candidates clearing quality floor for synthesis.",
       "status": "ok"
     },
     {
-      "timestamp": "04:52:51",
+      "timestamp": "10:25:36",
       "module": "SYNTH",
-      "message": "Deterministic synthesis (LLM key not configured): 33 items via deterministic synthesis, 0 via LLM (1 dropped for thin context). Est cost: free tier.",
+      "message": "Verified curated models: gemini-3.6-flash, gemini-3.5-flash, gemini-3.5-flash-lite.",
       "status": "ok"
     },
     {
-      "timestamp": "04:52:51",
+      "timestamp": "10:26:16",
+      "module": "SYNTH",
+      "message": "Synthesis complete for 32 items (4 via LLM, 28 via deterministic synthesis; top 15 LLM quota applied, 0 dropped for thin context). Tokens: 14273. Est cost: $0.00235.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "10:26:16",
       "module": "EDITOR",
       "message": "Computing composite 5-factor scores and executing non-destructive edition merge.",
       "status": "ok"
     },
     {
-      "timestamp": "04:52:51",
+      "timestamp": "10:26:16",
       "module": "EDITOR",
       "message": "Daily merge: retained existing dispatches, integrated new signals, enforced strict 5-item column quotas.",
       "status": "ok"
     },
     {
-      "timestamp": "04:52:51",
+      "timestamp": "10:26:16",
       "module": "PUBLISH",
-      "message": "Artifacts committed to /public/data/. Edition 2026-09-23 live (45 dispatches).",
+      "message": "Artifacts committed to /public/data/. Edition 2026-09-23 live (46 dispatches).",
       "status": "ok"
     }
   ],
@@ -279,6 +285,26 @@
         ],
         "titans": [
           {
+            "id": "ai-venture-titans-20260923-46",
+            "source": "The Verge AI",
+            "date": "2026-09-22",
+            "headline": "Anthropic launches Claude Opus 5.5 with stricter safeguards for cybersecurity",
+            "summary": "Anthropic says its new Claude Opus 5.5 model comes with stronger safeguards in the wake of recent rogue AI hacking incidents. In an announcement on Tuesday, Anthropic says Opus 5.5 comes with improvements to certain risky behaviors, including attempts to escape the company's testing sandbox. It's the first model released by Anthropic after CEO Dario […].",
+            "tag": "TITANS",
+            "url": "https://www.theverge.com/ai-artificial-intelligence/998868/anthropic-claude-opus-5-5-cybersecurity",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "titans",
+            "scores": {
+              "authority": 7.7,
+              "corroboration": 6.5,
+              "novelty": 7.8,
+              "magnitude": 6,
+              "relevance": 7.8,
+              "total": 7.2
+            }
+          },
+          {
             "id": "ai-venture-titans-20260923-26",
             "source": "The Verge AI",
             "date": "2026-09-21",
@@ -346,26 +372,6 @@
             "summary": "Rabbit, the company behind the underwhelming R1 device, is rolling out a standalone AI agent that you don't need its hardware to use, as reported earlier by Wired. The startup says its new OS3 \"agentic operating system\" runs in the cloud but operates locally across Windows, Mac, and Linux devices. According to Rabbit, you can.",
             "tag": "TITANS",
             "url": "https://www.theverge.com/ai-artificial-intelligence/999094/rabbit-ai-agent-os3",
-            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
-            "beat": "ai-venture",
-            "column": "titans",
-            "scores": {
-              "authority": 8.7,
-              "corroboration": 4.5,
-              "novelty": 5,
-              "magnitude": 4.5,
-              "relevance": 9.2,
-              "total": 6.4
-            }
-          },
-          {
-            "id": "ai-venture-titans-20260923-30",
-            "source": "The Verge AI",
-            "date": "2026-09-22",
-            "headline": "Trump says the US is officially renaming AI to ‘super intelligence’",
-            "summary": "In a speech Tuesday morning at the UN General Assembly, Donald Trump railed against Iran, \"globalists,\" climate change, and transgender people while also claiming that the US is now \"officially\" renaming artificial intelligence to \"super intelligence.\" Oddly, this wasn't one of the entries in the poll Trump posted a few days ago when he started.",
-            "tag": "TITANS",
-            "url": "https://www.theverge.com/ai-artificial-intelligence/998816/donald-trump-ai-super-intelligence",
             "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
             "beat": "ai-venture",
             "column": "titans",
@@ -671,6 +677,26 @@
               "magnitude": 4.5,
               "relevance": 9.2,
               "total": 6.4
+            }
+          },
+          {
+            "id": "markets-macro-20260923-51",
+            "source": "MarketWatch Top",
+            "date": "2026-09-23",
+            "headline": "Here are the hidden flaws in Warsh’s new way of tracking inflation",
+            "summary": "Economists at Nomura say the new way Kevin Warsh is tracking inflation doesn’t have better predictive power than core readings.",
+            "tag": "MACRO",
+            "url": "https://www.marketwatch.com/story/here-are-the-hidden-flaws-in-warshs-new-way-of-tracking-inflation-fb7939de?mod=mw_rss_topstories",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "markets",
+            "column": "macro",
+            "scores": {
+              "authority": 8.4,
+              "corroboration": 3,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 7.8,
+              "total": 5.8
             }
           }
         ],
