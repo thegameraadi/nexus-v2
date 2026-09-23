@@ -1,50 +1,8 @@
 {
   "date": "2026-09-23",
   "label": "Today",
-  "lastUpdated": "2026-09-23T00:18:25.404Z",
+  "lastUpdated": "2026-09-23T00:25:26.609Z",
   "agentLog": [
-    {
-      "timestamp": "00:12:32",
-      "module": "SCOUT",
-      "message": "Pipeline active on commit 67a3afd: \"fix: honest synthesis reporting, 7-day recency fil\"",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:12:32",
-      "module": "SCOUT",
-      "message": "Initializing ingestion pipeline across 5 beats (strict 7-day recency filter).",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:12:40",
-      "module": "SCOUT",
-      "message": "Scouted 115 candidate signals across 5 beats (all within 7-day window).",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:12:40",
-      "module": "RANK",
-      "message": "Initiating deduplication & 4-factor scoring heuristics (discriminating deals vs administrative noise).",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:12:40",
-      "module": "RANK",
-      "message": "Deduplication dropped 0 redundant wires. 115 candidates evaluated.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:12:40",
-      "module": "SYNTH",
-      "message": "Selecting candidates clearing quality floor for synthesis.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:12:40",
-      "module": "SYNTH",
-      "message": "Deterministic synthesis produced 45 items (4 dropped for lack of substantive source text, LLM key not configured). Est cost: free tier.",
-      "status": "ok"
-    },
     {
       "timestamp": "00:12:40",
       "module": "EDITOR",
@@ -58,57 +16,171 @@
       "status": "ok"
     },
     {
-      "timestamp": "00:18:06",
+      "timestamp": "00:20:49",
       "module": "SCOUT",
       "message": "Pipeline active on commit 2d77388: \"fix(ci): handle git push race with rebase retry, f\"",
       "status": "ok"
     },
     {
-      "timestamp": "00:18:06",
+      "timestamp": "00:20:49",
       "module": "SCOUT",
       "message": "Initializing ingestion pipeline across 5 beats (strict 7-day recency filter).",
       "status": "ok"
     },
     {
-      "timestamp": "00:18:12",
+      "timestamp": "00:20:56",
       "module": "SCOUT",
       "message": "Scouted 116 candidate signals across 5 beats (all within 7-day window).",
       "status": "ok"
     },
     {
-      "timestamp": "00:18:12",
+      "timestamp": "00:20:56",
       "module": "RANK",
       "message": "Initiating deduplication & 4-factor scoring heuristics (discriminating deals vs administrative noise).",
       "status": "ok"
     },
     {
-      "timestamp": "00:18:12",
+      "timestamp": "00:20:56",
       "module": "RANK",
       "message": "Deduplication dropped 0 redundant wires. 116 candidates evaluated.",
       "status": "ok"
     },
     {
-      "timestamp": "00:18:12",
+      "timestamp": "00:20:56",
       "module": "SYNTH",
       "message": "Selecting candidates clearing quality floor for synthesis.",
       "status": "ok"
     },
     {
-      "timestamp": "00:18:25",
+      "timestamp": "00:20:56",
       "module": "SYNTH",
-      "message": "Deterministic synthesis produced 45 items (4 dropped for lack of substantive source text, LLM call failed with HTTP 404). Est cost: free tier.",
+      "message": "Deterministic synthesis produced 45 items (4 dropped for lack of substantive source text, LLM key not configured). Est cost: free tier.",
       "status": "ok"
     },
     {
-      "timestamp": "00:18:25",
+      "timestamp": "00:20:56",
       "module": "EDITOR",
       "message": "Computing composite 5-factor scores and executing non-destructive edition merge.",
       "status": "ok"
     },
     {
-      "timestamp": "00:18:25",
+      "timestamp": "00:20:56",
       "module": "EDITOR",
       "message": "3x daily merge: retained 45 existing dispatches, integrated 1 new dispatches.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:24:22",
+      "module": "SCOUT",
+      "message": "Pipeline active on commit 2d77388: \"fix(ci): handle git push race with rebase retry, f\"",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:24:22",
+      "module": "SCOUT",
+      "message": "Initializing ingestion pipeline across 5 beats (strict 7-day recency filter).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:24:28",
+      "module": "SCOUT",
+      "message": "Scouted 116 candidate signals across 5 beats (all within 7-day window).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:24:28",
+      "module": "RANK",
+      "message": "Initiating deduplication & 4-factor scoring heuristics (discriminating deals vs administrative noise).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:24:28",
+      "module": "RANK",
+      "message": "Deduplication dropped 0 redundant wires. 116 candidates evaluated.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:24:28",
+      "module": "SYNTH",
+      "message": "Selecting candidates clearing quality floor for synthesis.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:24:29",
+      "module": "SYNTH",
+      "message": "ListModels query returned HTTP 400. Attempting candidate models (gemini-3.6-flash, gemini-3.5-flash, gemini-3.5-flash-lite).",
+      "status": "warn"
+    },
+    {
+      "timestamp": "00:24:34",
+      "module": "SYNTH",
+      "message": "Deterministic synthesis produced 45 items (4 dropped for lack of substantive source text, LLM call failed with HTTP 400). Est cost: free tier.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:24:34",
+      "module": "EDITOR",
+      "message": "Computing composite 5-factor scores and executing non-destructive edition merge.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:24:34",
+      "module": "EDITOR",
+      "message": "3x daily merge: retained 46 existing dispatches, integrated 0 new dispatches.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:25:19",
+      "module": "SCOUT",
+      "message": "Pipeline active on commit 2d77388: \"fix(ci): handle git push race with rebase retry, f\"",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:25:19",
+      "module": "SCOUT",
+      "message": "Initializing ingestion pipeline across 5 beats (strict 7-day recency filter).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:25:26",
+      "module": "SCOUT",
+      "message": "Scouted 116 candidate signals across 5 beats (all within 7-day window).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:25:26",
+      "module": "RANK",
+      "message": "Initiating deduplication & 4-factor scoring heuristics (discriminating deals vs administrative noise).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:25:26",
+      "module": "RANK",
+      "message": "Deduplication dropped 0 redundant wires. 116 candidates evaluated.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:25:26",
+      "module": "SYNTH",
+      "message": "Selecting candidates clearing quality floor for synthesis.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:25:26",
+      "module": "SYNTH",
+      "message": "Deterministic synthesis produced 45 items (4 dropped for lack of substantive source text, LLM key not configured). Est cost: free tier.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:25:26",
+      "module": "EDITOR",
+      "message": "Computing composite 5-factor scores and executing non-destructive edition merge.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "00:25:26",
+      "module": "EDITOR",
+      "message": "3x daily merge: retained 46 existing dispatches, integrated 0 new dispatches.",
       "status": "ok"
     }
   ],

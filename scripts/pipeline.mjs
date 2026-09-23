@@ -269,10 +269,43 @@ function assignTag(item, columnHint) {
 }
 
 /**
- * Invokes Gemini API across prioritized model endpoints with robust error logging.
+ * Calls Gemini ListModels API to discover currently active models for this key.
  */
-async function callGemini(item, apiKey) {
-  const models = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash'];
+async function listAvailableModels(apiKey) {
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 6000);
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-goog-api-key': apiKey,
+      },
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
+
+    if (res.ok) {
+      const data = await res.json();
+      const models = (data.models || [])
+        .filter((m) => {
+          const methods = m.supportedGenerationMethods || m.supportedActions || [];
+          return methods.includes('generateContent');
+        })
+        .map((m) => m.name.replace(/^models\//, ''));
+      return { success: true, models };
+    } else {
+      const errText = await res.text().catch(() => '');
+      return { success: false, status: res.status, error: errText };
+    }
+  } catch (err) {
+    return { success: false, error: err.message };
+  }
+}
+
+/**
+ * Invokes Gemini API across prioritized model endpoints, disabling dead models immediately.
+ */
+async function callGemini(item, apiKey, candidateModels, disabledModels) {
   const sanitizedText = sanitizeBoilerplate(item.rawText);
 
   const prompt = `You are NEXUS, an autonomous news intelligence briefing engine.
@@ -295,7 +328,11 @@ Context: ${sanitizedText || item.headline}`;
   let lastStatus = 0;
   let lastErr = '';
 
-  for (const model of models) {
+  for (const model of candidateModels) {
+    if (disabledModels.has(model)) {
+      continue;
+    }
+
     try {
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 10000);
@@ -342,8 +379,17 @@ Context: ${sanitizedText || item.headline}`;
         const errBody = await res.text().catch(() => '');
         lastErr = errBody;
         console.error(`[SYNTH LLM ERROR] Model ${model} HTTP ${res.status}: ${errBody.slice(0, 180)}`);
-        // If 404, try next model; otherwise break
-        if (res.status !== 404) {
+
+        // Mark dead models (404, 403, 410) as unavailable for the rest of this run
+        if (res.status === 404 || res.status === 403 || res.status === 410) {
+          disabledModels.add(model);
+          console.warn(`[SYNTH] Model ${model} returned HTTP ${res.status}. Marking model as unavailable for this run.`);
+        } else if (res.status === 400 && (errBody.includes('API key') || errBody.includes('not valid') || errBody.includes('INVALID_ARGUMENT'))) {
+          for (const m of candidateModels) disabledModels.add(m);
+          console.warn(`[SYNTH] API key rejected with HTTP 400. Disabling LLM calls for this run.`);
+          break;
+        } else {
+          disabledModels.add(model);
           break;
         }
       }
@@ -829,36 +875,78 @@ async function synth(rankedCandidates, agentLog) {
   let lastLlmErrorStatus = null;
 
   const apiKey = process.env.GEMINI_API_KEY || process.env.LLM_API_KEY;
+  let candidateModels = ['gemini-3.6-flash', 'gemini-3.5-flash', 'gemini-3.5-flash-lite'];
+  const disabledModels = new Set();
+
+  // Pre-flight: Call ListModels once to inspect which models are active for this key
+  if (apiKey) {
+    const listRes = await listAvailableModels(apiKey);
+    if (listRes.success) {
+      const active = listRes.models;
+      const flash = active.filter((m) => /flash/i.test(m));
+      console.log(`[SYNTH] ListModels verified ${active.length} active models (flash: ${flash.join(', ') || 'none'}).`);
+      agentLog.push({
+        timestamp: getFormattedTime(),
+        module: 'SYNTH',
+        message: `Available Gemini models: ${flash.length > 0 ? flash.join(', ') : active.slice(0, 5).join(', ')}.`,
+        status: 'ok',
+      });
+
+      // Prioritize active flash models discovered from the API key
+      const activePrioritized = candidateModels.filter((m) => active.includes(m));
+      const otherActiveFlash = active.filter((m) => /flash/i.test(m) && !candidateModels.includes(m));
+      if (activePrioritized.length > 0 || otherActiveFlash.length > 0) {
+        candidateModels = [...new Set([...activePrioritized, ...otherActiveFlash, ...candidateModels])];
+      }
+    } else {
+      console.warn(`[SYNTH] ListModels query failed: HTTP ${listRes.status || 'error'}: ${listRes.error?.slice(0, 150)}`);
+      agentLog.push({
+        timestamp: getFormattedTime(),
+        module: 'SYNTH',
+        message: `ListModels query returned HTTP ${listRes.status || 'error'}. Attempting candidate models (${candidateModels.join(', ')}).`,
+        status: 'warn',
+      });
+      if (listRes.status) {
+        lastLlmErrorStatus = listRes.status;
+        if (listRes.status === 400 || listRes.status === 401 || listRes.status === 403) {
+          for (const m of candidateModels) disabledModels.add(m);
+        }
+      }
+    }
+  }
 
   for (const item of selectedForSynthesis) {
     const sanitizedText = sanitizeBoilerplate(item.rawText);
 
-    // Attempt LLM synthesis if API key is provided
+    // Attempt LLM synthesis if API key is provided and viable candidate models remain
     if (apiKey) {
-      const geminiRes = await callGemini(item, apiKey);
-      if (geminiRes.success && geminiRes.parsed) {
-        llmSuccessCount++;
-        totalPromptTokens += geminiRes.promptTokens;
-        totalCandidateTokens += geminiRes.candidatesTokens;
-        estimatedCostUSD += geminiRes.promptTokens * 0.00000015 + geminiRes.candidatesTokens * 0.0000006;
+      const viableModels = candidateModels.filter((m) => !disabledModels.has(m));
+      if (viableModels.length > 0) {
+        const geminiRes = await callGemini(item, apiKey, viableModels, disabledModels);
+        if (geminiRes.success && geminiRes.parsed) {
+          llmSuccessCount++;
+          totalPromptTokens += geminiRes.promptTokens;
+          totalCandidateTokens += geminiRes.candidatesTokens;
+          estimatedCostUSD += geminiRes.promptTokens * 0.00000015 + geminiRes.candidatesTokens * 0.0000006;
 
-        let finalTag = geminiRes.parsed.tag || assignTag(item, item.columnHint);
-        // Ensure column-aware tag correctness
-        if (item.columnHint === 'research' && finalTag === 'VENTURE') {
-          finalTag = 'RESEARCH';
-        }
+          let finalTag = geminiRes.parsed.tag || assignTag(item, item.columnHint);
+          // Ensure column-aware tag correctness
+          if (item.columnHint === 'research' && finalTag === 'VENTURE') {
+            finalTag = 'RESEARCH';
+          }
 
-        synthesized.push({
-          ...item,
-          headline: geminiRes.parsed.headline || item.headline,
-          summary: cleanSummaryText(geminiRes.parsed.summary || sanitizedText || item.headline),
-          tag: finalTag,
-          relevanceScore: Number(geminiRes.parsed.relevanceScore) || 8.8,
-        });
-        continue;
-      } else {
-        if (!lastLlmErrorStatus && geminiRes.status) {
-          lastLlmErrorStatus = geminiRes.status;
+          synthesized.push({
+            ...item,
+            headline: geminiRes.parsed.headline || item.headline,
+            summary: cleanSummaryText(geminiRes.parsed.summary || sanitizedText || item.headline),
+            tag: finalTag,
+            relevanceScore: Number(geminiRes.parsed.relevanceScore) || 8.8,
+          });
+          continue;
+        } else {
+          if (!lastLlmErrorStatus && geminiRes.status) {
+            lastLlmErrorStatus = geminiRes.status;
+          }
         }
       }
     }
@@ -915,13 +1003,22 @@ async function synth(rankedCandidates, agentLog) {
       status: 'ok',
     });
   } else {
-    const reason = apiKey
-      ? `LLM call failed with HTTP ${lastLlmErrorStatus || 'error'}`
-      : 'LLM key not configured';
+    let message = `Deterministic synthesis produced ${synthesized.length} items (${droppedForLackOfSubstance} dropped for lack of substantive source text, LLM key not configured). Est cost: free tier.`;
+    if (apiKey) {
+      const allCandidatesDisabled = candidateModels.every((m) => disabledModels.has(m));
+      if (allCandidatesDisabled || lastLlmErrorStatus === 404) {
+        message = `Deterministic synthesis (no LLM model available: all endpoints returned 404). Produced ${synthesized.length} items. Est cost: free tier.`;
+      } else if (lastLlmErrorStatus) {
+        message = `Deterministic synthesis produced ${synthesized.length} items (LLM call failed with HTTP ${lastLlmErrorStatus}). Est cost: free tier.`;
+      } else {
+        message = `Deterministic synthesis produced ${synthesized.length} items (LLM endpoints unavailable). Est cost: free tier.`;
+      }
+    }
+
     agentLog.push({
       timestamp: getFormattedTime(),
       module: 'SYNTH',
-      message: `Deterministic synthesis produced ${synthesized.length} items (${droppedForLackOfSubstance} dropped for lack of substantive source text, ${reason}). Est cost: free tier.`,
+      message,
       status: 'ok',
     });
   }
