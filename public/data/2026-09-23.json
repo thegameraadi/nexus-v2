@@ -1,68 +1,8 @@
 {
   "date": "2026-09-23",
   "label": "Today",
-  "lastUpdated": "2026-09-23T00:38:14.868Z",
+  "lastUpdated": "2026-09-23T01:12:45.555Z",
   "agentLog": [
-    {
-      "timestamp": "00:20:56",
-      "module": "EDITOR",
-      "message": "3x daily merge: retained 45 existing dispatches, integrated 1 new dispatches.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:24:22",
-      "module": "SCOUT",
-      "message": "Pipeline active on commit 2d77388: \"fix(ci): handle git push race with rebase retry, f\"",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:24:22",
-      "module": "SCOUT",
-      "message": "Initializing ingestion pipeline across 5 beats (strict 7-day recency filter).",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:24:28",
-      "module": "SCOUT",
-      "message": "Scouted 116 candidate signals across 5 beats (all within 7-day window).",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:24:28",
-      "module": "RANK",
-      "message": "Initiating deduplication & 4-factor scoring heuristics (discriminating deals vs administrative noise).",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:24:28",
-      "module": "RANK",
-      "message": "Deduplication dropped 0 redundant wires. 116 candidates evaluated.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:24:28",
-      "module": "SYNTH",
-      "message": "Selecting candidates clearing quality floor for synthesis.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:24:29",
-      "module": "SYNTH",
-      "message": "ListModels query returned HTTP 400. Attempting candidate models (gemini-3.6-flash, gemini-3.5-flash, gemini-3.5-flash-lite).",
-      "status": "warn"
-    },
-    {
-      "timestamp": "00:24:34",
-      "module": "SYNTH",
-      "message": "Deterministic synthesis produced 45 items (4 dropped for lack of substantive source text, LLM call failed with HTTP 400). Est cost: free tier.",
-      "status": "ok"
-    },
-    {
-      "timestamp": "00:24:34",
-      "module": "EDITOR",
-      "message": "Computing composite 5-factor scores and executing non-destructive edition merge.",
-      "status": "ok"
-    },
     {
       "timestamp": "00:24:34",
       "module": "EDITOR",
@@ -181,6 +121,66 @@
       "timestamp": "00:38:14",
       "module": "EDITOR",
       "message": "3x daily merge: retained 46 existing dispatches, integrated 4 new dispatches.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "01:11:31",
+      "module": "SCOUT",
+      "message": "Pipeline active on commit 40bd482: \"fix(synth): restrict to curated models, handle 503\"",
+      "status": "ok"
+    },
+    {
+      "timestamp": "01:11:31",
+      "module": "SCOUT",
+      "message": "Initializing ingestion pipeline across 5 beats (strict 7-day recency filter).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "01:11:41",
+      "module": "SCOUT",
+      "message": "Scouted 117 candidate signals across 5 beats (all within 7-day window).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "01:11:41",
+      "module": "RANK",
+      "message": "Initiating deduplication & 4-factor scoring heuristics (discriminating deals vs administrative noise).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "01:11:41",
+      "module": "RANK",
+      "message": "Deduplication dropped 0 redundant wires. 117 candidates evaluated.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "01:11:41",
+      "module": "SYNTH",
+      "message": "Selecting candidates clearing quality floor for synthesis.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "01:11:41",
+      "module": "SYNTH",
+      "message": "Verified curated models: gemini-3.6-flash, gemini-3.5-flash, gemini-3.5-flash-lite.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "01:12:45",
+      "module": "SYNTH",
+      "message": "LLM synthesis complete for 16 items (2 dropped for thin context). Tokens: 26275. Est cost: $0.00473.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "01:12:45",
+      "module": "EDITOR",
+      "message": "Computing composite 5-factor scores and executing non-destructive edition merge.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "01:12:45",
+      "module": "EDITOR",
+      "message": "3x daily merge: retained 50 existing dispatches, integrated 3 new dispatches.",
       "status": "ok"
     }
   ],
@@ -1014,6 +1014,66 @@
               "magnitude": 4.5,
               "relevance": 8.5,
               "total": 6.5
+            }
+          },
+          {
+            "id": "science-frontier-20260923-51",
+            "source": "arXiv Preprint",
+            "date": "2026-09-22",
+            "headline": "Improving the CMS High Level Trigger tracking at the HL-LHC with novel and evolved heterogeneous algorithms",
+            "summary": "Charged particle track reconstruction is one of the heaviest computational tasks in the event reconstruction chain at LHC experiments. Furthermore, projections for the High Luminosity LHC (HL-LHC) show that the required computing resources for single-threaded CPU algorithms will exceed those that are expected to be available. It follows that experiments at the HL-LHC will need to employ novel and evolved track reconstruction algorithms, within heterogeneous computing systems that include many-core CPUs as well as GPUs, in the attempt to maximize the computational performance while retaining the best possible reconstruction efficiency.",
+            "tag": "BIOTECH",
+            "url": "http://arxiv.org/abs/2609.26376v1",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "science",
+            "column": "frontier",
+            "scores": {
+              "authority": 9.6,
+              "corroboration": 4.5,
+              "novelty": 6.2,
+              "magnitude": 4.5,
+              "relevance": 8.3,
+              "total": 6.7
+            }
+          },
+          {
+            "id": "science-frontier-20260923-52",
+            "source": "arXiv Preprint",
+            "date": "2026-09-22",
+            "headline": "Non-Markovian Charging of a Micromaser Quantum Battery",
+            "summary": "We theoretically investigate the role played by non-Markovianity in the charging of a quantum battery. We focus on the case of a Micromaser, where the energy is stored in a resonant cavity mode and memory effects are introduced and controlled by coupling this mode to a memory ancilla, described as a two-level system, that in turn sequentially interacts with a stream of two-level chargers through pairwise exchange interactions leading to a partial swap. Through numerical analysis, we show that non-Markovian memory effects act as a resource that enhances both the charging capacity and the stability of this device with respect to the Markovian counterpart.",
+            "tag": "PHYSICS",
+            "url": "http://arxiv.org/abs/2609.26341v1",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "science",
+            "column": "frontier",
+            "scores": {
+              "authority": 9.6,
+              "corroboration": 4.5,
+              "novelty": 6.2,
+              "magnitude": 4.5,
+              "relevance": 8.3,
+              "total": 6.7
+            }
+          },
+          {
+            "id": "science-frontier-20260923-53",
+            "source": "arXiv Preprint",
+            "date": "2026-09-22",
+            "headline": "Hyperbolic Restricted Boltzmann Machine Neural Quantum State",
+            "summary": "We construct the first type of non-Euclidean non-autoregressive neural quantum state (NQS) in the form of the hyperbolic Restricted Boltzmann Machine (HRBM), which is studied in the variational Monte-Carlo (VMC) setting of the Quantum Sherrington-Kirkpatrick (QSK) model whose ground state exhibits volume-law entanglement. Across a 512-fold increase in the Hilbert space dimension corresponding to a system size increase from $N=14$ to $N=24$, HRBM NQS robustly outperforms its Euclidean version, the RBM NQS, in terms of better ground state energy optimization as well as lower Renyi-2 $S_2$ and von Neumann $S_{vN}$ absolute entanglement entropy reconstruction errors. More importantly, for all QSK system sizes, HRBM NQS demonstrates a superior expressivity in faithfully reproducing the entire entanglement spectrum of the QSK model from the top eigenvalues down to the tail end across 15 orders of magnitude, while RBM NQS consistently overestimates the sub-dominant modes.",
+            "tag": "PHYSICS",
+            "url": "http://arxiv.org/abs/2609.26032v1",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "science",
+            "column": "frontier",
+            "scores": {
+              "authority": 9.6,
+              "corroboration": 4.5,
+              "novelty": 6.2,
+              "magnitude": 4.5,
+              "relevance": 8.3,
+              "total": 6.7
             }
           }
         ]
