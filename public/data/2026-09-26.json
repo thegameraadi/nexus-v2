@@ -1,0 +1,657 @@
+{
+  "date": "2026-09-26",
+  "label": "Today",
+  "lastUpdated": "2026-09-26T10:28:20.307Z",
+  "agentLog": [
+    {
+      "timestamp": "10:27:32",
+      "module": "SCOUT",
+      "message": "Pipeline active on commit 9577006: \"chore(data): auto-publish daily briefing [2026-09-\"",
+      "status": "ok"
+    },
+    {
+      "timestamp": "10:27:32",
+      "module": "SCOUT",
+      "message": "Initializing ingestion pipeline across 5 beats (strict 7-day recency filter).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "10:27:38",
+      "module": "SCOUT",
+      "message": "Scouted 117 candidate signals across 5 beats (all within 7-day window).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "10:27:38",
+      "module": "RANK",
+      "message": "Initiating deduplication & 4-factor scoring heuristics (discriminating deals vs administrative noise).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "10:27:38",
+      "module": "RANK",
+      "message": "Deduplication & relevance floor dropped 68 off-beat/redundant wires. 49 candidates evaluated.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "10:27:38",
+      "module": "SYNTH",
+      "message": "Selecting candidates clearing quality floor for synthesis.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "10:27:38",
+      "module": "SYNTH",
+      "message": "Verified curated models: gemini-3.6-flash, gemini-3.5-flash, gemini-3.5-flash-lite.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "10:28:20",
+      "module": "SYNTH",
+      "message": "Synthesis complete for 27 items (4 via LLM, 23 via deterministic synthesis; top 15 LLM quota applied, 1 dropped for thin context). Tokens: 1408. Est cost: $0.00040.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "10:28:20",
+      "module": "EDITOR",
+      "message": "Computing composite 5-factor scores and executing non-destructive edition merge.",
+      "status": "ok"
+    },
+    {
+      "timestamp": "10:28:20",
+      "module": "EDITOR",
+      "message": "Enforced strict 5-item column quotas across all beats (27 total dispatches).",
+      "status": "ok"
+    },
+    {
+      "timestamp": "10:28:20",
+      "module": "PUBLISH",
+      "message": "Artifacts committed to /public/data/. Edition 2026-09-26 live (27 dispatches).",
+      "status": "ok"
+    }
+  ],
+  "beats": {
+    "ai-venture": {
+      "columns": {
+        "venture": [
+          {
+            "id": "ai-venture-venture-20260926-9",
+            "source": "TechCrunch AI",
+            "date": "2026-09-25",
+            "headline": "Ahead of US IPO, British AI neocloud Nscale secures $3.36B in convertible financing",
+            "summary": "The funding, which comes from Third Point, Nvidia, and others, will fuel the company's massive AI data center buildout.",
+            "tag": "IPO",
+            "url": "https://techcrunch.com/2026/09/25/ahead-of-u-s-ipo-british-ai-neocloud-nscale-secures-3-36b-in-convertible-finacing/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "venture",
+            "scores": {
+              "authority": 7.8,
+              "corroboration": 6.5,
+              "novelty": 5.2,
+              "magnitude": 9.5,
+              "relevance": 6.5,
+              "total": 7.2
+            }
+          }
+        ],
+        "research": [
+          {
+            "id": "ai-venture-research-20260926-6",
+            "source": "arXiv Preprint",
+            "date": "2026-09-24",
+            "headline": "Coding Agents for Generalized Task and Motion Planning Problems",
+            "summary": "Task and motion planning (TAMP) problems remain difficult even with full observability and object-centric states because discrete decisions are tightly coupled to geometric, kinematic, and dynamic constraints. Generalized TAMP addresses this difficulty by exploiting regularities across problem instances to reduce planning effort on new instances. However, existing methods require substantial TAMP-specific engineering.",
+            "tag": "BENCHMARK",
+            "url": "http://arxiv.org/abs/2609.30233v1",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "research",
+            "scores": {
+              "authority": 8.5,
+              "corroboration": 3,
+              "novelty": 9.4,
+              "magnitude": 9.4,
+              "relevance": 8.8,
+              "total": 7.8
+            }
+          },
+          {
+            "id": "ai-venture-research-20260926-16",
+            "source": "arXiv Preprint",
+            "date": "2026-09-24",
+            "headline": "SemMSA: Latent Semantic-Aided Robust Multimodal Sentiment Analysis with Incomplete Data",
+            "summary": "Recent research on Multimodal Sentiment Analysis (MSA) has focused on learning from language, visual, and acoustic modalities with incomplete data to infer human sentiment. Most studies typically compensate for missing information by reconstructing modality features or designing complicated fusion mechanisms. However, these methods still suffer from spurious generation and noisy guidance due to the lack of high-level semantic grounding in partially observed multimodal evidence.",
+            "tag": "BENCHMARK",
+            "url": "http://arxiv.org/abs/2609.30238v1",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "research",
+            "scores": {
+              "authority": 8.5,
+              "corroboration": 3,
+              "novelty": 9.4,
+              "magnitude": 4.2,
+              "relevance": 6.5,
+              "total": 6.4
+            }
+          },
+          {
+            "id": "ai-venture-research-20260926-17",
+            "source": "MIT Tech Review AI",
+            "date": "2026-09-23",
+            "headline": "The AI Hype Index: AI loves cheating",
+            "summary": "Brace yourself: It turns out AI is being optimized for cheating. OpenAI’s agents hacked into Hugging Face to get the answers to a cybersecurity test. Next, they solved a prestigious math problem (or just stole from two top mathematicians’ answer sheets).",
+            "tag": "RESEARCH",
+            "url": "https://www.technologyreview.com/2026/09/23/1144940/ai-hype-index-ai-loves-cheating/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "research",
+            "scores": {
+              "authority": 9,
+              "corroboration": 6.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 6.5,
+              "total": 6.4
+            }
+          },
+          {
+            "id": "ai-venture-research-20260926-18",
+            "source": "MIT Tech Review AI",
+            "date": "2026-09-22",
+            "headline": "Don’t be fooled by this summer of AI hype",
+            "summary": "It’s been a busy few months for AI hype. At the end of April, Anthropic claimed that its model Claude Mythos is better at finding software vulnerabilities than most security experts. Then we had the OpenAI–Hugging Face hacking incident, after which Anthropic (proudly) and Meta (reluctantly) disclosed similar incidents involving their models.",
+            "tag": "RESEARCH",
+            "url": "https://www.technologyreview.com/2026/09/22/1144867/dont-be-fooled-summer-ai-hype/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "research",
+            "scores": {
+              "authority": 9,
+              "corroboration": 6.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 6.5,
+              "total": 6.4
+            }
+          },
+          {
+            "id": "ai-venture-research-20260926-24",
+            "source": "arXiv Preprint",
+            "date": "2026-09-24",
+            "headline": "Agentic Detection of Online Conspiracies",
+            "summary": "Conspiratorial discourse on social media is not always expressed through explicit claims or stable lexical markers. The same surface content may express endorsement, legitimate concerns, criticism, satire, or mockery. The main challenge is therefore not only recognizing conspiracy-related claims, but inferring the speaker's intent -- the utterance's illocutionary force.",
+            "tag": "BENCHMARK",
+            "url": "http://arxiv.org/abs/2609.30250v1",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "research",
+            "scores": {
+              "authority": 8.5,
+              "corroboration": 3,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 9.5,
+              "total": 6
+            }
+          }
+        ],
+        "titans": [
+          {
+            "id": "ai-venture-titans-20260926-14",
+            "source": "The Verge AI",
+            "date": "2026-09-25",
+            "headline": "Can Apple Home’s AI camera features outsmart Amazon’s and Google’s? I put them to the test",
+            "summary": "A few years back, I was at a beachside Easter egg hunt, watching my kids dash through sand dunes searching for sweet treats. My phone buzzed in my pocket; I ignored it. A moment later, it buzzed again.",
+            "tag": "TITANS",
+            "url": "https://www.theverge.com/tech/1000321/apple-intelligence-home-security-camera-amazon-ring-alexa-google-nest-gemini-home-review",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "titans",
+            "scores": {
+              "authority": 7.7,
+              "corroboration": 6.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 9.5,
+              "total": 6.5
+            }
+          },
+          {
+            "id": "ai-venture-titans-20260926-15",
+            "source": "The Verge AI",
+            "date": "2026-09-25",
+            "headline": "One company is at the center of a wave of rogue AI attacks",
+            "summary": "In July, OpenAI revealed that its AI agents had attacked Hugging Face without permission, sparking widespread concerns about AI safety. Since then, a string of similar incidents involving agents from Meta, Anthropic, Google, and other companies has fueled further fears about rogue AI. As disclosures implicating numerous AI models trickled out over the past few […].",
+            "tag": "TITANS",
+            "url": "https://www.theverge.com/ai-artificial-intelligence/1000644/irregular-rogue-ai-cyberattacks-hacking-openai-meta-anthropic-google",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "titans",
+            "scores": {
+              "authority": 7.7,
+              "corroboration": 6.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 8.8,
+              "total": 6.4
+            }
+          },
+          {
+            "id": "ai-venture-titans-20260926-20",
+            "source": "The Verge AI",
+            "date": "2026-09-25",
+            "headline": "Meta makes the Muse filesystem even more accessible",
+            "summary": "Yesterday, with a little prodding, it was discovered that Meta's Muse would expose its filesystem to curious users. The files offered a fascinating peek under the hood of an AI chatbot, and appeared to expose details we weren't meant to see, not least because Muse itself told people, including us, it wasn't supposed to reveal […].",
+            "tag": "TITANS",
+            "url": "https://www.theverge.com/ai-artificial-intelligence/1000784/meta-muse-filesystem",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "titans",
+            "scores": {
+              "authority": 7.7,
+              "corroboration": 6.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 7.8,
+              "total": 6.3
+            }
+          },
+          {
+            "id": "ai-venture-titans-20260926-21",
+            "source": "The Verge AI",
+            "date": "2026-09-25",
+            "headline": "Microsoft thinks its new Copilot ‘super app’ will be as influential as Office",
+            "summary": "After teasing its new Copilot \"super app\" last month, Microsoft is officially unveiling it today. The redesigned Copilot app bundles three AI capabilities into a single interface of chat, coding, and agents. As part of the launch, Microsoft is also rebranding Scout, the AI personal assistant it unveiled at Build earlier this year, as Autopilot.",
+            "tag": "TITANS",
+            "url": "https://www.theverge.com/news/1000532/microsoft-copilot-super-app-chat-coding-autopilot",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "titans",
+            "scores": {
+              "authority": 7.7,
+              "corroboration": 6.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 7.8,
+              "total": 6.3
+            }
+          },
+          {
+            "id": "ai-venture-titans-20260926-22",
+            "source": "The Verge AI",
+            "date": "2026-09-24",
+            "headline": "Meta is going to let you build games with AI right on your phone",
+            "summary": "Meta has a new plan to get people to make games for its Horizon social platform. The company today announced two new development tools that will let you create games with AI prompts: Horizon Create, a mobile app, and Horizon Studio, a browser app that offers more granular controls. The apps will be available in […].",
+            "tag": "TITANS",
+            "url": "https://www.theverge.com/games/999972/meta-horizon-create-studio-ai-games",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "ai-venture",
+            "column": "titans",
+            "scores": {
+              "authority": 7.7,
+              "corroboration": 6.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 7.8,
+              "total": 6.3
+            }
+          }
+        ]
+      }
+    },
+    "politics": {
+      "columns": {
+        "regulatory": [
+          {
+            "id": "politics-regulatory-20260926-2",
+            "source": "FTC Press",
+            "date": "2026-09-24",
+            "headline": "FTC Amends Rules of Practice to Align With Act and Reflect Changes",
+            "summary": "The Federal Trade Commission amended its Rules of Practice to align better with the FTC Act and reflect organizational updates. These updates include the creation of the American Competition Enforcement Division. Additionally, the amendments correct minor errors and omissions from the previous rules.",
+            "tag": "REGULATORY",
+            "url": "https://www.ftc.gov/news-events/news/press-releases/2026/09/ftc-approves-publication-federal-register-notices-revising-commissions-rules-practice",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "politics",
+            "column": "regulatory",
+            "scores": {
+              "authority": 9.7,
+              "corroboration": 9.2,
+              "novelty": 7.8,
+              "magnitude": 4.2,
+              "relevance": 8.2,
+              "total": 7.9
+            }
+          },
+          {
+            "id": "politics-regulatory-20260926-3",
+            "source": "FTC Press",
+            "date": "2026-09-24",
+            "headline": "FTC Seeks Public Comment on Updating Impersonation Scam Rules",
+            "summary": "The Federal Trade Commission is considering whether to update its rule regarding the impersonation of government entities and businesses. The proposed review aims to address the role platforms play in promoting impersonation scams. The agency is currently soliciting public input to inform potential revisions to the rule.",
+            "tag": "FTC_REGULATION",
+            "url": "https://www.ftc.gov/news-events/news/press-releases/2026/09/ftc-seeks-public-comment-whether-update-rule-impersonation-government-businesses-address-platforms",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "politics",
+            "column": "regulatory",
+            "scores": {
+              "authority": 9.7,
+              "corroboration": 9.2,
+              "novelty": 7.8,
+              "magnitude": 4.2,
+              "relevance": 8.5,
+              "total": 7.9
+            }
+          },
+          {
+            "id": "politics-regulatory-20260926-4",
+            "source": "FTC Press",
+            "date": "2026-09-22",
+            "headline": "FTC Endorses Education Department Proposal to Expand Accreditation Options",
+            "summary": "The Federal Trade Commission strongly endorsed proposed Department of Education reforms to foster competition among accreditation agencies. The proposed changes aim to increase competition and reduce administrative burdens across higher education. Consequently, these reforms could lower costs and improve educational quality for millions of students.",
+            "tag": "REGULATORY",
+            "url": "https://www.ftc.gov/news-events/news/press-releases/2026/09/ftc-endorses-education-department-proposal-expand-higher-education-accreditation-options",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "politics",
+            "column": "regulatory",
+            "scores": {
+              "authority": 9.7,
+              "corroboration": 9.2,
+              "novelty": 7.8,
+              "magnitude": 4.2,
+              "relevance": 8.5,
+              "total": 7.9
+            }
+          }
+        ],
+        "global": [],
+        "voices": [
+          {
+            "id": "politics-voices-20260926-26",
+            "source": "Foreign Policy",
+            "date": "2026-09-25",
+            "headline": "What Arab Israelis Really Think About Israel’s Election",
+            "summary": "Ethnic Arabs could decide Israel's coming election—and its democratic future.",
+            "tag": "POLICY",
+            "url": "https://foreignpolicy.com/2026/09/25/arab-israelis-election-palestine-netanyahu-abbas-jewish-state/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "politics",
+            "column": "voices",
+            "scores": {
+              "authority": 8.4,
+              "corroboration": 3,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 6.5,
+              "total": 5.6
+            }
+          }
+        ]
+      }
+    },
+    "markets": {
+      "columns": {
+        "macro": [
+          {
+            "id": "markets-macro-20260926-27",
+            "source": "MarketWatch Top",
+            "date": "2026-09-25",
+            "headline": "A ‘death cross’ is coming for the dollar. Why Trump will be happy.",
+            "summary": "Don’t look now, but there are some technical reasons to believe that U.S. Treasury Secretary Scott Bessent was right when he declared to the financial markets that “I am the house now.”.",
+            "tag": "MACRO",
+            "url": "https://www.marketwatch.com/story/a-death-cross-is-coming-for-the-dollar-why-trump-will-be-happy-0766303d?mod=mw_rss_topstories",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "markets",
+            "column": "macro",
+            "scores": {
+              "authority": 8.4,
+              "corroboration": 3,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 6.5,
+              "total": 5.6
+            }
+          }
+        ],
+        "company-moves": [
+          {
+            "id": "markets-company-moves-20260926-25",
+            "source": "SEC EDGAR / 8-K",
+            "date": "2026-09-21",
+            "headline": "Algorhythm Holdings, Inc.: Form 8-K Discloses Material Definitive Agreement, Asset Acquisition or Disposition, Unregistered Equity Sale",
+            "summary": "SEC regulatory submission filed by Algorhythm Holdings, Inc. Disclosed event: Material Definitive Agreement, Asset Acquisition or Disposition, Unregistered Equity Sale. Verified filing date 2026-09-21.",
+            "tag": "MARKETS",
+            "url": "https://www.sec.gov/edgar/browse/?CIK=0000923601",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "markets",
+            "column": "company-moves",
+            "scores": {
+              "authority": 7.2,
+              "corroboration": 8.5,
+              "novelty": 2.4,
+              "magnitude": 2.5,
+              "relevance": 7.8,
+              "total": 5.7
+            }
+          }
+        ],
+        "analysts": []
+      }
+    },
+    "science": {
+      "columns": {
+        "frontier": [
+          {
+            "id": "science-frontier-20260926-1",
+            "source": "ScienceDaily",
+            "date": "2026-09-25",
+            "headline": "CERN Begins Replacing LHC Magnets for High-Luminosity Upgrade",
+            "summary": "CERN has started replacing key magnets in the Large Hadron Collider as part of its High-Luminosity upgrade. The new superconducting magnets produce magnetic fields roughly 40% stronger, squeezing particle beams more tightly before they collide. This enhanced squeezing will create far more collisions for the ATLAS and CMS experiments to analyze.",
+            "tag": "CERN_UPGRADE",
+            "url": "https://www.sciencedaily.com/releases/2026/09/260925005430.htm",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "science",
+            "column": "frontier",
+            "scores": {
+              "authority": 7.5,
+              "corroboration": 9.2,
+              "novelty": 9.4,
+              "magnitude": 9.4,
+              "relevance": 9,
+              "total": 8.8
+            }
+          },
+          {
+            "id": "science-frontier-20260926-5",
+            "source": "arXiv Preprint",
+            "date": "2026-09-24",
+            "headline": "Loan Portfolio Optimization with Variational Quantum Algorithms",
+            "summary": "Loan portfolio optimization (LPO) seeks portfolios that minimize credit risk while satisfying practical selection constraints. Accounting for portfolio-level risk requires modeling not only expected losses but also loss variability and borrower-default correlations, leading to a large-scale combinatorial optimization problem whose complexity grows rapidly with portfolio size. In this work, we formulate LPO as a Quadratic Constrained Binary Optimization (QCBO) problem that jointly captures expected and unexpected losses and transform the resulting formulation into a Quadratic Unconstrained Binary Optimization (QUBO) model suitable for variational quantum optimization.",
+            "tag": "PHYSICS",
+            "url": "http://arxiv.org/abs/2609.30195v1",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "science",
+            "column": "frontier",
+            "scores": {
+              "authority": 8.6,
+              "corroboration": 3,
+              "novelty": 9.4,
+              "magnitude": 9.4,
+              "relevance": 8.8,
+              "total": 7.8
+            }
+          },
+          {
+            "id": "science-frontier-20260926-10",
+            "source": "ScienceDaily",
+            "date": "2026-09-25",
+            "headline": "Quantum computing’s “dark horse” just proved it can go universal",
+            "summary": "Researchers have shown that exotic quantum particles called non-Abelian anyons can perform the full range of operations needed for universal quantum computing. Using 54 qubits on Quantinuum’s H2 processor, they combined braiding and fusion to unlock capabilities that braiding alone could not provide.",
+            "tag": "PHYSICS",
+            "url": "https://www.sciencedaily.com/releases/2026/09/260924020403.htm",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "science",
+            "column": "frontier",
+            "scores": {
+              "authority": 7.5,
+              "corroboration": 9.2,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 8.8,
+              "total": 6.9
+            }
+          },
+          {
+            "id": "science-frontier-20260926-12",
+            "source": "ScienceDaily",
+            "date": "2026-09-25",
+            "headline": "CRISPR could help doctors attack blood cancer without destroying healthy cells",
+            "summary": "Researchers used CRISPR to remove CD33 from donor stem cells, potentially giving doctors a way to attack aggressive blood cancers without destroying the healthy cells patients need after a transplant. In a 30-patient trial, the edited cells successfully took hold and appeared to shield blood cells from a CD33-targeted cancer treatment.",
+            "tag": "BIOTECH",
+            "url": "https://www.sciencedaily.com/releases/2026/09/260924020408.htm",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "science",
+            "column": "frontier",
+            "scores": {
+              "authority": 7.5,
+              "corroboration": 9.2,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 7.8,
+              "total": 6.8
+            }
+          }
+        ]
+      }
+    },
+    "culture": {
+      "columns": {
+        "industry": [
+          {
+            "id": "culture-industry-20260926-23",
+            "source": "Wired Culture",
+            "date": "2026-09-22",
+            "headline": "Patti Harrison Had Dreams of a Tech Utopia. Silicon Valley Smashed Them",
+            "summary": "The comedian sat down with WIRED to talk about social media, AI, and getting laughs for impersonating Boston Dynamics’ robot dogs.",
+            "tag": "REPORT",
+            "url": "https://www.wired.com/story/big-interview-patti-harrison/",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "culture",
+            "column": "industry",
+            "scores": {
+              "authority": 8.1,
+              "corroboration": 6.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 6.5,
+              "total": 6.2
+            }
+          }
+        ],
+        "voices": [
+          {
+            "id": "culture-voices-20260926-7",
+            "source": "The Atlantic Ideas",
+            "date": "2026-09-24",
+            "headline": "Why <em>Fauda</em> Is So Popular in the Arab World",
+            "summary": "Before this week, I’d never watched an episode of Fauda , the Israeli-made, Netflix-distributed counterterrorism thriller. The show stars Lior Raz as Doron Kabilio, an undercover Israeli mista’arvim (Arabic-speaking) operative who over the course of the show infiltrates various Hamas and Hezbollah cells. What drew me to binge all 59 episodes in less than a week was the news that the show had catapulted into Netflix’s Top 10 across a range of Arab countries.",
+            "tag": "REPORT",
+            "url": "https://www.theatlantic.com/ideas/2026/09/fauda-israeli-tv-show-popularity/688766/?utm_source=feed",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "culture",
+            "column": "voices",
+            "scores": {
+              "authority": 8.8,
+              "corroboration": 6.5,
+              "novelty": 9.4,
+              "magnitude": 4.2,
+              "relevance": 9.5,
+              "total": 7.6
+            }
+          },
+          {
+            "id": "culture-voices-20260926-8",
+            "source": "The Atlantic Ideas",
+            "date": "2026-09-24",
+            "headline": "Another Female Democrat Is Mean, Apparently",
+            "summary": "In February 2024, according to a former staff member who told the story to The New York Times , Representative Mary Peltola , an Alaska Democrat running for the Senate, pushed an aide. As the Times put it in a report published yesterday, Peltola “shoved a male employee in the chest with one hand, causing him to stumble backward.” You might wonder why the paper of record is reporting this detail. Did the employee then tumble off a cliff and die?",
+            "tag": "REPORT",
+            "url": "https://www.theatlantic.com/ideas/2026/09/peltola-democratic-staffers-complain/688770/?utm_source=feed",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "culture",
+            "column": "voices",
+            "scores": {
+              "authority": 8.8,
+              "corroboration": 6.5,
+              "novelty": 9.4,
+              "magnitude": 4.2,
+              "relevance": 6.5,
+              "total": 7.2
+            }
+          },
+          {
+            "id": "culture-voices-20260926-11",
+            "source": "The Atlantic Ideas",
+            "date": "2026-09-25",
+            "headline": "How to Destroy a Lesbian Bar",
+            "summary": "Way back in the wilds of 2013, I organized an event on feminism at a public venue in London. I was then the online editor of a left-wing magazine, and we had some of the best feminist columnists around. What a chance to show them off!",
+            "tag": "REPORT",
+            "url": "https://www.theatlantic.com/ideas/2026/09/bar-masking-greenfield-boston-globe/688772/?utm_source=feed",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "culture",
+            "column": "voices",
+            "scores": {
+              "authority": 8.8,
+              "corroboration": 6.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 9.5,
+              "total": 6.8
+            }
+          },
+          {
+            "id": "culture-voices-20260926-13",
+            "source": "The Atlantic Ideas",
+            "date": "2026-09-25",
+            "headline": "Let’s Get Specific About These Doomsday Scenarios",
+            "summary": "Sign up for Work in Progress , a newsletter where Rogé Karma investigates the mysteries of a complicated economy. Ever since Jacob Coxon, a researcher at Anthropic, announced on X that he was resigning because “the people building AI earnestly believe that it could kill us all by the end of the decade,” Americans have become preoccupied with the apocalypse. A frantic debate is unfolding over whether and how to slow down the pace of AI development to avoid some kind of cataclysm.",
+            "tag": "REPORT",
+            "url": "https://www.theatlantic.com/ideas/2026/09/ai-extinction-scenarios/688769/?utm_source=feed",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "culture",
+            "column": "voices",
+            "scores": {
+              "authority": 8.8,
+              "corroboration": 6.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 7.8,
+              "total": 6.5
+            }
+          },
+          {
+            "id": "culture-voices-20260926-19",
+            "source": "The Atlantic Ideas",
+            "date": "2026-09-25",
+            "headline": "The Two-Year Temper Tantrum to Come",
+            "summary": "Yesterday when a judge ordered President Trump to lift a ban on journalists accessing the White House, the immediate crisis appeared to be averted: Trump had lost, and reporters from CNN, MS NOW, and Politico largely returned to their normal work on the grounds. But the maneuver Trump had attempted is a preview of what to expect over Trump’s remaining time in office—especially if Democrats take control of one or both chambers of Congress. To put it another way, the country is headed toward a two-year temper tantrum.",
+            "tag": "REPORT",
+            "url": "https://www.theatlantic.com/ideas/2026/09/trump-white-house-press-fight/688788/?utm_source=feed",
+            "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=80",
+            "beat": "culture",
+            "column": "voices",
+            "scores": {
+              "authority": 8.8,
+              "corroboration": 6.5,
+              "novelty": 5.2,
+              "magnitude": 4.2,
+              "relevance": 6.5,
+              "total": 6.4
+            }
+          }
+        ]
+      }
+    }
+  }
+}
